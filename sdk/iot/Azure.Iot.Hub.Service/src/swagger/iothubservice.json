@@ -1764,6 +1764,25 @@
           }
         }
       }
+    },
+    "/messages/deviceBound": {
+      "post": {
+        "operationId": "SendDeviceCommand",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/api-version"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
     }
   },
   "definitions": {

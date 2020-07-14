@@ -19,6 +19,7 @@ namespace Azure.Iot.Hub.Service
         private readonly RegistryManagerRestClient _registryManagerRestClient;
         private readonly TwinRestClient _twinRestClient;
         private readonly DeviceMethodRestClient _deviceMethodRestClient;
+        private readonly ServiceRestClient _serviceRestClient;
 
         /// <summary>
         /// place holder for Devices.
@@ -97,12 +98,13 @@ namespace Azure.Iot.Hub.Service
             _registryManagerRestClient = new RegistryManagerRestClient(_clientDiagnostics, _httpPipeline, _endpoint, options.GetVersionString());
             _twinRestClient = new TwinRestClient(_clientDiagnostics, _httpPipeline, _endpoint, options.GetVersionString());
             _deviceMethodRestClient = new DeviceMethodRestClient(_clientDiagnostics, _httpPipeline, _endpoint, options.GetVersionString());
+            _serviceRestClient = new ServiceRestClient(_clientDiagnostics, _httpPipeline, _endpoint, options.GetVersionString());
 
             Devices = new DevicesClient(_registryManagerRestClient, _twinRestClient, _deviceMethodRestClient);
             Modules = new ModulesClient(_registryManagerRestClient, _twinRestClient, _deviceMethodRestClient);
 
             Statistics = new StatisticsClient();
-            Messages = new CloudToDeviceMessagesClient();
+            Messages = new CloudToDeviceMessagesClient(_serviceRestClient);
             Files = new FilesClient();
             Jobs = new JobsClient();
         }
@@ -146,12 +148,13 @@ namespace Azure.Iot.Hub.Service
             _registryManagerRestClient = new RegistryManagerRestClient(_clientDiagnostics, _httpPipeline, _endpoint, options.GetVersionString());
             _twinRestClient = new TwinRestClient(_clientDiagnostics, _httpPipeline, _endpoint, options.GetVersionString());
             _deviceMethodRestClient = new DeviceMethodRestClient(_clientDiagnostics, _httpPipeline, _endpoint, options.GetVersionString());
+            _serviceRestClient = new ServiceRestClient(_clientDiagnostics, _httpPipeline, _endpoint, options.GetVersionString());
 
             Devices = new DevicesClient(_registryManagerRestClient, _twinRestClient, _deviceMethodRestClient);
             Modules = new ModulesClient(_registryManagerRestClient, _twinRestClient, _deviceMethodRestClient);
 
             Statistics = new StatisticsClient();
-            Messages = new CloudToDeviceMessagesClient();
+            Messages = new CloudToDeviceMessagesClient(_serviceRestClient);
             Files = new FilesClient();
             Jobs = new JobsClient();
         }

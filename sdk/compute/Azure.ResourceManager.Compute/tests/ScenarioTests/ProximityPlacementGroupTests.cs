@@ -8,10 +8,9 @@ using System.Net;
 using System.Threading.Tasks;
 using Azure.Core.TestFramework;
 using Azure.ResourceManager.Compute.Models;
-using Azure.Management.Resources;
-using Azure.Management.Resources.Models;
+using Azure.ResourceManager.Resources;
+using Azure.ResourceManager.Resources.Models;
 using NUnit.Framework;
-
 
 namespace Azure.ResourceManager.Compute.Tests
 {
@@ -73,7 +72,7 @@ namespace Azure.ResourceManager.Compute.Tests
                 m_resourceGroup1Name,
                 new ResourceGroup(m_location)
                 {
-                    Tags = new Dictionary<string, string>() { { m_resourceGroup1Name, Recording.UtcNow.ToString("u") } }
+                    Tags = { { m_resourceGroup1Name, Recording.UtcNow.ToString("u") } }
                 });
         }
 
@@ -86,16 +85,14 @@ namespace Azure.ResourceManager.Compute.Tests
                 { "testTag", "1"}
             };
 
-            var inputProximityPlacementGroup = new ProximityPlacementGroup(m_location)
-            {
-                Tags = tags
-            };
+            var inputProximityPlacementGroup = new ProximityPlacementGroup(m_location);
+            inputProximityPlacementGroup.Tags.InitializeFrom(tags);
 
             var expectedProximityPlacementGroup = new ProximityPlacementGroup(m_location)
             {
-                Tags = tags,
                 ProximityPlacementGroupType = ProximityPlacementGroupType.Standard
             };
+            expectedProximityPlacementGroup.Tags.InitializeFrom(tags);
 
             VerifyPutPatchGetAndDeleteOperations_Scenarios(inputProximityPlacementGroup, expectedProximityPlacementGroup);
         }
@@ -110,15 +107,15 @@ namespace Azure.ResourceManager.Compute.Tests
 
             var inputProximityPlacementGroup = new ProximityPlacementGroup(m_location)
             {
-                Tags = tags,
                 ProximityPlacementGroupType = ProximityPlacementGroupType.Ultra
             };
+            inputProximityPlacementGroup.Tags.InitializeFrom(tags);
 
             var expectedProximityPlacementGroup = new ProximityPlacementGroup(m_location)
             {
-                Tags = tags,
                 ProximityPlacementGroupType = ProximityPlacementGroupType.Ultra
             };
+            expectedProximityPlacementGroup.Tags.InitializeFrom(tags);
 
             VerifyPutPatchGetAndDeleteOperations_Scenarios(inputProximityPlacementGroup, expectedProximityPlacementGroup);
         }
@@ -179,10 +176,8 @@ namespace Azure.ResourceManager.Compute.Tests
             Assert.True(outProximityPlacementGroup == null, "ProximityPlacementGroup in response should be null.");
 
             //Patch and expect success
-            UpdateResource proximityPlacementGroupUpdate = new UpdateResource()
-            {
-                Tags = inputProximityPlacementGroup.Tags
-            };
+            ProximityPlacementGroupUpdate proximityPlacementGroupUpdate = new ProximityPlacementGroupUpdate();
+            proximityPlacementGroupUpdate.Tags.InitializeFrom(inputProximityPlacementGroup.Tags);
             //Note: Same Tags object is referred in proximityPlacementGroupUpdate and expectedProximityPlacementGroup,
             //hence this will also update tags in expectedProximityPlacementGroup.
             proximityPlacementGroupUpdate.Tags.Add("UpdateTag2", "updateValue2");
@@ -198,7 +193,7 @@ namespace Azure.ResourceManager.Compute.Tests
             var ProximityPlacementGroupName = Recording.GenerateAssetName("testppg");
             var inputProximityPlacementGroup = new ProximityPlacementGroup("")
             {
-                Tags = new Dictionary<string, string>()
+                Tags =
                 {
                     {"RG", "rg"},
                     {"testTag", "1"},
@@ -256,7 +251,7 @@ namespace Azure.ResourceManager.Compute.Tests
 
             var inputProximityPlacementGroup = new ProximityPlacementGroup(m_location)
             {
-                Tags = new Dictionary<string, string>()
+                Tags =
                 {
                     {"RG", "rg"},
                     {"testTag", "1"},
@@ -266,7 +261,7 @@ namespace Azure.ResourceManager.Compute.Tests
 
             var expectedProximityPlacementGroup = new ProximityPlacementGroup(m_location)
             {
-                Tags = new Dictionary<string, string>()
+                Tags =
                 {
                     {"RG", "rg"},
                     {"testTag", "1"},
@@ -282,8 +277,8 @@ namespace Azure.ResourceManager.Compute.Tests
             VirtualMachine inputVM;
             var returnTwoVM = await CreateVM(m_resourceGroup1Name, asName, storageAccountName, imageRef, hasManagedDisks: true, hasDiffDisks: false, vmSize: "Standard_A0",
                 osDiskStorageAccountType: "Standard_LRS", dataDiskStorageAccountType: "Standard_LRS", writeAcceleratorEnabled: false, zones: null, ppgName: ppgName, diskEncryptionSetId: null);
-            VirtualMachine outVM = returnTwoVM.Item1;
-            inputVM = returnTwoVM.Item2;
+            VirtualMachine outVM = returnTwoVM.Response;
+            inputVM = returnTwoVM.Input;
             // Get and expect success.
             outProximityPlacementGroup = await ProximityPlacementGroupsOperations.GetAsync(m_resourceGroup1Name, ppgName, includeColocationStatus: "true");
             InstanceViewStatus expectedInstanceViewStatus = new InstanceViewStatus
@@ -320,7 +315,7 @@ namespace Azure.ResourceManager.Compute.Tests
             string proximityPlacementGroup2Name = baseInputProximityPlacementGroupName + "_2";
             ProximityPlacementGroup inputProximityPlacementGroup1 = new ProximityPlacementGroup(m_location)
             {
-                Tags = new Dictionary<string, string>()
+                Tags =
                     {
                         {"RG1", "rg1"},
                         {"testTag", "1"},
@@ -335,12 +330,12 @@ namespace Azure.ResourceManager.Compute.Tests
                 resourceGroup2Name,
                 new ResourceGroup(m_location)
                 {
-                    Tags = new Dictionary<string, string>() { { resourceGroup2Name, Recording.UtcNow.ToString("u") } }
+                    Tags = { { resourceGroup2Name, Recording.UtcNow.ToString("u") } }
                 });
 
             ProximityPlacementGroup inputProximityPlacementGroup2 = new ProximityPlacementGroup(m_location)
             {
-                Tags = new Dictionary<string, string>()
+                Tags =
                     {
                         {"RG2", "rg2"},
                         {"testTag", "2"},
@@ -406,7 +401,6 @@ namespace Azure.ResourceManager.Compute.Tests
         private void ValidateProximityPlacementGroup(ProximityPlacementGroup expectedProximityPlacementGroup, ProximityPlacementGroup outputProximityPlacementGroup,
             string expectedProximityPlacementGroupName)
         {
-
             Assert.True(outputProximityPlacementGroup != null, "ProximityPlacementGroup is null in response.");
             Assert.True(expectedProximityPlacementGroupName == outputProximityPlacementGroup.Name, "ProximityPlacementGroup.Name in response mismatch with expected value.");
             Assert.True(
@@ -417,8 +411,8 @@ namespace Azure.ResourceManager.Compute.Tests
                 expectedProximityPlacementGroup.ProximityPlacementGroupType == outputProximityPlacementGroup.ProximityPlacementGroupType,
                 "ProximityPlacementGroup.ProximityPlacementGroupType in response mismatch with expected value.");
 
-            void VerifySubResource(IList<Azure.ResourceManager.Compute.Models.SubResourceWithColocationStatus> inResource,
-                IList<Azure.ResourceManager.Compute.Models.SubResourceWithColocationStatus> outResource, string subResourceTypeName)
+            void VerifySubResource(IReadOnlyList<Azure.ResourceManager.Compute.Models.SubResourceWithColocationStatus> inResource,
+                IReadOnlyList<Azure.ResourceManager.Compute.Models.SubResourceWithColocationStatus> outResource, string subResourceTypeName)
             {
                 if (inResource == null)
                 {

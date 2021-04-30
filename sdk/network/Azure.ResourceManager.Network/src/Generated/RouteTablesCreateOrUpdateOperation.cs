@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class RouteTablesCreateOrUpdateOperation : Operation<RouteTable>, IOperationSource<RouteTable>
     {
         private readonly ArmOperationHelpers<RouteTable> _operation;
+
+        /// <summary> Initializes a new instance of RouteTablesCreateOrUpdateOperation for mocking. </summary>
+        protected RouteTablesCreateOrUpdateOperation()
+        {
+        }
+
         internal RouteTablesCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<RouteTable>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "RouteTablesCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         RouteTable IOperationSource<RouteTable>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return RouteTable.DeserializeRouteTable(document.RootElement);
-            }
+            return RouteTable.DeserializeRouteTable(document.RootElement);
         }
 
         async ValueTask<RouteTable> IOperationSource<RouteTable>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return RouteTable.DeserializeRouteTable(document.RootElement);
-            }
+            return RouteTable.DeserializeRouteTable(document.RootElement);
         }
     }
 }

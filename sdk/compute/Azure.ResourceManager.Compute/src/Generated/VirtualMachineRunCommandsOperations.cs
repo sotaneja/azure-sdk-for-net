@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Compute
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal VirtualMachineRunCommandsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of VirtualMachineRunCommandsOperations for mocking. </summary>
         protected VirtualMachineRunCommandsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of VirtualMachineRunCommandsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -78,6 +80,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Lists all available run commands for a subscription in a location. </summary>
         /// <param name="location"> The location upon which run commands is queried. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public virtual AsyncPageable<RunCommandDocumentBase> ListAsync(string location, CancellationToken cancellationToken = default)
         {
             if (location == null)
@@ -121,6 +124,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Lists all available run commands for a subscription in a location. </summary>
         /// <param name="location"> The location upon which run commands is queried. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public virtual Pageable<RunCommandDocumentBase> List(string location, CancellationToken cancellationToken = default)
         {
             if (location == null)

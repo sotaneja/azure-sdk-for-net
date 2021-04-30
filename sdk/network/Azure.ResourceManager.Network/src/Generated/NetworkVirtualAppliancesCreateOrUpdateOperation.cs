@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class NetworkVirtualAppliancesCreateOrUpdateOperation : Operation<NetworkVirtualAppliance>, IOperationSource<NetworkVirtualAppliance>
     {
         private readonly ArmOperationHelpers<NetworkVirtualAppliance> _operation;
+
+        /// <summary> Initializes a new instance of NetworkVirtualAppliancesCreateOrUpdateOperation for mocking. </summary>
+        protected NetworkVirtualAppliancesCreateOrUpdateOperation()
+        {
+        }
+
         internal NetworkVirtualAppliancesCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<NetworkVirtualAppliance>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "NetworkVirtualAppliancesCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         NetworkVirtualAppliance IOperationSource<NetworkVirtualAppliance>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return NetworkVirtualAppliance.DeserializeNetworkVirtualAppliance(document.RootElement);
-            }
+            return NetworkVirtualAppliance.DeserializeNetworkVirtualAppliance(document.RootElement);
         }
 
         async ValueTask<NetworkVirtualAppliance> IOperationSource<NetworkVirtualAppliance>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return NetworkVirtualAppliance.DeserializeNetworkVirtualAppliance(document.RootElement);
-            }
+            return NetworkVirtualAppliance.DeserializeNetworkVirtualAppliance(document.RootElement);
         }
     }
 }

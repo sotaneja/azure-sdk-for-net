@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class ExpressRouteCircuitConnectionsCreateOrUpdateOperation : Operation<ExpressRouteCircuitConnection>, IOperationSource<ExpressRouteCircuitConnection>
     {
         private readonly ArmOperationHelpers<ExpressRouteCircuitConnection> _operation;
+
+        /// <summary> Initializes a new instance of ExpressRouteCircuitConnectionsCreateOrUpdateOperation for mocking. </summary>
+        protected ExpressRouteCircuitConnectionsCreateOrUpdateOperation()
+        {
+        }
+
         internal ExpressRouteCircuitConnectionsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ExpressRouteCircuitConnection>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "ExpressRouteCircuitConnectionsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         ExpressRouteCircuitConnection IOperationSource<ExpressRouteCircuitConnection>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ExpressRouteCircuitConnection.DeserializeExpressRouteCircuitConnection(document.RootElement);
-            }
+            return ExpressRouteCircuitConnection.DeserializeExpressRouteCircuitConnection(document.RootElement);
         }
 
         async ValueTask<ExpressRouteCircuitConnection> IOperationSource<ExpressRouteCircuitConnection>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ExpressRouteCircuitConnection.DeserializeExpressRouteCircuitConnection(document.RootElement);
-            }
+            return ExpressRouteCircuitConnection.DeserializeExpressRouteCircuitConnection(document.RootElement);
         }
     }
 }

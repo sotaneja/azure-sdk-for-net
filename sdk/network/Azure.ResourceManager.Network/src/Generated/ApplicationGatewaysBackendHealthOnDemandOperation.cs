@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class ApplicationGatewaysBackendHealthOnDemandOperation : Operation<ApplicationGatewayBackendHealthOnDemand>, IOperationSource<ApplicationGatewayBackendHealthOnDemand>
     {
         private readonly ArmOperationHelpers<ApplicationGatewayBackendHealthOnDemand> _operation;
+
+        /// <summary> Initializes a new instance of ApplicationGatewaysBackendHealthOnDemandOperation for mocking. </summary>
+        protected ApplicationGatewaysBackendHealthOnDemandOperation()
+        {
+        }
+
         internal ApplicationGatewaysBackendHealthOnDemandOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ApplicationGatewayBackendHealthOnDemand>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "ApplicationGatewaysBackendHealthOnDemandOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         ApplicationGatewayBackendHealthOnDemand IOperationSource<ApplicationGatewayBackendHealthOnDemand>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ApplicationGatewayBackendHealthOnDemand.DeserializeApplicationGatewayBackendHealthOnDemand(document.RootElement);
-            }
+            return ApplicationGatewayBackendHealthOnDemand.DeserializeApplicationGatewayBackendHealthOnDemand(document.RootElement);
         }
 
         async ValueTask<ApplicationGatewayBackendHealthOnDemand> IOperationSource<ApplicationGatewayBackendHealthOnDemand>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ApplicationGatewayBackendHealthOnDemand.DeserializeApplicationGatewayBackendHealthOnDemand(document.RootElement);
-            }
+            return ApplicationGatewayBackendHealthOnDemand.DeserializeApplicationGatewayBackendHealthOnDemand(document.RootElement);
         }
     }
 }

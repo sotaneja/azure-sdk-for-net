@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for the ListIpAllocations API service call. </summary>
-    public partial class IpAllocationListResult
+    internal partial class IpAllocationListResult
     {
         /// <summary> Initializes a new instance of IpAllocationListResult. </summary>
         internal IpAllocationListResult()
         {
+            Value = new ChangeTrackingList<IpAllocation>();
         }
 
         /// <summary> Initializes a new instance of IpAllocationListResult. </summary>

@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Resources
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal DeploymentsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of DeploymentsOperations for mocking. </summary>
         protected DeploymentsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of DeploymentsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -41,7 +43,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="scope"> The resource scope. </param>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response> CheckExistenceAtScopeAsync(string scope, string deploymentName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<bool>> CheckExistenceAtScopeAsync(string scope, string deploymentName, CancellationToken cancellationToken = default)
         {
             using var scope0 = _clientDiagnostics.CreateScope("DeploymentsOperations.CheckExistenceAtScope");
             scope0.Start();
@@ -60,7 +62,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="scope"> The resource scope. </param>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response CheckExistenceAtScope(string scope, string deploymentName, CancellationToken cancellationToken = default)
+        public virtual Response<bool> CheckExistenceAtScope(string scope, string deploymentName, CancellationToken cancellationToken = default)
         {
             using var scope0 = _clientDiagnostics.CreateScope("DeploymentsOperations.CheckExistenceAtScope");
             scope0.Start();
@@ -192,7 +194,7 @@ namespace Azure.ResourceManager.Resources
         /// <summary> Checks whether the deployment exists. </summary>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response> CheckExistenceAtTenantScopeAsync(string deploymentName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<bool>> CheckExistenceAtTenantScopeAsync(string deploymentName, CancellationToken cancellationToken = default)
         {
             using var scope0 = _clientDiagnostics.CreateScope("DeploymentsOperations.CheckExistenceAtTenantScope");
             scope0.Start();
@@ -210,7 +212,7 @@ namespace Azure.ResourceManager.Resources
         /// <summary> Checks whether the deployment exists. </summary>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response CheckExistenceAtTenantScope(string deploymentName, CancellationToken cancellationToken = default)
+        public virtual Response<bool> CheckExistenceAtTenantScope(string deploymentName, CancellationToken cancellationToken = default)
         {
             using var scope0 = _clientDiagnostics.CreateScope("DeploymentsOperations.CheckExistenceAtTenantScope");
             scope0.Start();
@@ -337,7 +339,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="groupId"> The management group ID. </param>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response> CheckExistenceAtManagementGroupScopeAsync(string groupId, string deploymentName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<bool>> CheckExistenceAtManagementGroupScopeAsync(string groupId, string deploymentName, CancellationToken cancellationToken = default)
         {
             using var scope0 = _clientDiagnostics.CreateScope("DeploymentsOperations.CheckExistenceAtManagementGroupScope");
             scope0.Start();
@@ -356,7 +358,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="groupId"> The management group ID. </param>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response CheckExistenceAtManagementGroupScope(string groupId, string deploymentName, CancellationToken cancellationToken = default)
+        public virtual Response<bool> CheckExistenceAtManagementGroupScope(string groupId, string deploymentName, CancellationToken cancellationToken = default)
         {
             using var scope0 = _clientDiagnostics.CreateScope("DeploymentsOperations.CheckExistenceAtManagementGroupScope");
             scope0.Start();
@@ -488,7 +490,7 @@ namespace Azure.ResourceManager.Resources
         /// <summary> Checks whether the deployment exists. </summary>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response> CheckExistenceAtSubscriptionScopeAsync(string deploymentName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<bool>> CheckExistenceAtSubscriptionScopeAsync(string deploymentName, CancellationToken cancellationToken = default)
         {
             using var scope0 = _clientDiagnostics.CreateScope("DeploymentsOperations.CheckExistenceAtSubscriptionScope");
             scope0.Start();
@@ -506,7 +508,7 @@ namespace Azure.ResourceManager.Resources
         /// <summary> Checks whether the deployment exists. </summary>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response CheckExistenceAtSubscriptionScope(string deploymentName, CancellationToken cancellationToken = default)
+        public virtual Response<bool> CheckExistenceAtSubscriptionScope(string deploymentName, CancellationToken cancellationToken = default)
         {
             using var scope0 = _clientDiagnostics.CreateScope("DeploymentsOperations.CheckExistenceAtSubscriptionScope");
             scope0.Start();
@@ -633,7 +635,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="resourceGroupName"> The name of the resource group with the deployment to check. The name is case insensitive. </param>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response> CheckExistenceAsync(string resourceGroupName, string deploymentName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<bool>> CheckExistenceAsync(string resourceGroupName, string deploymentName, CancellationToken cancellationToken = default)
         {
             using var scope0 = _clientDiagnostics.CreateScope("DeploymentsOperations.CheckExistence");
             scope0.Start();
@@ -652,7 +654,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="resourceGroupName"> The name of the resource group with the deployment to check. The name is case insensitive. </param>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response CheckExistence(string resourceGroupName, string deploymentName, CancellationToken cancellationToken = default)
+        public virtual Response<bool> CheckExistence(string resourceGroupName, string deploymentName, CancellationToken cancellationToken = default)
         {
             using var scope0 = _clientDiagnostics.CreateScope("DeploymentsOperations.CheckExistence");
             scope0.Start();
@@ -822,6 +824,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="filter"> The filter to apply on the operation. For example, you can use $filter=provisioningState eq &apos;{state}&apos;. </param>
         /// <param name="top"> The number of results to get. If null is passed, returns all deployments. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> is null. </exception>
         public virtual AsyncPageable<DeploymentExtended> ListAtScopeAsync(string scope, string filter = null, int? top = null, CancellationToken cancellationToken = default)
         {
             if (scope == null)
@@ -867,6 +870,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="filter"> The filter to apply on the operation. For example, you can use $filter=provisioningState eq &apos;{state}&apos;. </param>
         /// <param name="top"> The number of results to get. If null is passed, returns all deployments. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> is null. </exception>
         public virtual Pageable<DeploymentExtended> ListAtScope(string scope, string filter = null, int? top = null, CancellationToken cancellationToken = default)
         {
             if (scope == null)
@@ -990,6 +994,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="filter"> The filter to apply on the operation. For example, you can use $filter=provisioningState eq &apos;{state}&apos;. </param>
         /// <param name="top"> The number of results to get. If null is passed, returns all deployments. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="groupId"/> is null. </exception>
         public virtual AsyncPageable<DeploymentExtended> ListAtManagementGroupScopeAsync(string groupId, string filter = null, int? top = null, CancellationToken cancellationToken = default)
         {
             if (groupId == null)
@@ -1035,6 +1040,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="filter"> The filter to apply on the operation. For example, you can use $filter=provisioningState eq &apos;{state}&apos;. </param>
         /// <param name="top"> The number of results to get. If null is passed, returns all deployments. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="groupId"/> is null. </exception>
         public virtual Pageable<DeploymentExtended> ListAtManagementGroupScope(string groupId, string filter = null, int? top = null, CancellationToken cancellationToken = default)
         {
             if (groupId == null)
@@ -1158,6 +1164,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="filter"> The filter to apply on the operation. For example, you can use $filter=provisioningState eq &apos;{state}&apos;. </param>
         /// <param name="top"> The number of results to get. If null is passed, returns all deployments. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<DeploymentExtended> ListByResourceGroupAsync(string resourceGroupName, string filter = null, int? top = null, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -1203,6 +1210,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="filter"> The filter to apply on the operation. For example, you can use $filter=provisioningState eq &apos;{state}&apos;. </param>
         /// <param name="top"> The number of results to get. If null is passed, returns all deployments. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<DeploymentExtended> ListByResourceGroup(string resourceGroupName, string filter = null, int? top = null, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -1247,6 +1255,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="scope"> The resource scope. </param>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> or <paramref name="deploymentName"/> is null. </exception>
         public virtual async Task<DeploymentsDeleteAtScopeOperation> StartDeleteAtScopeAsync(string scope, string deploymentName, CancellationToken cancellationToken = default)
         {
             if (scope == null)
@@ -1276,6 +1285,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="scope"> The resource scope. </param>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> or <paramref name="deploymentName"/> is null. </exception>
         public virtual DeploymentsDeleteAtScopeOperation StartDeleteAtScope(string scope, string deploymentName, CancellationToken cancellationToken = default)
         {
             if (scope == null)
@@ -1306,6 +1316,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Additional parameters supplied to the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/>, <paramref name="deploymentName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<DeploymentsCreateOrUpdateAtScopeOperation> StartCreateOrUpdateAtScopeAsync(string scope, string deploymentName, Deployment parameters, CancellationToken cancellationToken = default)
         {
             if (scope == null)
@@ -1340,6 +1351,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Additional parameters supplied to the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/>, <paramref name="deploymentName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual DeploymentsCreateOrUpdateAtScopeOperation StartCreateOrUpdateAtScope(string scope, string deploymentName, Deployment parameters, CancellationToken cancellationToken = default)
         {
             if (scope == null)
@@ -1374,6 +1386,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Parameters to validate. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/>, <paramref name="deploymentName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<DeploymentsValidateAtScopeOperation> StartValidateAtScopeAsync(string scope, string deploymentName, Deployment parameters, CancellationToken cancellationToken = default)
         {
             if (scope == null)
@@ -1408,6 +1421,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Parameters to validate. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/>, <paramref name="deploymentName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual DeploymentsValidateAtScopeOperation StartValidateAtScope(string scope, string deploymentName, Deployment parameters, CancellationToken cancellationToken = default)
         {
             if (scope == null)
@@ -1440,6 +1454,7 @@ namespace Azure.ResourceManager.Resources
         /// <summary> A template deployment that is currently running cannot be deleted. Deleting a template deployment removes the associated deployment operations. This is an asynchronous operation that returns a status of 202 until the template deployment is successfully deleted. The Location response header contains the URI that is used to obtain the status of the process. While the process is running, a call to the URI in the Location header returns a status of 202. When the process finishes, the URI in the Location header returns a status of 204 on success. If the asynchronous request failed, the URI in the Location header returns an error-level status code. </summary>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
         public virtual async Task<DeploymentsDeleteAtTenantScopeOperation> StartDeleteAtTenantScopeAsync(string deploymentName, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -1464,6 +1479,7 @@ namespace Azure.ResourceManager.Resources
         /// <summary> A template deployment that is currently running cannot be deleted. Deleting a template deployment removes the associated deployment operations. This is an asynchronous operation that returns a status of 202 until the template deployment is successfully deleted. The Location response header contains the URI that is used to obtain the status of the process. While the process is running, a call to the URI in the Location header returns a status of 202. When the process finishes, the URI in the Location header returns a status of 204 on success. If the asynchronous request failed, the URI in the Location header returns an error-level status code. </summary>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
         public virtual DeploymentsDeleteAtTenantScopeOperation StartDeleteAtTenantScope(string deploymentName, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -1489,6 +1505,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Additional parameters supplied to the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<DeploymentsCreateOrUpdateAtTenantScopeOperation> StartCreateOrUpdateAtTenantScopeAsync(string deploymentName, ScopedDeployment parameters, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -1518,6 +1535,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Additional parameters supplied to the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> or <paramref name="parameters"/> is null. </exception>
         public virtual DeploymentsCreateOrUpdateAtTenantScopeOperation StartCreateOrUpdateAtTenantScope(string deploymentName, ScopedDeployment parameters, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -1547,6 +1565,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Parameters to validate. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<DeploymentsValidateAtTenantScopeOperation> StartValidateAtTenantScopeAsync(string deploymentName, ScopedDeployment parameters, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -1576,6 +1595,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Parameters to validate. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> or <paramref name="parameters"/> is null. </exception>
         public virtual DeploymentsValidateAtTenantScopeOperation StartValidateAtTenantScope(string deploymentName, ScopedDeployment parameters, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -1605,6 +1625,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="groupId"> The management group ID. </param>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="groupId"/> or <paramref name="deploymentName"/> is null. </exception>
         public virtual async Task<DeploymentsDeleteAtManagementGroupScopeOperation> StartDeleteAtManagementGroupScopeAsync(string groupId, string deploymentName, CancellationToken cancellationToken = default)
         {
             if (groupId == null)
@@ -1634,6 +1655,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="groupId"> The management group ID. </param>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="groupId"/> or <paramref name="deploymentName"/> is null. </exception>
         public virtual DeploymentsDeleteAtManagementGroupScopeOperation StartDeleteAtManagementGroupScope(string groupId, string deploymentName, CancellationToken cancellationToken = default)
         {
             if (groupId == null)
@@ -1664,6 +1686,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Additional parameters supplied to the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="groupId"/>, <paramref name="deploymentName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<DeploymentsCreateOrUpdateAtManagementGroupScopeOperation> StartCreateOrUpdateAtManagementGroupScopeAsync(string groupId, string deploymentName, ScopedDeployment parameters, CancellationToken cancellationToken = default)
         {
             if (groupId == null)
@@ -1698,6 +1721,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Additional parameters supplied to the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="groupId"/>, <paramref name="deploymentName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual DeploymentsCreateOrUpdateAtManagementGroupScopeOperation StartCreateOrUpdateAtManagementGroupScope(string groupId, string deploymentName, ScopedDeployment parameters, CancellationToken cancellationToken = default)
         {
             if (groupId == null)
@@ -1732,6 +1756,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Parameters to validate. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="groupId"/>, <paramref name="deploymentName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<DeploymentsValidateAtManagementGroupScopeOperation> StartValidateAtManagementGroupScopeAsync(string groupId, string deploymentName, ScopedDeployment parameters, CancellationToken cancellationToken = default)
         {
             if (groupId == null)
@@ -1766,6 +1791,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Parameters to validate. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="groupId"/>, <paramref name="deploymentName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual DeploymentsValidateAtManagementGroupScopeOperation StartValidateAtManagementGroupScope(string groupId, string deploymentName, ScopedDeployment parameters, CancellationToken cancellationToken = default)
         {
             if (groupId == null)
@@ -1798,6 +1824,7 @@ namespace Azure.ResourceManager.Resources
         /// <summary> A template deployment that is currently running cannot be deleted. Deleting a template deployment removes the associated deployment operations. This is an asynchronous operation that returns a status of 202 until the template deployment is successfully deleted. The Location response header contains the URI that is used to obtain the status of the process. While the process is running, a call to the URI in the Location header returns a status of 202. When the process finishes, the URI in the Location header returns a status of 204 on success. If the asynchronous request failed, the URI in the Location header returns an error-level status code. </summary>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
         public virtual async Task<DeploymentsDeleteAtSubscriptionScopeOperation> StartDeleteAtSubscriptionScopeAsync(string deploymentName, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -1822,6 +1849,7 @@ namespace Azure.ResourceManager.Resources
         /// <summary> A template deployment that is currently running cannot be deleted. Deleting a template deployment removes the associated deployment operations. This is an asynchronous operation that returns a status of 202 until the template deployment is successfully deleted. The Location response header contains the URI that is used to obtain the status of the process. While the process is running, a call to the URI in the Location header returns a status of 202. When the process finishes, the URI in the Location header returns a status of 204 on success. If the asynchronous request failed, the URI in the Location header returns an error-level status code. </summary>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
         public virtual DeploymentsDeleteAtSubscriptionScopeOperation StartDeleteAtSubscriptionScope(string deploymentName, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -1847,6 +1875,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Additional parameters supplied to the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<DeploymentsCreateOrUpdateAtSubscriptionScopeOperation> StartCreateOrUpdateAtSubscriptionScopeAsync(string deploymentName, Deployment parameters, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -1876,6 +1905,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Additional parameters supplied to the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> or <paramref name="parameters"/> is null. </exception>
         public virtual DeploymentsCreateOrUpdateAtSubscriptionScopeOperation StartCreateOrUpdateAtSubscriptionScope(string deploymentName, Deployment parameters, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -1905,6 +1935,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Parameters to validate. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<DeploymentsValidateAtSubscriptionScopeOperation> StartValidateAtSubscriptionScopeAsync(string deploymentName, Deployment parameters, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -1934,6 +1965,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Parameters to validate. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> or <paramref name="parameters"/> is null. </exception>
         public virtual DeploymentsValidateAtSubscriptionScopeOperation StartValidateAtSubscriptionScope(string deploymentName, Deployment parameters, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -1963,6 +1995,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Parameters to What If. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<DeploymentsWhatIfAtSubscriptionScopeOperation> StartWhatIfAtSubscriptionScopeAsync(string deploymentName, DeploymentWhatIf parameters, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -1992,6 +2025,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Parameters to What If. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> or <paramref name="parameters"/> is null. </exception>
         public virtual DeploymentsWhatIfAtSubscriptionScopeOperation StartWhatIfAtSubscriptionScope(string deploymentName, DeploymentWhatIf parameters, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -2021,6 +2055,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="resourceGroupName"> The name of the resource group with the deployment to delete. The name is case insensitive. </param>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="deploymentName"/> is null. </exception>
         public virtual async Task<DeploymentsDeleteOperation> StartDeleteAsync(string resourceGroupName, string deploymentName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -2050,6 +2085,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="resourceGroupName"> The name of the resource group with the deployment to delete. The name is case insensitive. </param>
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="deploymentName"/> is null. </exception>
         public virtual DeploymentsDeleteOperation StartDelete(string resourceGroupName, string deploymentName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -2080,6 +2116,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Additional parameters supplied to the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="deploymentName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<DeploymentsCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string deploymentName, Deployment parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -2114,6 +2151,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Additional parameters supplied to the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="deploymentName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual DeploymentsCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string deploymentName, Deployment parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -2148,6 +2186,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Parameters to validate. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="deploymentName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<DeploymentsValidateOperation> StartValidateAsync(string resourceGroupName, string deploymentName, Deployment parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -2182,6 +2221,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Parameters to validate. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="deploymentName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual DeploymentsValidateOperation StartValidate(string resourceGroupName, string deploymentName, Deployment parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -2216,6 +2256,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Parameters to validate. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="deploymentName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<DeploymentsWhatIfOperation> StartWhatIfAsync(string resourceGroupName, string deploymentName, DeploymentWhatIf parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -2250,6 +2291,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="parameters"> Parameters to validate. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="deploymentName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual DeploymentsWhatIfOperation StartWhatIf(string resourceGroupName, string deploymentName, DeploymentWhatIf parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

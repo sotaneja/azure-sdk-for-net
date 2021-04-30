@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal ExpressRoutePortsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of ExpressRoutePortsOperations for mocking. </summary>
         protected ExpressRoutePortsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of ExpressRoutePortsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -118,6 +120,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> List all the ExpressRoutePort resources in the specified resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<ExpressRoutePort> ListByResourceGroupAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -161,6 +164,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> List all the ExpressRoutePort resources in the specified resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<ExpressRoutePort> ListByResourceGroup(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -279,6 +283,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="expressRoutePortName"> The name of the ExpressRoutePort resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="expressRoutePortName"/> is null. </exception>
         public virtual async Task<ExpressRoutePortsDeleteOperation> StartDeleteAsync(string resourceGroupName, string expressRoutePortName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -308,6 +313,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="expressRoutePortName"> The name of the ExpressRoutePort resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="expressRoutePortName"/> is null. </exception>
         public virtual ExpressRoutePortsDeleteOperation StartDelete(string resourceGroupName, string expressRoutePortName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -338,6 +344,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="expressRoutePortName"> The name of the ExpressRoutePort resource. </param>
         /// <param name="parameters"> Parameters supplied to the create ExpressRoutePort operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="expressRoutePortName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<ExpressRoutePortsCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string expressRoutePortName, ExpressRoutePort parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -372,6 +379,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="expressRoutePortName"> The name of the ExpressRoutePort resource. </param>
         /// <param name="parameters"> Parameters supplied to the create ExpressRoutePort operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="expressRoutePortName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual ExpressRoutePortsCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string expressRoutePortName, ExpressRoutePort parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal AvailableEndpointServicesRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of AvailableEndpointServicesOperations for mocking. </summary>
         protected AvailableEndpointServicesOperations()
         {
         }
+
         /// <summary> Initializes a new instance of AvailableEndpointServicesOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -40,6 +42,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> List what values of endpoint services are available for use. </summary>
         /// <param name="location"> The location to check available endpoint services. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public virtual AsyncPageable<EndpointServiceResult> ListAsync(string location, CancellationToken cancellationToken = default)
         {
             if (location == null)
@@ -83,6 +86,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> List what values of endpoint services are available for use. </summary>
         /// <param name="location"> The location to check available endpoint services. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public virtual Pageable<EndpointServiceResult> List(string location, CancellationToken cancellationToken = default)
         {
             if (location == null)

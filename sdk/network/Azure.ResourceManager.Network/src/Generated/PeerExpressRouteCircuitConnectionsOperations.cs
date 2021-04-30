@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal PeerExpressRouteCircuitConnectionsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of PeerExpressRouteCircuitConnectionsOperations for mocking. </summary>
         protected PeerExpressRouteCircuitConnectionsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of PeerExpressRouteCircuitConnectionsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -84,6 +86,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="circuitName"> The name of the circuit. </param>
         /// <param name="peeringName"> The name of the peering. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="circuitName"/>, or <paramref name="peeringName"/> is null. </exception>
         public virtual AsyncPageable<PeerExpressRouteCircuitConnection> ListAsync(string resourceGroupName, string circuitName, string peeringName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -137,6 +140,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="circuitName"> The name of the circuit. </param>
         /// <param name="peeringName"> The name of the peering. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="circuitName"/>, or <paramref name="peeringName"/> is null. </exception>
         public virtual Pageable<PeerExpressRouteCircuitConnection> List(string resourceGroupName, string circuitName, string peeringName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

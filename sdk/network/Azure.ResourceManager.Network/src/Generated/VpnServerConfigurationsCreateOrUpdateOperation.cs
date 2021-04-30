@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VpnServerConfigurationsCreateOrUpdateOperation : Operation<VpnServerConfiguration>, IOperationSource<VpnServerConfiguration>
     {
         private readonly ArmOperationHelpers<VpnServerConfiguration> _operation;
+
+        /// <summary> Initializes a new instance of VpnServerConfigurationsCreateOrUpdateOperation for mocking. </summary>
+        protected VpnServerConfigurationsCreateOrUpdateOperation()
+        {
+        }
+
         internal VpnServerConfigurationsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VpnServerConfiguration>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "VpnServerConfigurationsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         VpnServerConfiguration IOperationSource<VpnServerConfiguration>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnServerConfiguration.DeserializeVpnServerConfiguration(document.RootElement);
-            }
+            return VpnServerConfiguration.DeserializeVpnServerConfiguration(document.RootElement);
         }
 
         async ValueTask<VpnServerConfiguration> IOperationSource<VpnServerConfiguration>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnServerConfiguration.DeserializeVpnServerConfiguration(document.RootElement);
-            }
+            return VpnServerConfiguration.DeserializeVpnServerConfiguration(document.RootElement);
         }
     }
 }

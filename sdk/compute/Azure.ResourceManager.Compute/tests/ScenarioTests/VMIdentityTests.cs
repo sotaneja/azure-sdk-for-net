@@ -57,15 +57,12 @@ namespace Azure.ResourceManager.Compute.Tests
                 {
                     vm.Identity = new VirtualMachineIdentity();
                     vm.Identity.Type = ResourceIdentityType.SystemAssignedUserAssigned;
-                    vm.Identity.UserAssignedIdentities = new Dictionary<string, Components1H8M3EpSchemasVirtualmachineidentityPropertiesUserassignedidentitiesAdditionalproperties>()
-                    {
-                        { identity, new Components1H8M3EpSchemasVirtualmachineidentityPropertiesUserassignedidentitiesAdditionalproperties() }
-                    };
+                    vm.Identity.UserAssignedIdentities.Add(identity, new Components1H8M3EpSchemasVirtualmachineidentityPropertiesUserassignedidentitiesAdditionalproperties());
                 };
 
                 var returnTwoVM = await CreateVM(rgName, asName, storageAccountOutput, imgageRef , addUserIdentity);
-                VirtualMachine vmResult = returnTwoVM.Item1;
-                inputVM = returnTwoVM.Item2;
+                VirtualMachine vmResult = returnTwoVM.Response;
+                inputVM = returnTwoVM.Input;
                 Assert.AreEqual(ResourceIdentityType.SystemAssignedUserAssigned, vmResult.Identity.Type);
                 Assert.NotNull(vmResult.Identity.PrincipalId);
                 Assert.NotNull(vmResult.Identity.TenantId);
@@ -84,9 +81,9 @@ namespace Azure.ResourceManager.Compute.Tests
                 await WaitForCompletionAsync(await VirtualMachinesOperations.StartDeleteAsync(rgName, inputVM.Name));
                 passed = true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
             finally
             {

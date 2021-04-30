@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal VirtualWansRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of VirtualWansOperations for mocking. </summary>
         protected VirtualWansOperations()
         {
         }
+
         /// <summary> Initializes a new instance of VirtualWansOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -118,6 +120,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Lists all the VirtualWANs in a resource group. </summary>
         /// <param name="resourceGroupName"> The resource group name of the VirtualWan. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<VirtualWAN> ListByResourceGroupAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -161,6 +164,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Lists all the VirtualWANs in a resource group. </summary>
         /// <param name="resourceGroupName"> The resource group name of the VirtualWan. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<VirtualWAN> ListByResourceGroup(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -280,6 +284,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="virtualWANName"> The name of the VirtualWAN being created or updated. </param>
         /// <param name="wANParameters"> Parameters supplied to create or update VirtualWAN. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="virtualWANName"/>, or <paramref name="wANParameters"/> is null. </exception>
         public virtual async Task<VirtualWansCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string virtualWANName, VirtualWAN wANParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -314,6 +319,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="virtualWANName"> The name of the VirtualWAN being created or updated. </param>
         /// <param name="wANParameters"> Parameters supplied to create or update VirtualWAN. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="virtualWANName"/>, or <paramref name="wANParameters"/> is null. </exception>
         public virtual VirtualWansCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string virtualWANName, VirtualWAN wANParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -347,6 +353,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The resource group name of the VirtualWan. </param>
         /// <param name="virtualWANName"> The name of the VirtualWAN being deleted. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="virtualWANName"/> is null. </exception>
         public virtual async Task<VirtualWansDeleteOperation> StartDeleteAsync(string resourceGroupName, string virtualWANName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -376,6 +383,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The resource group name of the VirtualWan. </param>
         /// <param name="virtualWANName"> The name of the VirtualWAN being deleted. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="virtualWANName"/> is null. </exception>
         public virtual VirtualWansDeleteOperation StartDelete(string resourceGroupName, string virtualWANName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

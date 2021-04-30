@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class LocalNetworkGatewaysCreateOrUpdateOperation : Operation<LocalNetworkGateway>, IOperationSource<LocalNetworkGateway>
     {
         private readonly ArmOperationHelpers<LocalNetworkGateway> _operation;
+
+        /// <summary> Initializes a new instance of LocalNetworkGatewaysCreateOrUpdateOperation for mocking. </summary>
+        protected LocalNetworkGatewaysCreateOrUpdateOperation()
+        {
+        }
+
         internal LocalNetworkGatewaysCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<LocalNetworkGateway>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "LocalNetworkGatewaysCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         LocalNetworkGateway IOperationSource<LocalNetworkGateway>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return LocalNetworkGateway.DeserializeLocalNetworkGateway(document.RootElement);
-            }
+            return LocalNetworkGateway.DeserializeLocalNetworkGateway(document.RootElement);
         }
 
         async ValueTask<LocalNetworkGateway> IOperationSource<LocalNetworkGateway>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return LocalNetworkGateway.DeserializeLocalNetworkGateway(document.RootElement);
-            }
+            return LocalNetworkGateway.DeserializeLocalNetworkGateway(document.RootElement);
         }
     }
 }

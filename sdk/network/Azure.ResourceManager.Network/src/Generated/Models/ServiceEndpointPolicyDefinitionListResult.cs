@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for ListServiceEndpointPolicyDefinition API service call. Retrieves all service endpoint policy definition that belongs to a service endpoint policy. </summary>
-    public partial class ServiceEndpointPolicyDefinitionListResult
+    internal partial class ServiceEndpointPolicyDefinitionListResult
     {
         /// <summary> Initializes a new instance of ServiceEndpointPolicyDefinitionListResult. </summary>
         internal ServiceEndpointPolicyDefinitionListResult()
         {
+            Value = new ChangeTrackingList<ServiceEndpointPolicyDefinition>();
         }
 
         /// <summary> Initializes a new instance of ServiceEndpointPolicyDefinitionListResult. </summary>

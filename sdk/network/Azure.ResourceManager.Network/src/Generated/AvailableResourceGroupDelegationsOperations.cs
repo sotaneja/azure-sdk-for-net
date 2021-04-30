@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal AvailableResourceGroupDelegationsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of AvailableResourceGroupDelegationsOperations for mocking. </summary>
         protected AvailableResourceGroupDelegationsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of AvailableResourceGroupDelegationsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -41,6 +43,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="location"> The location of the domain name. </param>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> or <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<AvailableDelegation> ListAsync(string location, string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (location == null)
@@ -89,6 +92,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="location"> The location of the domain name. </param>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> or <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<AvailableDelegation> List(string location, string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (location == null)

@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Resources.Models
 {
     /// <summary> List of deployments. </summary>
-    public partial class DeploymentListResult
+    internal partial class DeploymentListResult
     {
         /// <summary> Initializes a new instance of DeploymentListResult. </summary>
         internal DeploymentListResult()
         {
+            Value = new ChangeTrackingList<DeploymentExtended>();
         }
 
         /// <summary> Initializes a new instance of DeploymentListResult. </summary>

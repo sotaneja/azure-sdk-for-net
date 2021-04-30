@@ -11,46 +11,36 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
-    public partial class FirewallPolicyListResult
+    internal partial class FirewallPolicyListResult
     {
         internal static FirewallPolicyListResult DeserializeFirewallPolicyListResult(JsonElement element)
         {
-            IReadOnlyList<FirewallPolicy> value = default;
-            string nextLink = default;
+            Optional<IReadOnlyList<FirewallPolicy>> value = default;
+            Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
+                        property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
                     List<FirewallPolicy> array = new List<FirewallPolicy>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(FirewallPolicy.DeserializeFirewallPolicy(item));
-                        }
+                        array.Add(FirewallPolicy.DeserializeFirewallPolicy(item));
                     }
                     value = array;
                     continue;
                 }
                 if (property.NameEquals("nextLink"))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     nextLink = property.Value.GetString();
                     continue;
                 }
             }
-            return new FirewallPolicyListResult(value, nextLink);
+            return new FirewallPolicyListResult(Optional.ToList(value), nextLink.Value);
         }
     }
 }

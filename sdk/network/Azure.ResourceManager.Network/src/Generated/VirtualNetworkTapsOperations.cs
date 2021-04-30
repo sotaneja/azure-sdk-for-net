@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal VirtualNetworkTapsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of VirtualNetworkTapsOperations for mocking. </summary>
         protected VirtualNetworkTapsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of VirtualNetworkTapsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -192,6 +194,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all the VirtualNetworkTaps in a subscription. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<VirtualNetworkTap> ListByResourceGroupAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -235,6 +238,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all the VirtualNetworkTaps in a subscription. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<VirtualNetworkTap> ListByResourceGroup(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -279,6 +283,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="tapName"> The name of the virtual network tap. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="tapName"/> is null. </exception>
         public virtual async Task<VirtualNetworkTapsDeleteOperation> StartDeleteAsync(string resourceGroupName, string tapName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -308,6 +313,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="tapName"> The name of the virtual network tap. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="tapName"/> is null. </exception>
         public virtual VirtualNetworkTapsDeleteOperation StartDelete(string resourceGroupName, string tapName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -338,6 +344,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="tapName"> The name of the virtual network tap. </param>
         /// <param name="parameters"> Parameters supplied to the create or update virtual network tap operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="tapName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<VirtualNetworkTapsCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string tapName, VirtualNetworkTap parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -372,6 +379,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="tapName"> The name of the virtual network tap. </param>
         /// <param name="parameters"> Parameters supplied to the create or update virtual network tap operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="tapName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual VirtualNetworkTapsCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string tapName, VirtualNetworkTap parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

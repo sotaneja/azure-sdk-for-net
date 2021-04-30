@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VirtualNetworkGatewayConnectionsCreateOrUpdateOperation : Operation<VirtualNetworkGatewayConnection>, IOperationSource<VirtualNetworkGatewayConnection>
     {
         private readonly ArmOperationHelpers<VirtualNetworkGatewayConnection> _operation;
+
+        /// <summary> Initializes a new instance of VirtualNetworkGatewayConnectionsCreateOrUpdateOperation for mocking. </summary>
+        protected VirtualNetworkGatewayConnectionsCreateOrUpdateOperation()
+        {
+        }
+
         internal VirtualNetworkGatewayConnectionsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VirtualNetworkGatewayConnection>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "VirtualNetworkGatewayConnectionsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         VirtualNetworkGatewayConnection IOperationSource<VirtualNetworkGatewayConnection>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualNetworkGatewayConnection.DeserializeVirtualNetworkGatewayConnection(document.RootElement);
-            }
+            return VirtualNetworkGatewayConnection.DeserializeVirtualNetworkGatewayConnection(document.RootElement);
         }
 
         async ValueTask<VirtualNetworkGatewayConnection> IOperationSource<VirtualNetworkGatewayConnection>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualNetworkGatewayConnection.DeserializeVirtualNetworkGatewayConnection(document.RootElement);
-            }
+            return VirtualNetworkGatewayConnection.DeserializeVirtualNetworkGatewayConnection(document.RootElement);
         }
     }
 }

@@ -12,10 +12,11 @@ using System.Linq;
 namespace Azure.ResourceManager.Compute.Models
 {
     /// <summary> The List Gallery Images operation response. </summary>
-    public partial class GalleryImageList
+    internal partial class GalleryImageList
     {
         /// <summary> Initializes a new instance of GalleryImageList. </summary>
         /// <param name="value"> A list of Shared Image Gallery images. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         internal GalleryImageList(IEnumerable<GalleryImage> value)
         {
             if (value == null)
@@ -23,7 +24,7 @@ namespace Azure.ResourceManager.Compute.Models
                 throw new ArgumentNullException(nameof(value));
             }
 
-            Value = value.ToArray();
+            Value = value.ToList();
         }
 
         /// <summary> Initializes a new instance of GalleryImageList. </summary>
@@ -31,7 +32,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="nextLink"> The uri to fetch the next page of Image Definitions in the Shared Image Gallery. Call ListNext() with this to fetch the next page of gallery Image Definitions. </param>
         internal GalleryImageList(IReadOnlyList<GalleryImage> value, string nextLink)
         {
-            Value = value ?? new List<GalleryImage>();
+            Value = value;
             NextLink = nextLink;
         }
 

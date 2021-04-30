@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal NetworkSecurityGroupsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of NetworkSecurityGroupsOperations for mocking. </summary>
         protected NetworkSecurityGroupsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of NetworkSecurityGroupsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -194,6 +196,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all network security groups in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<NetworkSecurityGroup> ListAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -237,6 +240,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all network security groups in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<NetworkSecurityGroup> List(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -281,6 +285,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="networkSecurityGroupName"> The name of the network security group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="networkSecurityGroupName"/> is null. </exception>
         public virtual async Task<NetworkSecurityGroupsDeleteOperation> StartDeleteAsync(string resourceGroupName, string networkSecurityGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -310,6 +315,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="networkSecurityGroupName"> The name of the network security group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="networkSecurityGroupName"/> is null. </exception>
         public virtual NetworkSecurityGroupsDeleteOperation StartDelete(string resourceGroupName, string networkSecurityGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -340,6 +346,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkSecurityGroupName"> The name of the network security group. </param>
         /// <param name="parameters"> Parameters supplied to the create or update network security group operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkSecurityGroupName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<NetworkSecurityGroupsCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string networkSecurityGroupName, NetworkSecurityGroup parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -374,6 +381,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkSecurityGroupName"> The name of the network security group. </param>
         /// <param name="parameters"> Parameters supplied to the create or update network security group operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkSecurityGroupName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual NetworkSecurityGroupsCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string networkSecurityGroupName, NetworkSecurityGroup parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class LoadBalancerBackendAddressPoolsCreateOrUpdateOperation : Operation<BackendAddressPool>, IOperationSource<BackendAddressPool>
     {
         private readonly ArmOperationHelpers<BackendAddressPool> _operation;
+
+        /// <summary> Initializes a new instance of LoadBalancerBackendAddressPoolsCreateOrUpdateOperation for mocking. </summary>
+        protected LoadBalancerBackendAddressPoolsCreateOrUpdateOperation()
+        {
+        }
+
         internal LoadBalancerBackendAddressPoolsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<BackendAddressPool>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "LoadBalancerBackendAddressPoolsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         BackendAddressPool IOperationSource<BackendAddressPool>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return BackendAddressPool.DeserializeBackendAddressPool(document.RootElement);
-            }
+            return BackendAddressPool.DeserializeBackendAddressPool(document.RootElement);
         }
 
         async ValueTask<BackendAddressPool> IOperationSource<BackendAddressPool>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return BackendAddressPool.DeserializeBackendAddressPool(document.RootElement);
-            }
+            return BackendAddressPool.DeserializeBackendAddressPool(document.RootElement);
         }
     }
 }

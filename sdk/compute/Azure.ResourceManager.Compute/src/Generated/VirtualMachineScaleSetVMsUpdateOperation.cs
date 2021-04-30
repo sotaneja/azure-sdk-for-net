@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Compute
     public partial class VirtualMachineScaleSetVMsUpdateOperation : Operation<VirtualMachineScaleSetVM>, IOperationSource<VirtualMachineScaleSetVM>
     {
         private readonly ArmOperationHelpers<VirtualMachineScaleSetVM> _operation;
+
+        /// <summary> Initializes a new instance of VirtualMachineScaleSetVMsUpdateOperation for mocking. </summary>
+        protected VirtualMachineScaleSetVMsUpdateOperation()
+        {
+        }
+
         internal VirtualMachineScaleSetVMsUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VirtualMachineScaleSetVM>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "VirtualMachineScaleSetVMsUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Compute
         VirtualMachineScaleSetVM IOperationSource<VirtualMachineScaleSetVM>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualMachineScaleSetVM.DeserializeVirtualMachineScaleSetVM(document.RootElement);
-            }
+            return VirtualMachineScaleSetVM.DeserializeVirtualMachineScaleSetVM(document.RootElement);
         }
 
         async ValueTask<VirtualMachineScaleSetVM> IOperationSource<VirtualMachineScaleSetVM>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualMachineScaleSetVM.DeserializeVirtualMachineScaleSetVM(document.RootElement);
-            }
+            return VirtualMachineScaleSetVM.DeserializeVirtualMachineScaleSetVM(document.RootElement);
         }
     }
 }

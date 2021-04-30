@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Compute
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal UsageRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of UsageOperations for mocking. </summary>
         protected UsageOperations()
         {
         }
+
         /// <summary> Initializes a new instance of UsageOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -40,6 +42,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Gets, for the specified location, the current compute resource usage information as well as the limits for compute resources under the subscription. </summary>
         /// <param name="location"> The location for which resource usage is queried. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public virtual AsyncPageable<Usage> ListAsync(string location, CancellationToken cancellationToken = default)
         {
             if (location == null)
@@ -83,6 +86,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Gets, for the specified location, the current compute resource usage information as well as the limits for compute resources under the subscription. </summary>
         /// <param name="location"> The location for which resource usage is queried. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public virtual Pageable<Usage> List(string location, CancellationToken cancellationToken = default)
         {
             if (location == null)

@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Compute
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal ContainerServicesRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of ContainerServicesOperations for mocking. </summary>
         protected ContainerServicesOperations()
         {
         }
+
         /// <summary> Initializes a new instance of ContainerServicesOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -152,6 +154,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Gets a list of container services in the specified subscription and resource group. The operation returns properties of each container service including state, orchestrator, number of masters and agents, and FQDNs of masters and agents. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<ContainerService> ListByResourceGroupAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -195,6 +198,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Gets a list of container services in the specified subscription and resource group. The operation returns properties of each container service including state, orchestrator, number of masters and agents, and FQDNs of masters and agents. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<ContainerService> ListByResourceGroup(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -240,6 +244,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="containerServiceName"> The name of the container service in the specified subscription and resource group. </param>
         /// <param name="parameters"> Parameters supplied to the Create or Update a Container Service operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="containerServiceName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<ContainerServicesCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string containerServiceName, ContainerService parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -274,6 +279,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="containerServiceName"> The name of the container service in the specified subscription and resource group. </param>
         /// <param name="parameters"> Parameters supplied to the Create or Update a Container Service operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="containerServiceName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual ContainerServicesCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string containerServiceName, ContainerService parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -307,6 +313,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="containerServiceName"> The name of the container service in the specified subscription and resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="containerServiceName"/> is null. </exception>
         public virtual async Task<ContainerServicesDeleteOperation> StartDeleteAsync(string resourceGroupName, string containerServiceName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -336,6 +343,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="containerServiceName"> The name of the container service in the specified subscription and resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="containerServiceName"/> is null. </exception>
         public virtual ContainerServicesDeleteOperation StartDelete(string resourceGroupName, string containerServiceName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

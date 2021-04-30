@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VirtualNetworkGatewaysResetOperation : Operation<VirtualNetworkGateway>, IOperationSource<VirtualNetworkGateway>
     {
         private readonly ArmOperationHelpers<VirtualNetworkGateway> _operation;
+
+        /// <summary> Initializes a new instance of VirtualNetworkGatewaysResetOperation for mocking. </summary>
+        protected VirtualNetworkGatewaysResetOperation()
+        {
+        }
+
         internal VirtualNetworkGatewaysResetOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VirtualNetworkGateway>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "VirtualNetworkGatewaysResetOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         VirtualNetworkGateway IOperationSource<VirtualNetworkGateway>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualNetworkGateway.DeserializeVirtualNetworkGateway(document.RootElement);
-            }
+            return VirtualNetworkGateway.DeserializeVirtualNetworkGateway(document.RootElement);
         }
 
         async ValueTask<VirtualNetworkGateway> IOperationSource<VirtualNetworkGateway>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualNetworkGateway.DeserializeVirtualNetworkGateway(document.RootElement);
-            }
+            return VirtualNetworkGateway.DeserializeVirtualNetworkGateway(document.RootElement);
         }
     }
 }

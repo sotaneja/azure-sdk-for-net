@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class NetworkWatchersCheckConnectivityOperation : Operation<ConnectivityInformation>, IOperationSource<ConnectivityInformation>
     {
         private readonly ArmOperationHelpers<ConnectivityInformation> _operation;
+
+        /// <summary> Initializes a new instance of NetworkWatchersCheckConnectivityOperation for mocking. </summary>
+        protected NetworkWatchersCheckConnectivityOperation()
+        {
+        }
+
         internal NetworkWatchersCheckConnectivityOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ConnectivityInformation>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "NetworkWatchersCheckConnectivityOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         ConnectivityInformation IOperationSource<ConnectivityInformation>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ConnectivityInformation.DeserializeConnectivityInformation(document.RootElement);
-            }
+            return ConnectivityInformation.DeserializeConnectivityInformation(document.RootElement);
         }
 
         async ValueTask<ConnectivityInformation> IOperationSource<ConnectivityInformation>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ConnectivityInformation.DeserializeConnectivityInformation(document.RootElement);
-            }
+            return ConnectivityInformation.DeserializeConnectivityInformation(document.RootElement);
         }
     }
 }

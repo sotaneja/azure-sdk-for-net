@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Azure.ResourceManager.Compute.Models;
-using Azure.Management.Resources;
+using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 using Sku = Azure.ResourceManager.Compute.Models.Sku;
 
@@ -42,10 +42,9 @@ namespace Azure.ResourceManager.Compute.Tests
 
             await WaitForCompletionAsync(await VirtualMachineScaleSetsOperations.StartDeleteAsync(rgName, "VMScaleSetDoesNotExist"));
 
-
             var getTwoVirtualMachineScaleSet = await CreateVMScaleSet_NoAsyncTracking(rgName, vmssName, storageAccountOutput, imageRef);
-            VirtualMachineScaleSet vmScaleSet = getTwoVirtualMachineScaleSet.Item1;
-            inputVMScaleSet = getTwoVirtualMachineScaleSet.Item2;
+            VirtualMachineScaleSet vmScaleSet = getTwoVirtualMachineScaleSet.Response;
+            inputVMScaleSet = getTwoVirtualMachineScaleSet.Input;
             var getResponse = await VirtualMachineScaleSetsOperations.GetAsync(rgName, vmScaleSet.Name);
             ValidateVMScaleSet(inputVMScaleSet, getResponse);
 
@@ -93,16 +92,15 @@ namespace Azure.ResourceManager.Compute.Tests
             await WaitForCompletionAsync(await VirtualMachineScaleSetsOperations.StartDeleteAsync(rgName, "VMScaleSetDoesNotExist"));
 
             var getTwoVirtualMachineScaleSet = await CreateVMScaleSet_NoAsyncTracking(rgName, vmssName, storageAccountOutput, imageRef);
-            VirtualMachineScaleSet vmScaleSet = getTwoVirtualMachineScaleSet.Item1;
-            inputVMScaleSet = getTwoVirtualMachineScaleSet.Item2;
+            VirtualMachineScaleSet vmScaleSet = getTwoVirtualMachineScaleSet.Response;
+            inputVMScaleSet = getTwoVirtualMachineScaleSet.Input;
             var getResponse = await VirtualMachineScaleSetsOperations.GetAsync(rgName, vmScaleSet.Name);
             ValidateVMScaleSet(inputVMScaleSet, getResponse);
 
             inputVMScaleSet.Sku.Name = VirtualMachineSizeTypes.StandardA1.ToString();
             VirtualMachineScaleSetExtensionProfile extensionProfile = new VirtualMachineScaleSetExtensionProfile()
             {
-                Extensions = new List<VirtualMachineScaleSetExtension>()
-                        {
+                Extensions = {
                             GetTestVMSSVMExtension(),
                         }
             };
@@ -129,7 +127,7 @@ namespace Azure.ResourceManager.Compute.Tests
         /// Delete RG
         /// </summary>
         [Test]
-        [Ignore ("this case need to be tested by compute team")]
+        [Ignore("this case need to be tested by compute team")]
         public async Task TestVMScaleSetPatchOperations()
         {
             EnsureClientsInitialized(DefaultLocation);
@@ -145,16 +143,15 @@ namespace Azure.ResourceManager.Compute.Tests
             await WaitForCompletionAsync(await VirtualMachineScaleSetsOperations.StartDeleteAsync(rgName, "VMScaleSetDoesNotExist"));
 
             var getTwoVirtualMachineScaleSet = await CreateVMScaleSet_NoAsyncTracking(rgName, vmssName, storageAccountOutput, imageRef);
-            VirtualMachineScaleSet vmScaleSet = getTwoVirtualMachineScaleSet.Item1;
-            inputVMScaleSet = getTwoVirtualMachineScaleSet.Item2;
+            VirtualMachineScaleSet vmScaleSet = getTwoVirtualMachineScaleSet.Response;
+            inputVMScaleSet = getTwoVirtualMachineScaleSet.Input;
             var getResponse = await VirtualMachineScaleSetsOperations.GetAsync(rgName, vmScaleSet.Name);
             ValidateVMScaleSet(inputVMScaleSet, getResponse);
 
             // Adding an extension to the VMScaleSet. We will use Patch to update this.
             VirtualMachineScaleSetExtensionProfile extensionProfile = new VirtualMachineScaleSetExtensionProfile()
             {
-                Extensions = new List<VirtualMachineScaleSetExtension>()
-                        {
+                Extensions = {
                             GetTestVMSSVMExtension(),
                         }
             };
@@ -172,7 +169,6 @@ namespace Azure.ResourceManager.Compute.Tests
             inputVMScaleSet.VirtualMachineProfile.ExtensionProfile = extensionProfile;
             getResponse = await VirtualMachineScaleSetsOperations.GetAsync(rgName, vmScaleSet.Name);
             ValidateVMScaleSet(inputVMScaleSet, getResponse);
-
 
             // Scaling the VMScaleSet now to 3 instances
             VirtualMachineScaleSetUpdate patchVMScaleSet2 = new VirtualMachineScaleSetUpdate()

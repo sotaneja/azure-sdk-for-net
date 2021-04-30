@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for all the Bastion Shareable Link endpoints. </summary>
-    public partial class BastionShareableLinkListResult
+    internal partial class BastionShareableLinkListResult
     {
         /// <summary> Initializes a new instance of BastionShareableLinkListResult. </summary>
         internal BastionShareableLinkListResult()
         {
+            Value = new ChangeTrackingList<BastionShareableLink>();
         }
 
         /// <summary> Initializes a new instance of BastionShareableLinkListResult. </summary>

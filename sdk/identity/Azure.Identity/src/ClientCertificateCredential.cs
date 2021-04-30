@@ -1,18 +1,13 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,9 +30,6 @@ namespace Azure.Identity
         /// </summary>
         internal string ClientId { get; }
 
-        /// <summary>
-        /// Gets an object which can provide the X509 Certificate of the service principal.
-        /// </summary>
         internal IX509Certificate2Provider ClientCertificateProvider { get; }
 
         private readonly MsalConfidentialClient _client;
@@ -80,11 +72,9 @@ namespace Azure.Identity
         /// <param name="clientId">The client (application) ID of the service principal</param>
         /// <param name="clientCertificatePath">The path to a file which contains both the client certificate and private key.</param>
         /// <param name="options">Options that allow to configure the management of the requests sent to the Azure Active Directory service.</param>
-        internal ClientCertificateCredential(string tenantId, string clientId, string clientCertificatePath, ClientCertificateCredentialOptions options)
+        public ClientCertificateCredential(string tenantId, string clientId, string clientCertificatePath, ClientCertificateCredentialOptions options)
             : this(tenantId, clientId, clientCertificatePath, options, null, null)
-
-        {
-        }
+        { }
 
         /// <summary>
         /// Creates an instance of the ClientCertificateCredential with the details needed to authenticate against Azure Active Directory with the specified certificate.
@@ -105,10 +95,7 @@ namespace Azure.Identity
         /// <param name="clientCertificate">The authentication X509 Certificate of the service principal</param>
         /// <param name="options">Options that allow to configure the management of the requests sent to the Azure Active Directory service.</param>
         public ClientCertificateCredential(string tenantId, string clientId, X509Certificate2 clientCertificate, TokenCredentialOptions options)
-            : this(tenantId, clientId, clientCertificate, options, null, null)
-
-        {
-        }
+            : this(tenantId, clientId, clientCertificate, options, null, null) {}
 
         /// <summary>
         /// Creates an instance of the ClientCertificateCredential with the details needed to authenticate against Azure Active Directory with the specified certificate.
@@ -117,7 +104,7 @@ namespace Azure.Identity
         /// <param name="clientId">The client (application) ID of the service principal</param>
         /// <param name="clientCertificate">The authentication X509 Certificate of the service principal</param>
         /// <param name="options">Options that allow to configure the management of the requests sent to the Azure Active Directory service.</param>
-        internal ClientCertificateCredential(string tenantId, string clientId, X509Certificate2 clientCertificate, ClientCertificateCredentialOptions options)
+        public ClientCertificateCredential(string tenantId, string clientId, X509Certificate2 clientCertificate, ClientCertificateCredentialOptions options)
             : this(tenantId, clientId, clientCertificate, options, null, null)
         {
         }
@@ -134,7 +121,7 @@ namespace Azure.Identity
 
         internal ClientCertificateCredential(string tenantId, string clientId, IX509Certificate2Provider certificateProvider, TokenCredentialOptions options, CredentialPipeline pipeline, MsalConfidentialClient client)
         {
-            TenantId = tenantId ?? throw new ArgumentNullException(nameof(tenantId));
+            TenantId = Validations.ValidateTenantId(tenantId, nameof(tenantId));
 
             ClientId = clientId ?? throw new ArgumentNullException(nameof(clientId));
 
@@ -142,11 +129,11 @@ namespace Azure.Identity
 
             _pipeline = pipeline ?? CredentialPipeline.GetInstance(options);
 
-            _client = client ?? new MsalConfidentialClient(_pipeline, tenantId, clientId, certificateProvider, options as ITokenCacheOptions);
+            _client = client ?? new MsalConfidentialClient(_pipeline, tenantId, clientId, certificateProvider, (options as ClientCertificateCredentialOptions)?.SendCertificateChain ?? false, options as ITokenCacheOptions);
         }
 
         /// <summary>
-        /// Obtains a token from the Azure Active Directory service, using the specified X509 certificate to authenticate. This method is called by Azure SDK clients. It isn't intended for use in application code.
+        /// Obtains a token from the Azure Active Directory service, using the specified X509 certificate to authenticate. This method is called automatically by Azure SDK client libraries. You may call this method directly, but you must also handle token caching and token refreshing.
         /// </summary>
         /// <param name="requestContext">The details of the authentication request.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> controlling the request lifetime.</param>
@@ -168,7 +155,7 @@ namespace Azure.Identity
         }
 
         /// <summary>
-        /// Obtains a token from the Azure Active Directory service, using the specified X509 certificate to authenticate. This method is called by Azure SDK clients. It isn't intended for use in application code.
+        /// Obtains a token from the Azure Active Directory service, using the specified X509 certificate to authenticate. This method is called automatically by Azure SDK client libraries. You may call this method directly, but you must also handle token caching and token refreshing.
         /// </summary>
         /// <param name="requestContext">The details of the authentication request.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> controlling the request lifetime.</param>
@@ -323,61 +310,7 @@ namespace Azure.Identity
                         }
                     }
 
-                    Regex certificateRegex = new Regex("(-+BEGIN CERTIFICATE-+)(\n\r?|\r\n?)([A-Za-z0-9+/\n\r]+=*)(\n\r?|\r\n?)(-+END CERTIFICATE-+)", RegexOptions.CultureInvariant, TimeSpan.FromSeconds(5));
-                    Regex privateKeyRegex = new Regex("(-+BEGIN PRIVATE KEY-+)(\n\r?|\r\n?)([A-Za-z0-9+/\n\r]+=*)(\n\r?|\r\n?)(-+END PRIVATE KEY-+)", RegexOptions.CultureInvariant, TimeSpan.FromSeconds(5));
-
-                    Match certificateMatch = certificateRegex.Match(certficateText);
-                    Match privateKeyMatch = privateKeyRegex.Match(certficateText);
-
-                    if (!certificateMatch.Success)
-                    {
-                        throw new InvalidDataException("Could not find certificate in PEM file");
-                    }
-
-                    if (!privateKeyMatch.Success)
-                    {
-                        throw new InvalidDataException("Could not find private key in PEM file");
-                    }
-
-                    // ImportPkcs8PrivateKey was added in .NET Core 3.0, it is only present on Core.  If we can't find this method, we have a lightweight decoder we can use.
-                    MethodInfo importPkcs8PrivateKeyMethodInfo = typeof(RSA).GetMethod("ImportPkcs8PrivateKey", BindingFlags.Instance | BindingFlags.Public, null, new Type[] { typeof(ReadOnlySpan<byte>), typeof(int).MakeByRefType() }, null);
-
-                    // CopyWithPrivateKey is present in .NET Core 2.0+ and .NET 4.7.2+.
-                    MethodInfo copyWithPrivateKeyMethodInfo = typeof(RSACertificateExtensions).GetMethod("CopyWithPrivateKey", BindingFlags.Static | BindingFlags.Public, null, new Type[] { typeof(X509Certificate2), typeof(RSA) }, null);
-
-                    if (copyWithPrivateKeyMethodInfo == null)
-                    {
-                        throw new PlatformNotSupportedException("The current platform does not support reading a private key from a PEM file");
-                    }
-
-                    RSA privateKey;
-
-                    if (importPkcs8PrivateKeyMethodInfo != null)
-                    {
-                        privateKey = RSA.Create();
-
-                        // Because ImportPkcs8PrivateKey takes a ReadOnlySpan<byte> as an argument, we can not call it directly via MethodInfo.Invoke (since all the arguments to the function
-                        // have to be passed to MethodInfo.Invoke in an object array, and you can't put a byref type like ReadOnlySpan<T> in an array. So we create a delegate with the
-                        // correct signature bound to the privateKey we want to import into and invoke that.
-                        ImportPkcs8PrivateKeyDelegate importPrivateKey = (ImportPkcs8PrivateKeyDelegate)importPkcs8PrivateKeyMethodInfo.CreateDelegate(typeof(ImportPkcs8PrivateKeyDelegate), privateKey);
-                        importPrivateKey(Convert.FromBase64String(privateKeyMatch.Groups[3].Value), out int _);
-                    }
-                    else
-                    {
-                        privateKey = LightweightPkcs8Decoder.DecodeRSAPkcs8(Convert.FromBase64String(privateKeyMatch.Groups[3].Value));
-                    }
-
-                    X509Certificate2 certWithoutPrivateKey = new X509Certificate2(Convert.FromBase64String(certificateMatch.Groups[3].Value));
-                    Certificate = (X509Certificate2)copyWithPrivateKeyMethodInfo.Invoke(null, new object[] { certWithoutPrivateKey, privateKey });
-
-                    // On desktop NetFX it appears the PrivateKey property is not initialized after calling CopyWithPrivateKey
-                    // this leads to an issue when using the MSAL ConfidentialClient which uses the PrivateKey property to get the
-                    // signing key vs. the extension method GetRsaPrivateKey which we were previously using when signing the claim ourselves.
-                    // Because of this we need to set PrivateKey to the instance we created to deserialize the private key
-                    if (Certificate.PrivateKey == null)
-                    {
-                        Certificate.PrivateKey = privateKey;
-                    }
+                    Certificate = PemReader.LoadCertificate(certficateText.AsSpan(), keyType: PemReader.KeyType.RSA);
 
                     return Certificate;
                 }

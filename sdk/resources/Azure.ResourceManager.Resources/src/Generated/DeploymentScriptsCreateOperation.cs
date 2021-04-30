@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Resources
     public partial class DeploymentScriptsCreateOperation : Operation<DeploymentScript>, IOperationSource<DeploymentScript>
     {
         private readonly ArmOperationHelpers<DeploymentScript> _operation;
+
+        /// <summary> Initializes a new instance of DeploymentScriptsCreateOperation for mocking. </summary>
+        protected DeploymentScriptsCreateOperation()
+        {
+        }
+
         internal DeploymentScriptsCreateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<DeploymentScript>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "DeploymentScriptsCreateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Resources
         DeploymentScript IOperationSource<DeploymentScript>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return DeploymentScript.DeserializeDeploymentScript(document.RootElement);
-            }
+            return DeploymentScript.DeserializeDeploymentScript(document.RootElement);
         }
 
         async ValueTask<DeploymentScript> IOperationSource<DeploymentScript>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return DeploymentScript.DeserializeDeploymentScript(document.RootElement);
-            }
+            return DeploymentScript.DeserializeDeploymentScript(document.RootElement);
         }
     }
 }

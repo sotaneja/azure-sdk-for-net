@@ -84,7 +84,6 @@ namespace ResourceGroups.Tests
             }
         }
 
-
         /// <summary>
         /// Utility method to test Put request for Tags Operation within tracked resources and proxy resources
         /// </summary>
@@ -92,7 +91,7 @@ namespace ResourceGroups.Tests
         {
             var tagsResource = new TagsResource(new Tags()
             {
-                TagsValue = new Dictionary<string, string> {
+                TagsValue = {
                     { "tagKey1", "tagValue1" },
                     { "tagKey2", "tagValue2" }
                 }
@@ -139,7 +138,7 @@ namespace ResourceGroups.Tests
             // using Tags.CreateOrUpdateAtScope to create two tags initially
             var tagsResource = new TagsResource(new Tags()
             {
-                TagsValue = new Dictionary<string, string> {
+                TagsValue = {
                     { "tagKey1", "tagValue1" },
                     { "tagKey2", "tagValue2" }
                 }
@@ -151,19 +150,19 @@ namespace ResourceGroups.Tests
 
             var putTags = new Tags()
             {
-                TagsValue = new Dictionary<string, string> {
+                TagsValue = {
                     { "tagKey1", "tagValue3" },
                     { "tagKey3", "tagValue3" }
                 }
             };
-
-            { // test for Merge operation
+            // test for Merge operation
+            {
                 var tagPatchRequest = new TagsPatchResource() { Operation = TagsPatchResourceOperation.Merge, Properties = putTags };
                 var patchResponse =(await TagsOperations.UpdateAtScopeAsync(resourceScope, tagPatchRequest)).Value;
 
                 var expectedResponse = new TagsResource(new Tags()
                 {
-                    TagsValue = new Dictionary<string, string> {
+                    TagsValue = {
                     { "tagKey1", "tagValue3" },
                     { "tagKey2", "tagValue2" },
                     { "tagKey3", "tagValue3" }
@@ -173,8 +172,8 @@ namespace ResourceGroups.Tests
                 Assert.AreEqual(patchResponse.Properties.TagsValue.Count(), expectedResponse.Properties.TagsValue.Count());
                 Assert.IsTrue(this.CompareTagsResource(expectedResponse, patchResponse));
             }
-
-            { // test for Replace operation
+            // test for Replace operation
+            {
                 var tagPatchRequest = new TagsPatchResource() { Operation = TagsPatchResourceOperation.Replace, Properties = putTags };
                 var patchResponse = (await TagsOperations.UpdateAtScopeAsync(resourceScope, tagPatchRequest)).Value;
 
@@ -182,8 +181,8 @@ namespace ResourceGroups.Tests
                 Assert.AreEqual(patchResponse.Properties.TagsValue.Count(), expectedResponse.Properties.TagsValue.Count());
                 Assert.IsTrue(this.CompareTagsResource(expectedResponse, patchResponse));
             }
-
-            { // test for Delete operation
+            // test for Delete operation
+            {
                 var tagPatchRequest = new TagsPatchResource() { Operation = TagsPatchResourceOperation.Delete, Properties = putTags };
                 var patchResponse = (await TagsOperations.UpdateAtScopeAsync(resourceScope, tagPatchRequest)).Value;
                 Assert.IsEmpty(patchResponse.Properties.TagsValue);
@@ -222,7 +221,7 @@ namespace ResourceGroups.Tests
             // using Tags.CreateOrUpdateAtScope to create two tags initially
             var tagsResource = new TagsResource(new Tags()
             {
-                TagsValue = new Dictionary<string, string> {
+                TagsValue = {
                     { "tagKey1", "tagValue1" },
                     { "tagKey2", "tagValue2" }
                 }
@@ -269,7 +268,7 @@ namespace ResourceGroups.Tests
             // using Tags.CreateOrUpdateAtScope to create two tags initially
             var tagsResource = new TagsResource(new Tags()
             {
-                TagsValue = new Dictionary<string, string> {
+                TagsValue = {
                     { "tagKey1", "tagValue1" },
                     { "tagKey2", "tagValue2" }
                 }
@@ -306,7 +305,7 @@ namespace ResourceGroups.Tests
         public void DeleteTagsWithSubscriptionTest()
         {
             // test tags for subscription
-            Assert.IsNull(DeleteTagsTest().Result.Properties.TagsValue);
+            Assert.IsEmpty(DeleteTagsTest().Result.Properties.TagsValue);
         }
 
         /// <summary>

@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for the ListRouteFilterRules API service call. </summary>
-    public partial class RouteFilterRuleListResult
+    internal partial class RouteFilterRuleListResult
     {
         /// <summary> Initializes a new instance of RouteFilterRuleListResult. </summary>
         internal RouteFilterRuleListResult()
         {
+            Value = new ChangeTrackingList<RouteFilterRule>();
         }
 
         /// <summary> Initializes a new instance of RouteFilterRuleListResult. </summary>

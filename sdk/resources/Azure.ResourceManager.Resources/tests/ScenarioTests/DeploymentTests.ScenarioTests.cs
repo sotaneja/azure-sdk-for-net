@@ -93,7 +93,7 @@ namespace ResourceGroups.Tests
                     (@"{'repoURL': {'value': 'https://github.com/devigned/az-roadshow-oss.git'}, 'siteName': {'value': '" + resourceName + "'}, 'location': {'value': 'westus'}, 'sku': {'value': 'F1'}}").Replace("'", "\"")
                 }
             ){
-                Tags = new Dictionary<string, string> { { "tagKey1", "tagValue1" } }
+                Tags = { { "tagKey1", "tagValue1" } }
             };
             string groupName = Recording.GenerateAssetName("csmrg");
             string deploymentName = Recording.GenerateAssetName("csmd");
@@ -178,7 +178,6 @@ namespace ResourceGroups.Tests
             {
                 Assert.IsTrue(ex.Message.Contains("InvalidTemplate"));
             }
-
         }
 
         [Test]
@@ -224,7 +223,7 @@ namespace ResourceGroups.Tests
                 }
             ){
                 Location = "WestUS",
-                Tags = new Dictionary<string, string> { { "tagKey1", "tagValue1" } }
+                Tags = { { "tagKey1", "tagValue1" } }
             };
 
             await ResourceGroupsOperations.CreateOrUpdateAsync(groupName, new ResourceGroup("WestUS"));
@@ -264,7 +263,7 @@ namespace ResourceGroups.Tests
                     Parameters = "{'storageAccountName': {'value': 'tagsa021921'}}".Replace("'", "\"")
                 }
             ){
-                Tags = new Dictionary<string, string> { { "tagKey1", "tagValue1" } }
+                Tags = { { "tagKey1", "tagValue1" } }
             };
 
             //Validate
@@ -302,7 +301,7 @@ namespace ResourceGroups.Tests
                     Parameters = "{'managementGroupId': {'value': 'tiano-mgtest01'}}".Replace("'", "\"")
                 }
             ){
-                Tags = new Dictionary<string, string> { { "tagKey1", "tagValue1" } }
+                Tags = { { "tagKey1", "tagValue1" } }
             };
 
             //Validate
@@ -343,7 +342,7 @@ namespace ResourceGroups.Tests
                 }
             ){
                 Location = "East US 2",
-                Tags = new Dictionary<string, string> { { "tagKey1", "tagValue1" } }
+                Tags = { { "tagKey1", "tagValue1" } }
             };
 
             //Validate
@@ -386,7 +385,7 @@ File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembl
                 }
             ){
                 Location = "East US",
-                Tags = new Dictionary<string, string> { { "tagKey1", "tagValue1" } }
+                Tags = { { "tagKey1", "tagValue1" } }
             };
 
             var managementGroupScope = $"//providers/Microsoft.Management/managementGroups/{groupId}";
@@ -429,7 +428,7 @@ File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembl
                 }
             ){
                 Location = "WestUS",
-                Tags = new Dictionary<string, string> { { "tagKey1", "tagValue1" } }
+                Tags = { { "tagKey1", "tagValue1" } }
             };
 
             await ResourceGroupsOperations.CreateOrUpdateAsync(groupName, new ResourceGroup("WestUS"));
@@ -463,6 +462,7 @@ File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembl
         {
             string groupName = "SDK-test-01";
             string deploymentName = Recording.GenerateAssetName("csmd");
+            string accountName = Recording.GenerateAssetName("sdktestaccount");
             var templateString = File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "ScenarioTests", "simple-storage-account.json"));
 
             var parameters = new Deployment
@@ -470,10 +470,10 @@ File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembl
                 new DeploymentProperties(DeploymentMode.Incremental)
                 {
                     Template = templateString,
-                    Parameters = "{'storageAccountName': {'value': 'tianotest105'}}".Replace("'", "\"")
+                    Parameters = ("{'storageAccountName': {'value': '"+ accountName + "'}}").Replace("'", "\"")
                 }
             ){
-                Tags = new Dictionary<string, string> { { "tagKey1", "tagValue1" } }
+                Tags = { { "tagKey1", "tagValue1" } }
             };
 
             await ResourceGroupsOperations.CreateOrUpdateAsync(groupName, new ResourceGroup("WestUS"));

@@ -4,7 +4,7 @@
 using System.Threading.Tasks;
 using Azure.Core.TestFramework;
 using Azure.ResourceManager.Compute.Models;
-using Azure.Management.Resources;
+using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.Compute.Tests
@@ -53,10 +53,11 @@ namespace Azure.ResourceManager.Compute.Tests
              {
                  vm.StorageProfile.OsDisk.DiskSizeGB = 150;
              });
-            var vm1 = returnTwoVM.Item1;
-            inputVM = returnTwoVM.Item2;
-            var getVMResponse = await VirtualMachinesOperations.GetAsync(rgName, inputVM.Name);
-            ValidateVM(inputVM, getVMResponse, Helpers.GetVMReferenceId(m_subId, rgName, inputVM.Name));
+            var vm1 = returnTwoVM.Response;
+            inputVM = returnTwoVM.Input;
+            string inputVMName = returnTwoVM.Name;
+            var getVMResponse = await VirtualMachinesOperations.GetAsync(rgName, inputVMName);
+            ValidateVM(inputVM, getVMResponse, Helpers.GetVMReferenceId(m_subId, rgName, inputVMName));
         }
     }
 }

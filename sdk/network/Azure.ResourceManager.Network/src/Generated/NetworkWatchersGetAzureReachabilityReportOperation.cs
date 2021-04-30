@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class NetworkWatchersGetAzureReachabilityReportOperation : Operation<AzureReachabilityReport>, IOperationSource<AzureReachabilityReport>
     {
         private readonly ArmOperationHelpers<AzureReachabilityReport> _operation;
+
+        /// <summary> Initializes a new instance of NetworkWatchersGetAzureReachabilityReportOperation for mocking. </summary>
+        protected NetworkWatchersGetAzureReachabilityReportOperation()
+        {
+        }
+
         internal NetworkWatchersGetAzureReachabilityReportOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<AzureReachabilityReport>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "NetworkWatchersGetAzureReachabilityReportOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         AzureReachabilityReport IOperationSource<AzureReachabilityReport>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return AzureReachabilityReport.DeserializeAzureReachabilityReport(document.RootElement);
-            }
+            return AzureReachabilityReport.DeserializeAzureReachabilityReport(document.RootElement);
         }
 
         async ValueTask<AzureReachabilityReport> IOperationSource<AzureReachabilityReport>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return AzureReachabilityReport.DeserializeAzureReachabilityReport(document.RootElement);
-            }
+            return AzureReachabilityReport.DeserializeAzureReachabilityReport(document.RootElement);
         }
     }
 }

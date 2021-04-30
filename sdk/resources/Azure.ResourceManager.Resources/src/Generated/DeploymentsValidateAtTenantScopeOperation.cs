@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Resources
     public partial class DeploymentsValidateAtTenantScopeOperation : Operation<DeploymentValidateResult>, IOperationSource<DeploymentValidateResult>
     {
         private readonly ArmOperationHelpers<DeploymentValidateResult> _operation;
+
+        /// <summary> Initializes a new instance of DeploymentsValidateAtTenantScopeOperation for mocking. </summary>
+        protected DeploymentsValidateAtTenantScopeOperation()
+        {
+        }
+
         internal DeploymentsValidateAtTenantScopeOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<DeploymentValidateResult>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "DeploymentsValidateAtTenantScopeOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Resources
         DeploymentValidateResult IOperationSource<DeploymentValidateResult>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return DeploymentValidateResult.DeserializeDeploymentValidateResult(document.RootElement);
-            }
+            return DeploymentValidateResult.DeserializeDeploymentValidateResult(document.RootElement);
         }
 
         async ValueTask<DeploymentValidateResult> IOperationSource<DeploymentValidateResult>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return DeploymentValidateResult.DeserializeDeploymentValidateResult(document.RootElement);
-            }
+            return DeploymentValidateResult.DeserializeDeploymentValidateResult(document.RootElement);
         }
     }
 }

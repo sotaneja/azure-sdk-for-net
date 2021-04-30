@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class ExpressRouteCircuitsListRoutesTableSummaryOperation : Operation<ExpressRouteCircuitsRoutesTableSummaryListResult>, IOperationSource<ExpressRouteCircuitsRoutesTableSummaryListResult>
     {
         private readonly ArmOperationHelpers<ExpressRouteCircuitsRoutesTableSummaryListResult> _operation;
+
+        /// <summary> Initializes a new instance of ExpressRouteCircuitsListRoutesTableSummaryOperation for mocking. </summary>
+        protected ExpressRouteCircuitsListRoutesTableSummaryOperation()
+        {
+        }
+
         internal ExpressRouteCircuitsListRoutesTableSummaryOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ExpressRouteCircuitsRoutesTableSummaryListResult>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "ExpressRouteCircuitsListRoutesTableSummaryOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         ExpressRouteCircuitsRoutesTableSummaryListResult IOperationSource<ExpressRouteCircuitsRoutesTableSummaryListResult>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ExpressRouteCircuitsRoutesTableSummaryListResult.DeserializeExpressRouteCircuitsRoutesTableSummaryListResult(document.RootElement);
-            }
+            return ExpressRouteCircuitsRoutesTableSummaryListResult.DeserializeExpressRouteCircuitsRoutesTableSummaryListResult(document.RootElement);
         }
 
         async ValueTask<ExpressRouteCircuitsRoutesTableSummaryListResult> IOperationSource<ExpressRouteCircuitsRoutesTableSummaryListResult>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ExpressRouteCircuitsRoutesTableSummaryListResult.DeserializeExpressRouteCircuitsRoutesTableSummaryListResult(document.RootElement);
-            }
+            return ExpressRouteCircuitsRoutesTableSummaryListResult.DeserializeExpressRouteCircuitsRoutesTableSummaryListResult(document.RootElement);
         }
     }
 }

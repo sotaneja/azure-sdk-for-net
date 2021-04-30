@@ -38,7 +38,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
 
         // create container
         // delete container
-        [Test]
+        [RecordedTest]
         public async Task BlobContainersCreateDeleteTest()
         {
             // Create resource group
@@ -52,18 +52,18 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             // implement case
             string containerName = Recording.GenerateAssetName("container");
             Response<BlobContainer> blobContainer = await BlobContainersClient.CreateAsync(rgName, accountName, containerName, new BlobContainer());
-            Assert.Null(blobContainer.Value.Metadata);
+            Assert.IsEmpty(blobContainer.Value.Metadata);
             Assert.Null(blobContainer.Value.PublicAccess);
 
             blobContainer = await BlobContainersClient.GetAsync(rgName, accountName, containerName);
-            Assert.Null(blobContainer.Value.Metadata);
+            Assert.IsEmpty(blobContainer.Value.Metadata);
             Assert.AreEqual(PublicAccess.None, blobContainer.Value.PublicAccess);
             Assert.False(blobContainer.Value.HasImmutabilityPolicy);
             Assert.False(blobContainer.Value.HasLegalHold);
 
             //Delete container, then no container in the storage account
             await BlobContainersClient.DeleteAsync(rgName, accountName, containerName);
-            AsyncPageable<ListContainerItem> blobContainers = BlobContainersClient.ListAsync(rgName, accountName);
+            AsyncPageable<ListContainerItem> blobContainers = BlobContainersClient.ListAsync(rgName, accountName, include: ListContainersInclude.Deleted);
             Task<List<ListContainerItem>> blobContainersList = blobContainers.ToEnumerableAsync();
             Assert.IsEmpty(blobContainersList.Result);
 
@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
 
         // update container
         // get container properties
-        [Test]
+        [RecordedTest]
         public async Task BlobContainersUpdateTest()
         {
             // Create resource group
@@ -87,16 +87,17 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             // implement case
             string containerName = Recording.GenerateAssetName("container");
             Response<BlobContainer> blobContainer = await BlobContainersClient.CreateAsync(rgName, accountName, containerName, new BlobContainer());
-            Assert.Null(blobContainer.Value.Metadata);
+            Assert.IsEmpty(blobContainer.Value.Metadata);
             Assert.Null(blobContainer.Value.PublicAccess);
 
-            blobContainer.Value.Metadata = new Dictionary<string, string>
-                {
-                    { "metadata", "true" }
-                };
+            blobContainer.Value.Metadata.Add("metadata", "true");
+
             blobContainer.Value.PublicAccess = PublicAccess.Container;
+            var container = new BlobContainer() { PublicAccess = blobContainer.Value.PublicAccess };
+            container.Metadata.InitializeFrom(blobContainer.Value.Metadata);
+
             Response<BlobContainer> blobContainerSet = await BlobContainersClient.UpdateAsync(rgName, accountName, containerName,
-                new BlobContainer() { Metadata = blobContainer.Value.Metadata, PublicAccess = blobContainer.Value.PublicAccess });
+                container);
             Assert.NotNull(blobContainerSet.Value.Metadata);
             Assert.AreEqual(PublicAccess.Container, blobContainerSet.Value.PublicAccess);
             Assert.AreEqual(blobContainerSet.Value.Metadata, blobContainerSet.Value.Metadata);
@@ -117,7 +118,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
         }
 
         // create/update container with EncryptionScope
-        [Test]
+        [RecordedTest]
         public async Task BlobContainersEncryptionScopeTest()
         {
             // Create resource group
@@ -127,7 +128,6 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             // Create storage account
             StorageAccount account = await CreateStorageAccountAsync(rgName, accountName);
             VerifyAccountProperties(account, true);
-
 
             // implement case
             //Create EcryptionScope
@@ -160,7 +160,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
         }
 
         // list containers
-        [Test]
+        [RecordedTest]
         public async Task BlobContainersListTest()
         {
             // Create resource group
@@ -175,18 +175,20 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             // implement case
             string containerName1 = Recording.GenerateAssetName("container");
             Response<BlobContainer> blobContainer = await BlobContainersClient.CreateAsync(rgName, accountName, containerName1, new BlobContainer());
-            Assert.Null(blobContainer.Value.Metadata);
+            Assert.IsEmpty(blobContainer.Value.Metadata);
             Assert.Null(blobContainer.Value.PublicAccess);
 
-            blobContainer.Value.Metadata = new Dictionary<string, string> { { "metadata", "true" } };
+            blobContainer.Value.Metadata.Add("metadata", "true");
             blobContainer.Value.PublicAccess = PublicAccess.Container;
+            var container = new BlobContainer()
+            {
+                PublicAccess = blobContainer.Value.PublicAccess
+            };
+            container.Metadata.InitializeFrom(blobContainer.Value.Metadata);
+
             Response<BlobContainer> blobContainerSet =
                 await BlobContainersClient.UpdateAsync(rgName, accountName, containerName1,
-                                                       new BlobContainer()
-                                                       {
-                                                           Metadata = blobContainer.Value.Metadata,
-                                                           PublicAccess = blobContainer.Value.PublicAccess
-                                                       });
+                                                       container);
             Assert.NotNull(blobContainer.Value.Metadata);
             Assert.NotNull(blobContainer.Value.PublicAccess);
             Assert.AreEqual(blobContainer.Value.Metadata, blobContainerSet.Value.Metadata);
@@ -196,12 +198,12 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
 
             string containerName2 = Recording.GenerateAssetName("container");
             Response<BlobContainer> blobContainer2 = await BlobContainersClient.CreateAsync(rgName, accountName, containerName2, new BlobContainer());
-            Assert.Null(blobContainer2.Value.Metadata);
+            Assert.IsEmpty(blobContainer2.Value.Metadata);
             Assert.Null(blobContainer2.Value.PublicAccess);
 
             string containerName3 = Recording.GenerateAssetName("container");
             Response<BlobContainer> blobContainer3 = await BlobContainersClient.CreateAsync(rgName, accountName, containerName3, new BlobContainer());
-            Assert.Null(blobContainer3.Value.Metadata);
+            Assert.IsEmpty(blobContainer3.Value.Metadata);
             Assert.Null(blobContainer3.Value.PublicAccess);
 
             //TODO:In track1 the function use "CloudStorageAccount" class, the class depend on  "Microsoft.WindowsAzure.Storage ".
@@ -210,7 +212,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             //container.AcquireLeaseAsync(TimeSpan.FromSeconds(45)).Wait();
 
             //List container
-            AsyncPageable<ListContainerItem> containerList = BlobContainersClient.ListAsync(rgName, accountName);
+            AsyncPageable<ListContainerItem> containerList = BlobContainersClient.ListAsync(rgName, accountName, include: ListContainersInclude.Deleted);
             Task<List<ListContainerItem>> containerLists = containerList.ToEnumerableAsync();
             Assert.AreEqual(3, containerLists.Result.Count());
             foreach (ListContainerItem blobContainerList in containerLists.Result)
@@ -222,12 +224,12 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             }
 
             //List container with next link
-            containerList = BlobContainersClient.ListAsync(rgName, accountName, "2");
+            containerList = BlobContainersClient.ListAsync(rgName, accountName, "2", include: ListContainersInclude.Deleted);
             Task<List<Page<ListContainerItem>>> pages = containerList.AsPages().ToEnumerableAsync();
             Assert.AreEqual(2, pages.Result.Count());
         }
 
-        [Test]
+        [RecordedTest]
         public async Task BlobContainersGetTest()
         {
             // Create resource group
@@ -242,7 +244,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             // implement case
             string containerName = Recording.GenerateAssetName("container");
             Response<BlobContainer> blobContainer = await BlobContainersClient.CreateAsync(rgName, accountName, containerName, new BlobContainer());
-            Assert.Null(blobContainer.Value.Metadata);
+            Assert.IsEmpty(blobContainer.Value.Metadata);
             Assert.Null(blobContainer.Value.PublicAccess);
 
             LegalHold LegalHoldModel = new LegalHold(new List<string> { "tag1", "tag2", "tag3" });
@@ -257,7 +259,6 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.NotNull(immutabilityPolicy.Value.Name);
             Assert.AreEqual(3, immutabilityPolicy.Value.ImmutabilityPeriodSinceCreationInDays);
             Assert.AreEqual(ImmutabilityPolicyState.Unlocked, immutabilityPolicy.Value.State);
-
 
             immutabilityPolicy = await BlobContainersClient.LockImmutabilityPolicyAsync(rgName, accountName, containerName, ifMatch: immutabilityPolicy.Value.Etag);
             Assert.NotNull(immutabilityPolicy.Value.Id);
@@ -275,7 +276,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual(ImmutabilityPolicyState.Locked, immutabilityPolicy.Value.State);
 
             blobContainer = await BlobContainersClient.GetAsync(rgName, accountName, containerName);
-            Assert.Null(blobContainer.Value.Metadata);
+            Assert.IsEmpty(blobContainer.Value.Metadata);
             Assert.AreEqual(PublicAccess.None, blobContainer.Value.PublicAccess);
             Assert.AreEqual(3, blobContainer.Value.ImmutabilityPolicy.UpdateHistory.Count);
             Assert.AreEqual(ImmutabilityPolicyUpdateType.Put, blobContainer.Value.ImmutabilityPolicy.UpdateHistory[0].Update);
@@ -294,7 +295,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
         }
 
         // set/clear legal hold.
-        [Test]
+        [RecordedTest]
         public async Task BlobContainersSetLegalHoldTest()
         {
             // Create resource group
@@ -309,7 +310,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             // implement case
             string containerName = Recording.GenerateAssetName("container");
             Response<BlobContainer> blobContainer = await BlobContainersClient.CreateAsync(rgName, accountName, containerName, new BlobContainer());
-            Assert.Null(blobContainer.Value.Metadata);
+            Assert.IsEmpty(blobContainer.Value.Metadata);
             Assert.Null(blobContainer.Value.PublicAccess);
 
             LegalHold LegalHoldModel = new LegalHold(new List<string> { "tag1", "tag2", "tag3" });
@@ -359,7 +360,6 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
         //            LeaseContainerResponse leaseResponse = storageMgmtClient.BlobContainers.Lease(rgName, accountName, containerName);
         //            Assert.NotNull(leaseResponse.LeaseId);
 
-
         //            blobContainer = storageMgmtClient.BlobContainers.Get(rgName, accountName, containerName);
         //            Assert.Equal("Leased", blobContainer.LeaseState);
         //        }
@@ -374,7 +374,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
         //}
 
         // create and delete immutability policies.
-        [Test]
+        [RecordedTest]
         public async Task BlobContainersCreateDeleteImmutabilityPolicyTest()
         {
             // Create resource group
@@ -389,7 +389,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             // implement case
             string containerName = Recording.GenerateAssetName("container");
             Response<BlobContainer> blobContainer = await BlobContainersClient.CreateAsync(rgName, accountName, containerName, new BlobContainer());
-            Assert.Null(blobContainer.Value.Metadata);
+            Assert.IsEmpty(blobContainer.Value.Metadata);
             Assert.Null(blobContainer.Value.PublicAccess);
 
             ImmutabilityPolicy ImmutabilityPolicyModel = new ImmutabilityPolicy() { ImmutabilityPeriodSinceCreationInDays = 3 };
@@ -409,7 +409,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
         }
 
         // update and get immutability policies.
-        [Test]
+        [RecordedTest]
         public async Task BlobContainersUpdateImmutabilityPolicyTest()
         {
             // Create resource group
@@ -424,7 +424,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             // implement case
             string containerName = Recording.GenerateAssetName("container");
             Response<BlobContainer> blobContainer = await BlobContainersClient.CreateAsync(rgName, accountName, containerName, new BlobContainer());
-            Assert.Null(blobContainer.Value.Metadata);
+            Assert.IsEmpty(blobContainer.Value.Metadata);
             Assert.Null(blobContainer.Value.PublicAccess);
 
             ImmutabilityPolicy ImmutabilityPolicyModel = new ImmutabilityPolicy() { ImmutabilityPeriodSinceCreationInDays = 3 };
@@ -452,7 +452,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
         }
 
         // create/update immutability policies with AllowProtectedAppendWrites.
-        [Test]
+        [RecordedTest]
         public async Task ImmutabilityPolicyTest_AllowProtectedAppendWrites()
         {
             // Create resource group
@@ -467,7 +467,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             // implement case
             string containerName = Recording.GenerateAssetName("container");
             Response<BlobContainer> blobContainer = await BlobContainersClient.CreateAsync(rgName, accountName, containerName, new BlobContainer());
-            Assert.Null(blobContainer.Value.Metadata);
+            Assert.IsEmpty(blobContainer.Value.Metadata);
             Assert.Null(blobContainer.Value.PublicAccess);
 
             ImmutabilityPolicy ImmutabilityPolicyModel = new ImmutabilityPolicy() { ImmutabilityPeriodSinceCreationInDays = 4, AllowProtectedAppendWrites = true };
@@ -498,9 +498,8 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.False(immutabilityPolicy.Value.AllowProtectedAppendWrites.Value);
         }
 
-
         // lock immutability policies.
-        [Test]
+        [RecordedTest]
         public async Task BlobContainersLockImmutabilityPolicyTest()
         {
             // Create resource group
@@ -515,7 +514,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             // implement case
             string containerName = Recording.GenerateAssetName("container");
             Response<BlobContainer> blobContainer = await BlobContainersClient.CreateAsync(rgName, accountName, containerName, new BlobContainer());
-            Assert.Null(blobContainer.Value.Metadata);
+            Assert.IsEmpty(blobContainer.Value.Metadata);
             Assert.Null(blobContainer.Value.PublicAccess);
 
             ImmutabilityPolicy ImmutabilityPolicyModel = new ImmutabilityPolicy() { ImmutabilityPeriodSinceCreationInDays = 3 };
@@ -537,7 +536,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
         }
 
         // extend immutability policies.
-        [Test]
+        [RecordedTest]
         public async Task BlobContainersExtendImmutabilityPolicyTest()
         {
             // Create resource group
@@ -552,7 +551,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             // implement case
             string containerName = Recording.GenerateAssetName("container");
             Response<BlobContainer> blobContainer = await BlobContainersClient.CreateAsync(rgName, accountName, containerName, new BlobContainer());
-            Assert.Null(blobContainer.Value.Metadata);
+            Assert.IsEmpty(blobContainer.Value.Metadata);
             Assert.Null(blobContainer.Value.PublicAccess);
 
             ImmutabilityPolicy ImmutabilityPolicyModel = new ImmutabilityPolicy() { ImmutabilityPeriodSinceCreationInDays = 3 };
@@ -582,7 +581,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
         }
 
         // Get/Set Blob Service Properties
-        [Test]
+        [RecordedTest]
         public async Task BlobServiceTest()
         {
             // Create resource group
@@ -615,7 +614,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
         }
 
         // Get/Set Cors rules in Blob Service Properties
-        [Test]
+        [RecordedTest]
         public async Task BlobServiceCorsTest()
         {
             // Create resource group
@@ -638,14 +637,12 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
                 DefaultServiceVersion = "2017-04-17",
                 Cors = new CorsRules()
             };
-            properties2.Cors.CorsRulesValue = new List<CorsRule>
-                {
-                    new CorsRule(allowedOrigins:new string[] { "http://www.contoso.com", "http://www.fabrikam.com" },
+            properties2.Cors.CorsRulesValue.Add(
+                    new CorsRule(allowedOrigins: new string[] { "http://www.contoso.com", "http://www.fabrikam.com" },
                     allowedMethods: new CorsRuleAllowedMethodsItem[] { "GET", "HEAD", "POST", "OPTIONS", "MERGE", "PUT" },
-                    maxAgeInSeconds:100,
-                    exposedHeaders:new string[] { "x-ms-meta-*" },
-                    allowedHeaders:new string[] { "x-ms-meta-abc", "x-ms-meta-data*", "x-ms-meta-target*" })
-                };
+                    maxAgeInSeconds: 100,
+                    exposedHeaders: new string[] { "x-ms-meta-*" },
+                    allowedHeaders: new string[] { "x-ms-meta-abc", "x-ms-meta-data*", "x-ms-meta-target*" }));
 
             properties2.Cors.CorsRulesValue.Add(new CorsRule(allowedOrigins: new string[] { "*" },
                 allowedMethods: new CorsRuleAllowedMethodsItem[] { "GET" },
@@ -699,7 +696,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
         }
 
         // List Blob Service
-        [Test]
+        [RecordedTest]
         public async Task ListBlobServiceTest()
         {
             // Create resource group
@@ -718,7 +715,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
         }
 
         // Point In Time Restore test
-        [Test]
+        [RecordedTest]
         [Ignore("Track2: Response<BlobRestoreStatus> restoreStatusResponse = await WaitForCompletionAsync(restoreStatus); Always timeout")]
         public async Task PITRTest()
         {
@@ -780,7 +777,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
         }
 
         // Object replication test
-        [Test]
+        [RecordedTest]
         public async Task ORSTest()
         {
             // Create resource group
@@ -825,7 +822,6 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             await BlobContainersClient.CreateAsync(rgName, destAccountName, destContainerName2, new BlobContainer());
 
             //new rules
-            List<string> prefix = new List<string> { "aa", "bc d", "123" };
             string minCreationTime = "2020-03-19T16:06:00Z";
             List<ObjectReplicationPolicyRule> rules = new List<ObjectReplicationPolicyRule>
                 {
@@ -833,7 +829,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
                     {
                         Filters = new ObjectReplicationPolicyFilter()
                         {
-                            PrefixMatch = prefix,
+                            PrefixMatch = { "aa", "bc d", "123" },
                             MinCreationTime = minCreationTime
                         }
                     },
@@ -845,9 +841,8 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             {
                 SourceAccount = sourceAccountName,
                 DestinationAccount = destAccountName,
-                Rules = rules
             };
-
+            policy.Rules.InitializeFrom(rules);
             //Set and list policy
             await ObjectReplicationPoliciesClient.CreateOrUpdateAsync(rgName, destAccountName, "default", policy);
             ObjectReplicationPolicy destpolicy = ObjectReplicationPoliciesClient.ListAsync(rgName, destAccountName).ToEnumerableAsync().Result.First();

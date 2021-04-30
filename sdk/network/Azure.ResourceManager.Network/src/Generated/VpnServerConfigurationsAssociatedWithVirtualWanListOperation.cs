@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VpnServerConfigurationsAssociatedWithVirtualWanListOperation : Operation<VpnServerConfigurationsResponse>, IOperationSource<VpnServerConfigurationsResponse>
     {
         private readonly ArmOperationHelpers<VpnServerConfigurationsResponse> _operation;
+
+        /// <summary> Initializes a new instance of VpnServerConfigurationsAssociatedWithVirtualWanListOperation for mocking. </summary>
+        protected VpnServerConfigurationsAssociatedWithVirtualWanListOperation()
+        {
+        }
+
         internal VpnServerConfigurationsAssociatedWithVirtualWanListOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VpnServerConfigurationsResponse>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "VpnServerConfigurationsAssociatedWithVirtualWanListOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         VpnServerConfigurationsResponse IOperationSource<VpnServerConfigurationsResponse>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnServerConfigurationsResponse.DeserializeVpnServerConfigurationsResponse(document.RootElement);
-            }
+            return VpnServerConfigurationsResponse.DeserializeVpnServerConfigurationsResponse(document.RootElement);
         }
 
         async ValueTask<VpnServerConfigurationsResponse> IOperationSource<VpnServerConfigurationsResponse>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnServerConfigurationsResponse.DeserializeVpnServerConfigurationsResponse(document.RootElement);
-            }
+            return VpnServerConfigurationsResponse.DeserializeVpnServerConfigurationsResponse(document.RootElement);
         }
     }
 }

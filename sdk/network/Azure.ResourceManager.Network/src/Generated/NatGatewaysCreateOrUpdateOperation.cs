@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class NatGatewaysCreateOrUpdateOperation : Operation<NatGateway>, IOperationSource<NatGateway>
     {
         private readonly ArmOperationHelpers<NatGateway> _operation;
+
+        /// <summary> Initializes a new instance of NatGatewaysCreateOrUpdateOperation for mocking. </summary>
+        protected NatGatewaysCreateOrUpdateOperation()
+        {
+        }
+
         internal NatGatewaysCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<NatGateway>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "NatGatewaysCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         NatGateway IOperationSource<NatGateway>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return NatGateway.DeserializeNatGateway(document.RootElement);
-            }
+            return NatGateway.DeserializeNatGateway(document.RootElement);
         }
 
         async ValueTask<NatGateway> IOperationSource<NatGateway>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return NatGateway.DeserializeNatGateway(document.RootElement);
-            }
+            return NatGateway.DeserializeNatGateway(document.RootElement);
         }
     }
 }

@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Compute
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal VirtualMachineSizesRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of VirtualMachineSizesOperations for mocking. </summary>
         protected VirtualMachineSizesOperations()
         {
         }
+
         /// <summary> Initializes a new instance of VirtualMachineSizesOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -40,6 +42,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> This API is deprecated. Use [Resources Skus](https://docs.microsoft.com/en-us/rest/api/compute/resourceskus/list). </summary>
         /// <param name="location"> The location upon which virtual-machine-sizes is queried. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public virtual AsyncPageable<VirtualMachineSize> ListAsync(string location, CancellationToken cancellationToken = default)
         {
             if (location == null)
@@ -68,6 +71,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> This API is deprecated. Use [Resources Skus](https://docs.microsoft.com/en-us/rest/api/compute/resourceskus/list). </summary>
         /// <param name="location"> The location upon which virtual-machine-sizes is queried. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public virtual Pageable<VirtualMachineSize> List(string location, CancellationToken cancellationToken = default)
         {
             if (location == null)

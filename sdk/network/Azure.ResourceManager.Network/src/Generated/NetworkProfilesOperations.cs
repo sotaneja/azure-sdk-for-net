@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal NetworkProfilesRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of NetworkProfilesOperations for mocking. </summary>
         protected NetworkProfilesOperations()
         {
         }
+
         /// <summary> Initializes a new instance of NetworkProfilesOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -234,6 +236,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all network profiles in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<NetworkProfile> ListAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -277,6 +280,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all network profiles in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<NetworkProfile> List(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -321,6 +325,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="networkProfileName"> The name of the NetworkProfile. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="networkProfileName"/> is null. </exception>
         public virtual async Task<NetworkProfilesDeleteOperation> StartDeleteAsync(string resourceGroupName, string networkProfileName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -350,6 +355,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="networkProfileName"> The name of the NetworkProfile. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="networkProfileName"/> is null. </exception>
         public virtual NetworkProfilesDeleteOperation StartDelete(string resourceGroupName, string networkProfileName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class SecurityPartnerProvidersCreateOrUpdateOperation : Operation<SecurityPartnerProvider>, IOperationSource<SecurityPartnerProvider>
     {
         private readonly ArmOperationHelpers<SecurityPartnerProvider> _operation;
+
+        /// <summary> Initializes a new instance of SecurityPartnerProvidersCreateOrUpdateOperation for mocking. </summary>
+        protected SecurityPartnerProvidersCreateOrUpdateOperation()
+        {
+        }
+
         internal SecurityPartnerProvidersCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<SecurityPartnerProvider>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "SecurityPartnerProvidersCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         SecurityPartnerProvider IOperationSource<SecurityPartnerProvider>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return SecurityPartnerProvider.DeserializeSecurityPartnerProvider(document.RootElement);
-            }
+            return SecurityPartnerProvider.DeserializeSecurityPartnerProvider(document.RootElement);
         }
 
         async ValueTask<SecurityPartnerProvider> IOperationSource<SecurityPartnerProvider>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return SecurityPartnerProvider.DeserializeSecurityPartnerProvider(document.RootElement);
-            }
+            return SecurityPartnerProvider.DeserializeSecurityPartnerProvider(document.RootElement);
         }
     }
 }

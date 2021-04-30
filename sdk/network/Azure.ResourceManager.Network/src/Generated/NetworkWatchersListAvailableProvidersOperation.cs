@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class NetworkWatchersListAvailableProvidersOperation : Operation<AvailableProvidersList>, IOperationSource<AvailableProvidersList>
     {
         private readonly ArmOperationHelpers<AvailableProvidersList> _operation;
+
+        /// <summary> Initializes a new instance of NetworkWatchersListAvailableProvidersOperation for mocking. </summary>
+        protected NetworkWatchersListAvailableProvidersOperation()
+        {
+        }
+
         internal NetworkWatchersListAvailableProvidersOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<AvailableProvidersList>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "NetworkWatchersListAvailableProvidersOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         AvailableProvidersList IOperationSource<AvailableProvidersList>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return AvailableProvidersList.DeserializeAvailableProvidersList(document.RootElement);
-            }
+            return AvailableProvidersList.DeserializeAvailableProvidersList(document.RootElement);
         }
 
         async ValueTask<AvailableProvidersList> IOperationSource<AvailableProvidersList>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return AvailableProvidersList.DeserializeAvailableProvidersList(document.RootElement);
-            }
+            return AvailableProvidersList.DeserializeAvailableProvidersList(document.RootElement);
         }
     }
 }

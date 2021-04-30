@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class RoutesCreateOrUpdateOperation : Operation<Route>, IOperationSource<Route>
     {
         private readonly ArmOperationHelpers<Route> _operation;
+
+        /// <summary> Initializes a new instance of RoutesCreateOrUpdateOperation for mocking. </summary>
+        protected RoutesCreateOrUpdateOperation()
+        {
+        }
+
         internal RoutesCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<Route>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "RoutesCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         Route IOperationSource<Route>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return Route.DeserializeRoute(document.RootElement);
-            }
+            return Route.DeserializeRoute(document.RootElement);
         }
 
         async ValueTask<Route> IOperationSource<Route>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return Route.DeserializeRoute(document.RootElement);
-            }
+            return Route.DeserializeRoute(document.RootElement);
         }
     }
 }

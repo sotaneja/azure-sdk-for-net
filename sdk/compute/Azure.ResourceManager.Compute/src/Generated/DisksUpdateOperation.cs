@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Compute
     public partial class DisksUpdateOperation : Operation<Disk>, IOperationSource<Disk>
     {
         private readonly ArmOperationHelpers<Disk> _operation;
+
+        /// <summary> Initializes a new instance of DisksUpdateOperation for mocking. </summary>
+        protected DisksUpdateOperation()
+        {
+        }
+
         internal DisksUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<Disk>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "DisksUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Compute
         Disk IOperationSource<Disk>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return Disk.DeserializeDisk(document.RootElement);
-            }
+            return Disk.DeserializeDisk(document.RootElement);
         }
 
         async ValueTask<Disk> IOperationSource<Disk>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return Disk.DeserializeDisk(document.RootElement);
-            }
+            return Disk.DeserializeDisk(document.RootElement);
         }
     }
 }

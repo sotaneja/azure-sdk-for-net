@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class ApplicationGatewaysCreateOrUpdateOperation : Operation<ApplicationGateway>, IOperationSource<ApplicationGateway>
     {
         private readonly ArmOperationHelpers<ApplicationGateway> _operation;
+
+        /// <summary> Initializes a new instance of ApplicationGatewaysCreateOrUpdateOperation for mocking. </summary>
+        protected ApplicationGatewaysCreateOrUpdateOperation()
+        {
+        }
+
         internal ApplicationGatewaysCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ApplicationGateway>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "ApplicationGatewaysCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         ApplicationGateway IOperationSource<ApplicationGateway>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ApplicationGateway.DeserializeApplicationGateway(document.RootElement);
-            }
+            return ApplicationGateway.DeserializeApplicationGateway(document.RootElement);
         }
 
         async ValueTask<ApplicationGateway> IOperationSource<ApplicationGateway>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ApplicationGateway.DeserializeApplicationGateway(document.RootElement);
-            }
+            return ApplicationGateway.DeserializeApplicationGateway(document.RootElement);
         }
     }
 }

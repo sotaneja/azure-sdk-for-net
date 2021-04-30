@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Compute
     public partial class DisksGrantAccessOperation : Operation<AccessUri>, IOperationSource<AccessUri>
     {
         private readonly ArmOperationHelpers<AccessUri> _operation;
+
+        /// <summary> Initializes a new instance of DisksGrantAccessOperation for mocking. </summary>
+        protected DisksGrantAccessOperation()
+        {
+        }
+
         internal DisksGrantAccessOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<AccessUri>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "DisksGrantAccessOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Compute
         AccessUri IOperationSource<AccessUri>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return AccessUri.DeserializeAccessUri(document.RootElement);
-            }
+            return AccessUri.DeserializeAccessUri(document.RootElement);
         }
 
         async ValueTask<AccessUri> IOperationSource<AccessUri>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return AccessUri.DeserializeAccessUri(document.RootElement);
-            }
+            return AccessUri.DeserializeAccessUri(document.RootElement);
         }
     }
 }

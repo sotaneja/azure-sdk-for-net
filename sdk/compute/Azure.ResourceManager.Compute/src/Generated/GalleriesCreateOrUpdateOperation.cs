@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Compute
     public partial class GalleriesCreateOrUpdateOperation : Operation<Gallery>, IOperationSource<Gallery>
     {
         private readonly ArmOperationHelpers<Gallery> _operation;
+
+        /// <summary> Initializes a new instance of GalleriesCreateOrUpdateOperation for mocking. </summary>
+        protected GalleriesCreateOrUpdateOperation()
+        {
+        }
+
         internal GalleriesCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<Gallery>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "GalleriesCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Compute
         Gallery IOperationSource<Gallery>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return Gallery.DeserializeGallery(document.RootElement);
-            }
+            return Gallery.DeserializeGallery(document.RootElement);
         }
 
         async ValueTask<Gallery> IOperationSource<Gallery>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return Gallery.DeserializeGallery(document.RootElement);
-            }
+            return Gallery.DeserializeGallery(document.RootElement);
         }
     }
 }

@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class FirewallPolicyRuleGroupsCreateOrUpdateOperation : Operation<FirewallPolicyRuleGroup>, IOperationSource<FirewallPolicyRuleGroup>
     {
         private readonly ArmOperationHelpers<FirewallPolicyRuleGroup> _operation;
+
+        /// <summary> Initializes a new instance of FirewallPolicyRuleGroupsCreateOrUpdateOperation for mocking. </summary>
+        protected FirewallPolicyRuleGroupsCreateOrUpdateOperation()
+        {
+        }
+
         internal FirewallPolicyRuleGroupsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<FirewallPolicyRuleGroup>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "FirewallPolicyRuleGroupsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         FirewallPolicyRuleGroup IOperationSource<FirewallPolicyRuleGroup>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return FirewallPolicyRuleGroup.DeserializeFirewallPolicyRuleGroup(document.RootElement);
-            }
+            return FirewallPolicyRuleGroup.DeserializeFirewallPolicyRuleGroup(document.RootElement);
         }
 
         async ValueTask<FirewallPolicyRuleGroup> IOperationSource<FirewallPolicyRuleGroup>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return FirewallPolicyRuleGroup.DeserializeFirewallPolicyRuleGroup(document.RootElement);
-            }
+            return FirewallPolicyRuleGroup.DeserializeFirewallPolicyRuleGroup(document.RootElement);
         }
     }
 }

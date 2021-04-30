@@ -3,7 +3,7 @@
 
 using Azure.Core;
 
-namespace Azure.AI.FormRecognizer.Models
+namespace Azure.AI.FormRecognizer
 {
     /// <summary>
     /// The content type for local form files.
@@ -40,5 +40,11 @@ namespace Azure.AI.FormRecognizer.Models
         /// </summary>
         [CodeGenMember("ImageTiff")]
         Tiff,
+
+        /// <summary>
+        /// Used for BMP files.
+        /// </summary>
+        [CodeGenMember("ImageBmp")]
+        Bmp,
     }
 }

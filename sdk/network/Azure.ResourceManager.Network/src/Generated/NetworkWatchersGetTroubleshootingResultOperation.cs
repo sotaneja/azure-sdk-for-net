@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class NetworkWatchersGetTroubleshootingResultOperation : Operation<TroubleshootingResult>, IOperationSource<TroubleshootingResult>
     {
         private readonly ArmOperationHelpers<TroubleshootingResult> _operation;
+
+        /// <summary> Initializes a new instance of NetworkWatchersGetTroubleshootingResultOperation for mocking. </summary>
+        protected NetworkWatchersGetTroubleshootingResultOperation()
+        {
+        }
+
         internal NetworkWatchersGetTroubleshootingResultOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<TroubleshootingResult>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "NetworkWatchersGetTroubleshootingResultOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         TroubleshootingResult IOperationSource<TroubleshootingResult>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return TroubleshootingResult.DeserializeTroubleshootingResult(document.RootElement);
-            }
+            return TroubleshootingResult.DeserializeTroubleshootingResult(document.RootElement);
         }
 
         async ValueTask<TroubleshootingResult> IOperationSource<TroubleshootingResult>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return TroubleshootingResult.DeserializeTroubleshootingResult(document.RootElement);
-            }
+            return TroubleshootingResult.DeserializeTroubleshootingResult(document.RootElement);
         }
     }
 }

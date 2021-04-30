@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Resources.Models
 {
     /// <summary> List of policy definitions. </summary>
-    public partial class PolicyDefinitionListResult
+    internal partial class PolicyDefinitionListResult
     {
         /// <summary> Initializes a new instance of PolicyDefinitionListResult. </summary>
         internal PolicyDefinitionListResult()
         {
+            Value = new ChangeTrackingList<PolicyDefinition>();
         }
 
         /// <summary> Initializes a new instance of PolicyDefinitionListResult. </summary>

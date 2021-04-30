@@ -20,10 +20,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal ExpressRouteConnectionsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of ExpressRouteConnectionsOperations for mocking. </summary>
         protected ExpressRouteConnectionsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of ExpressRouteConnectionsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -120,6 +122,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="connectionName"> The name of the connection subresource. </param>
         /// <param name="putExpressRouteConnectionParameters"> Parameters required in an ExpressRouteConnection PUT operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="expressRouteGatewayName"/>, <paramref name="connectionName"/>, or <paramref name="putExpressRouteConnectionParameters"/> is null. </exception>
         public virtual async Task<ExpressRouteConnectionsCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string expressRouteGatewayName, string connectionName, ExpressRouteConnection putExpressRouteConnectionParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -159,6 +162,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="connectionName"> The name of the connection subresource. </param>
         /// <param name="putExpressRouteConnectionParameters"> Parameters required in an ExpressRouteConnection PUT operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="expressRouteGatewayName"/>, <paramref name="connectionName"/>, or <paramref name="putExpressRouteConnectionParameters"/> is null. </exception>
         public virtual ExpressRouteConnectionsCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string expressRouteGatewayName, string connectionName, ExpressRouteConnection putExpressRouteConnectionParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -197,6 +201,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="expressRouteGatewayName"> The name of the ExpressRoute gateway. </param>
         /// <param name="connectionName"> The name of the connection subresource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="expressRouteGatewayName"/>, or <paramref name="connectionName"/> is null. </exception>
         public virtual async Task<ExpressRouteConnectionsDeleteOperation> StartDeleteAsync(string resourceGroupName, string expressRouteGatewayName, string connectionName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -231,6 +236,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="expressRouteGatewayName"> The name of the ExpressRoute gateway. </param>
         /// <param name="connectionName"> The name of the connection subresource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="expressRouteGatewayName"/>, or <paramref name="connectionName"/> is null. </exception>
         public virtual ExpressRouteConnectionsDeleteOperation StartDelete(string resourceGroupName, string expressRouteGatewayName, string connectionName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

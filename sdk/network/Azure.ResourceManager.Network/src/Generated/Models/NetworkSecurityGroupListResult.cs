@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for ListNetworkSecurityGroups API service call. </summary>
-    public partial class NetworkSecurityGroupListResult
+    internal partial class NetworkSecurityGroupListResult
     {
         /// <summary> Initializes a new instance of NetworkSecurityGroupListResult. </summary>
         internal NetworkSecurityGroupListResult()
         {
+            Value = new ChangeTrackingList<NetworkSecurityGroup>();
         }
 
         /// <summary> Initializes a new instance of NetworkSecurityGroupListResult. </summary>

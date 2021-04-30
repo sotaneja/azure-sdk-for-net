@@ -20,10 +20,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal ExpressRouteGatewaysRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of ExpressRouteGatewaysOperations for mocking. </summary>
         protected ExpressRouteGatewaysOperations()
         {
         }
+
         /// <summary> Initializes a new instance of ExpressRouteGatewaysOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -149,6 +151,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="expressRouteGatewayName"> The name of the ExpressRoute gateway. </param>
         /// <param name="putExpressRouteGatewayParameters"> Parameters required in an ExpressRoute gateway PUT operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="expressRouteGatewayName"/>, or <paramref name="putExpressRouteGatewayParameters"/> is null. </exception>
         public virtual async Task<ExpressRouteGatewaysCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string expressRouteGatewayName, ExpressRouteGateway putExpressRouteGatewayParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -183,6 +186,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="expressRouteGatewayName"> The name of the ExpressRoute gateway. </param>
         /// <param name="putExpressRouteGatewayParameters"> Parameters required in an ExpressRoute gateway PUT operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="expressRouteGatewayName"/>, or <paramref name="putExpressRouteGatewayParameters"/> is null. </exception>
         public virtual ExpressRouteGatewaysCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string expressRouteGatewayName, ExpressRouteGateway putExpressRouteGatewayParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -216,6 +220,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="expressRouteGatewayName"> The name of the ExpressRoute gateway. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="expressRouteGatewayName"/> is null. </exception>
         public virtual async Task<ExpressRouteGatewaysDeleteOperation> StartDeleteAsync(string resourceGroupName, string expressRouteGatewayName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -245,6 +250,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="expressRouteGatewayName"> The name of the ExpressRoute gateway. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="expressRouteGatewayName"/> is null. </exception>
         public virtual ExpressRouteGatewaysDeleteOperation StartDelete(string resourceGroupName, string expressRouteGatewayName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

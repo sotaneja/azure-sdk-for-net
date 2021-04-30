@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for ListPeering API service call retrieves all peerings that belong to an ExpressRouteCrossConnection. </summary>
-    public partial class ExpressRouteCrossConnectionPeeringList
+    internal partial class ExpressRouteCrossConnectionPeeringList
     {
         /// <summary> Initializes a new instance of ExpressRouteCrossConnectionPeeringList. </summary>
         internal ExpressRouteCrossConnectionPeeringList()
         {
+            Value = new ChangeTrackingList<ExpressRouteCrossConnectionPeering>();
         }
 
         /// <summary> Initializes a new instance of ExpressRouteCrossConnectionPeeringList. </summary>

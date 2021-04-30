@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class InboundNatRulesCreateOrUpdateOperation : Operation<InboundNatRule>, IOperationSource<InboundNatRule>
     {
         private readonly ArmOperationHelpers<InboundNatRule> _operation;
+
+        /// <summary> Initializes a new instance of InboundNatRulesCreateOrUpdateOperation for mocking. </summary>
+        protected InboundNatRulesCreateOrUpdateOperation()
+        {
+        }
+
         internal InboundNatRulesCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<InboundNatRule>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "InboundNatRulesCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         InboundNatRule IOperationSource<InboundNatRule>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return InboundNatRule.DeserializeInboundNatRule(document.RootElement);
-            }
+            return InboundNatRule.DeserializeInboundNatRule(document.RootElement);
         }
 
         async ValueTask<InboundNatRule> IOperationSource<InboundNatRule>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return InboundNatRule.DeserializeInboundNatRule(document.RootElement);
-            }
+            return InboundNatRule.DeserializeInboundNatRule(document.RootElement);
         }
     }
 }

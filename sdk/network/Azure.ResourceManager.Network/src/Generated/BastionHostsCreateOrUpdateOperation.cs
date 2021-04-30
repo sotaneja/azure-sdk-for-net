@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class BastionHostsCreateOrUpdateOperation : Operation<BastionHost>, IOperationSource<BastionHost>
     {
         private readonly ArmOperationHelpers<BastionHost> _operation;
+
+        /// <summary> Initializes a new instance of BastionHostsCreateOrUpdateOperation for mocking. </summary>
+        protected BastionHostsCreateOrUpdateOperation()
+        {
+        }
+
         internal BastionHostsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<BastionHost>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "BastionHostsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         BastionHost IOperationSource<BastionHost>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return BastionHost.DeserializeBastionHost(document.RootElement);
-            }
+            return BastionHost.DeserializeBastionHost(document.RootElement);
         }
 
         async ValueTask<BastionHost> IOperationSource<BastionHost>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return BastionHost.DeserializeBastionHost(document.RootElement);
-            }
+            return BastionHost.DeserializeBastionHost(document.RootElement);
         }
     }
 }

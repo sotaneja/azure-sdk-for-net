@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Resources
     public partial class ResourcesCreateOrUpdateByIdOperation : Operation<GenericResource>, IOperationSource<GenericResource>
     {
         private readonly ArmOperationHelpers<GenericResource> _operation;
+
+        /// <summary> Initializes a new instance of ResourcesCreateOrUpdateByIdOperation for mocking. </summary>
+        protected ResourcesCreateOrUpdateByIdOperation()
+        {
+        }
+
         internal ResourcesCreateOrUpdateByIdOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<GenericResource>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "ResourcesCreateOrUpdateByIdOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Resources
         GenericResource IOperationSource<GenericResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return GenericResource.DeserializeGenericResource(document.RootElement);
-            }
+            return GenericResource.DeserializeGenericResource(document.RootElement);
         }
 
         async ValueTask<GenericResource> IOperationSource<GenericResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return GenericResource.DeserializeGenericResource(document.RootElement);
-            }
+            return GenericResource.DeserializeGenericResource(document.RootElement);
         }
     }
 }

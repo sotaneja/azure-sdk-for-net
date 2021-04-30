@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal VpnSitesRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of VpnSitesOperations for mocking. </summary>
         protected VpnSitesOperations()
         {
         }
+
         /// <summary> Initializes a new instance of VpnSitesOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -118,6 +120,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Lists all the vpnSites in a resource group. </summary>
         /// <param name="resourceGroupName"> The resource group name of the VpnSite. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<VpnSite> ListByResourceGroupAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -161,6 +164,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Lists all the vpnSites in a resource group. </summary>
         /// <param name="resourceGroupName"> The resource group name of the VpnSite. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<VpnSite> ListByResourceGroup(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -280,6 +284,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="vpnSiteName"> The name of the VpnSite being created or updated. </param>
         /// <param name="vpnSiteParameters"> Parameters supplied to create or update VpnSite. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="vpnSiteName"/>, or <paramref name="vpnSiteParameters"/> is null. </exception>
         public virtual async Task<VpnSitesCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string vpnSiteName, VpnSite vpnSiteParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -314,6 +319,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="vpnSiteName"> The name of the VpnSite being created or updated. </param>
         /// <param name="vpnSiteParameters"> Parameters supplied to create or update VpnSite. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="vpnSiteName"/>, or <paramref name="vpnSiteParameters"/> is null. </exception>
         public virtual VpnSitesCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string vpnSiteName, VpnSite vpnSiteParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -347,6 +353,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The resource group name of the VpnSite. </param>
         /// <param name="vpnSiteName"> The name of the VpnSite being deleted. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="vpnSiteName"/> is null. </exception>
         public virtual async Task<VpnSitesDeleteOperation> StartDeleteAsync(string resourceGroupName, string vpnSiteName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -376,6 +383,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The resource group name of the VpnSite. </param>
         /// <param name="vpnSiteName"> The name of the VpnSite being deleted. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="vpnSiteName"/> is null. </exception>
         public virtual VpnSitesDeleteOperation StartDelete(string resourceGroupName, string vpnSiteName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

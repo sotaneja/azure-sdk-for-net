@@ -17,6 +17,7 @@ using Azure.Storage.Blobs.Specialized;
 using Azure.Storage.Blobs.Tests;
 using Azure.Storage.Cryptography;
 using Azure.Storage.Cryptography.Models;
+using Azure.Storage.Test;
 using Azure.Storage.Test.Shared;
 using Moq;
 using NUnit.Framework;
@@ -323,7 +324,7 @@ namespace Azure.Storage.Blobs.Test
             }
         }
 
-        [Test] // multiple unalligned blocks
+        [RecordedTest] // multiple unalligned blocks
         [LiveOnly] // cannot seed content encryption key
         public async Task KeyResolverKicksIn()
         {
@@ -668,6 +669,116 @@ namespace Azure.Storage.Blobs.Test
                     Assert.AreEqual(data, downloadData);
                 }
             }
+        }
+
+        [Test]
+        [LiveOnly]
+        public async Task EncryptedReuploadSuccess()
+        {
+            var originalData = GetRandomBuffer(Constants.KB);
+            var editedData = GetRandomBuffer(Constants.KB);
+            (string Key, string Value) originalMetadata = ("foo", "bar");
+            var mockKey = GetIKeyEncryptionKey().Object;
+            await using (var disposable = await GetTestContainerEncryptionAsync(
+                new ClientSideEncryptionOptions(ClientSideEncryptionVersion.V1_0)
+                {
+                    KeyEncryptionKey = mockKey,
+                    KeyWrapAlgorithm = s_algorithmName
+                }))
+            {
+                var encryptedBlobClient = InstrumentClient(disposable.Container.GetBlobClient(GetNewBlobName()));
+
+                // upload data with encryption
+                await encryptedBlobClient.UploadAsync(
+                    new MemoryStream(originalData),
+                    new BlobUploadOptions
+                    {
+                        Metadata = new Dictionary<string, string> { { originalMetadata.Key, originalMetadata.Value } }
+                    },
+                    cancellationToken: s_cancellationToken);
+
+                // download with decryption
+                var downloadResult = await encryptedBlobClient.DownloadAsync(cancellationToken: s_cancellationToken);
+                Assert.AreEqual(2, downloadResult.Value.Details.Metadata.Count);
+                Assert.IsTrue(downloadResult.Value.Details.Metadata.ContainsKey(originalMetadata.Key));
+                Assert.IsTrue(downloadResult.Value.Details.Metadata.ContainsKey(Constants.ClientSideEncryption.EncryptionDataKey));
+                var firstDownloadEncryptionData = downloadResult.Value.Details.Metadata[Constants.ClientSideEncryption.EncryptionDataKey];
+
+                // reupload edited blob, maintaining metadata as we recommend to customers
+                await encryptedBlobClient.UploadAsync(
+                    new MemoryStream(editedData),
+                    new BlobUploadOptions
+                    {
+                        Metadata = downloadResult.Value.Details.Metadata
+                    },
+                    cancellationToken: s_cancellationToken);
+
+                // if we didn't throw, success in reuploading with new encryption metadata
+                // download edited blob to assert expected data was uploaded
+                downloadResult = await encryptedBlobClient.DownloadAsync(cancellationToken: s_cancellationToken);
+                Assert.AreEqual(2, downloadResult.Value.Details.Metadata.Count);
+                Assert.IsTrue(downloadResult.Value.Details.Metadata.ContainsKey(originalMetadata.Key));
+                Assert.IsTrue(downloadResult.Value.Details.Metadata.ContainsKey(Constants.ClientSideEncryption.EncryptionDataKey));
+                Assert.AreNotEqual(firstDownloadEncryptionData, downloadResult.Value.Details.Metadata[Constants.ClientSideEncryption.EncryptionDataKey]);
+            }
+        }
+
+        [RecordedTest]
+        public void CanGenerateSas_WithClientSideEncryptionOptions_True()
+        {
+            // Arrange
+            var constants = TestConstants.Create(this);
+            var blobEndpoint = new Uri("https://127.0.0.1/" + constants.Sas.Account);
+            var blobSecondaryEndpoint = new Uri("https://127.0.0.1/" + constants.Sas.Account + "-secondary");
+            var storageConnectionString = new StorageConnectionString(constants.Sas.SharedKeyCredential, blobStorageUri: (blobEndpoint, blobSecondaryEndpoint));
+            string connectionString = storageConnectionString.ToString(true);
+
+            var options = new ClientSideEncryptionOptions(ClientSideEncryptionVersion.V1_0)
+            {
+                KeyEncryptionKey = GetIKeyEncryptionKey().Object,
+                KeyResolver = GetIKeyEncryptionKeyResolver(default).Object,
+                KeyWrapAlgorithm = "bar"
+            };
+
+            // Create blob
+            BlobClient blob = InstrumentClient(new BlobClient(
+                connectionString,
+                GetNewContainerName(),
+                GetNewBlobName()));
+            Assert.IsTrue(blob.CanGenerateSasUri);
+
+            // Act
+            BlobClient blobEncrypted = blob.WithClientSideEncryptionOptions(options);
+
+            // Assert
+            Assert.IsTrue(blobEncrypted.CanGenerateSasUri);
+        }
+
+        [RecordedTest]
+        public void CanGenerateSas_WithClientSideEncryptionOptions_False()
+        {
+            // Arrange
+            var constants = TestConstants.Create(this);
+            var blobEndpoint = new Uri("https://127.0.0.1/" + constants.Sas.Account);
+
+            var options = new ClientSideEncryptionOptions(ClientSideEncryptionVersion.V1_0)
+            {
+                KeyEncryptionKey = GetIKeyEncryptionKey().Object,
+                KeyResolver = GetIKeyEncryptionKeyResolver(default).Object,
+                KeyWrapAlgorithm = "bar"
+            };
+
+            // Create blob
+            BlobClient blob = InstrumentClient(new BlobClient(
+                blobEndpoint,
+                GetOptions()));
+            Assert.IsFalse(blob.CanGenerateSasUri);
+
+            // Act
+            BlobClient blobEncrypted = blob.WithClientSideEncryptionOptions(options);
+
+            // Assert
+            Assert.IsFalse(blobEncrypted.CanGenerateSasUri);
         }
     }
 }

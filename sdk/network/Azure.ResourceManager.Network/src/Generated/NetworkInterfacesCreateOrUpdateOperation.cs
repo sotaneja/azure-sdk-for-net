@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class NetworkInterfacesCreateOrUpdateOperation : Operation<NetworkInterface>, IOperationSource<NetworkInterface>
     {
         private readonly ArmOperationHelpers<NetworkInterface> _operation;
+
+        /// <summary> Initializes a new instance of NetworkInterfacesCreateOrUpdateOperation for mocking. </summary>
+        protected NetworkInterfacesCreateOrUpdateOperation()
+        {
+        }
+
         internal NetworkInterfacesCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<NetworkInterface>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "NetworkInterfacesCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         NetworkInterface IOperationSource<NetworkInterface>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return NetworkInterface.DeserializeNetworkInterface(document.RootElement);
-            }
+            return NetworkInterface.DeserializeNetworkInterface(document.RootElement);
         }
 
         async ValueTask<NetworkInterface> IOperationSource<NetworkInterface>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return NetworkInterface.DeserializeNetworkInterface(document.RootElement);
-            }
+            return NetworkInterface.DeserializeNetworkInterface(document.RootElement);
         }
     }
 }

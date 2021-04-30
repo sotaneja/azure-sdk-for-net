@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VirtualNetworkGatewaysSetVpnclientIpsecParametersOperation : Operation<VpnClientIPsecParameters>, IOperationSource<VpnClientIPsecParameters>
     {
         private readonly ArmOperationHelpers<VpnClientIPsecParameters> _operation;
+
+        /// <summary> Initializes a new instance of VirtualNetworkGatewaysSetVpnclientIpsecParametersOperation for mocking. </summary>
+        protected VirtualNetworkGatewaysSetVpnclientIpsecParametersOperation()
+        {
+        }
+
         internal VirtualNetworkGatewaysSetVpnclientIpsecParametersOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VpnClientIPsecParameters>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "VirtualNetworkGatewaysSetVpnclientIpsecParametersOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         VpnClientIPsecParameters IOperationSource<VpnClientIPsecParameters>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnClientIPsecParameters.DeserializeVpnClientIPsecParameters(document.RootElement);
-            }
+            return VpnClientIPsecParameters.DeserializeVpnClientIPsecParameters(document.RootElement);
         }
 
         async ValueTask<VpnClientIPsecParameters> IOperationSource<VpnClientIPsecParameters>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnClientIPsecParameters.DeserializeVpnClientIPsecParameters(document.RootElement);
-            }
+            return VpnClientIPsecParameters.DeserializeVpnClientIPsecParameters(document.RootElement);
         }
     }
 }

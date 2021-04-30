@@ -7,14 +7,16 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Resources.Models
 {
     /// <summary> Subscription list operation response. </summary>
-    public partial class SubscriptionListResult
+    internal partial class SubscriptionListResult
     {
         /// <summary> Initializes a new instance of SubscriptionListResult. </summary>
         /// <param name="nextLink"> The URL to get the next set of results. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> is null. </exception>
         internal SubscriptionListResult(string nextLink)
         {
             if (nextLink == null)
@@ -22,6 +24,7 @@ namespace Azure.ResourceManager.Resources.Models
                 throw new ArgumentNullException(nameof(nextLink));
             }
 
+            Value = new ChangeTrackingList<Subscription>();
             NextLink = nextLink;
         }
 

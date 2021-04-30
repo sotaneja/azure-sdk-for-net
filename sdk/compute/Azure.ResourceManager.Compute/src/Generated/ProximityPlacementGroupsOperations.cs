@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Compute
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal ProximityPlacementGroupsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of ProximityPlacementGroupsOperations for mocking. </summary>
         protected ProximityPlacementGroupsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of ProximityPlacementGroupsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -82,7 +84,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="proximityPlacementGroupName"> The name of the proximity placement group. </param>
         /// <param name="parameters"> Parameters supplied to the Update Proximity Placement Group operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<ProximityPlacementGroup>> UpdateAsync(string resourceGroupName, string proximityPlacementGroupName, UpdateResource parameters, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ProximityPlacementGroup>> UpdateAsync(string resourceGroupName, string proximityPlacementGroupName, ProximityPlacementGroupUpdate parameters, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("ProximityPlacementGroupsOperations.Update");
             scope.Start();
@@ -102,7 +104,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="proximityPlacementGroupName"> The name of the proximity placement group. </param>
         /// <param name="parameters"> Parameters supplied to the Update Proximity Placement Group operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<ProximityPlacementGroup> Update(string resourceGroupName, string proximityPlacementGroupName, UpdateResource parameters, CancellationToken cancellationToken = default)
+        public virtual Response<ProximityPlacementGroup> Update(string resourceGroupName, string proximityPlacementGroupName, ProximityPlacementGroupUpdate parameters, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("ProximityPlacementGroupsOperations.Update");
             scope.Start();
@@ -272,6 +274,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Lists all proximity placement groups in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<ProximityPlacementGroup> ListByResourceGroupAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -315,6 +318,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Lists all proximity placement groups in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<ProximityPlacementGroup> ListByResourceGroup(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

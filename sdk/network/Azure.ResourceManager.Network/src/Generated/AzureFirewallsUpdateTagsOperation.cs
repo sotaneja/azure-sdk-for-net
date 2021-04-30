@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class AzureFirewallsUpdateTagsOperation : Operation<AzureFirewall>, IOperationSource<AzureFirewall>
     {
         private readonly ArmOperationHelpers<AzureFirewall> _operation;
+
+        /// <summary> Initializes a new instance of AzureFirewallsUpdateTagsOperation for mocking. </summary>
+        protected AzureFirewallsUpdateTagsOperation()
+        {
+        }
+
         internal AzureFirewallsUpdateTagsOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<AzureFirewall>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "AzureFirewallsUpdateTagsOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         AzureFirewall IOperationSource<AzureFirewall>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return AzureFirewall.DeserializeAzureFirewall(document.RootElement);
-            }
+            return AzureFirewall.DeserializeAzureFirewall(document.RootElement);
         }
 
         async ValueTask<AzureFirewall> IOperationSource<AzureFirewall>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return AzureFirewall.DeserializeAzureFirewall(document.RootElement);
-            }
+            return AzureFirewall.DeserializeAzureFirewall(document.RootElement);
         }
     }
 }

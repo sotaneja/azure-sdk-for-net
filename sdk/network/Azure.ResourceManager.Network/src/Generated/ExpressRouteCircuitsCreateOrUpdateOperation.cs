@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class ExpressRouteCircuitsCreateOrUpdateOperation : Operation<ExpressRouteCircuit>, IOperationSource<ExpressRouteCircuit>
     {
         private readonly ArmOperationHelpers<ExpressRouteCircuit> _operation;
+
+        /// <summary> Initializes a new instance of ExpressRouteCircuitsCreateOrUpdateOperation for mocking. </summary>
+        protected ExpressRouteCircuitsCreateOrUpdateOperation()
+        {
+        }
+
         internal ExpressRouteCircuitsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ExpressRouteCircuit>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "ExpressRouteCircuitsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         ExpressRouteCircuit IOperationSource<ExpressRouteCircuit>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ExpressRouteCircuit.DeserializeExpressRouteCircuit(document.RootElement);
-            }
+            return ExpressRouteCircuit.DeserializeExpressRouteCircuit(document.RootElement);
         }
 
         async ValueTask<ExpressRouteCircuit> IOperationSource<ExpressRouteCircuit>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ExpressRouteCircuit.DeserializeExpressRouteCircuit(document.RootElement);
-            }
+            return ExpressRouteCircuit.DeserializeExpressRouteCircuit(document.RootElement);
         }
     }
 }

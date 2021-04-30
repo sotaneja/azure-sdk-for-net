@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class NetworkWatchersGetVMSecurityRulesOperation : Operation<SecurityGroupViewResult>, IOperationSource<SecurityGroupViewResult>
     {
         private readonly ArmOperationHelpers<SecurityGroupViewResult> _operation;
+
+        /// <summary> Initializes a new instance of NetworkWatchersGetVMSecurityRulesOperation for mocking. </summary>
+        protected NetworkWatchersGetVMSecurityRulesOperation()
+        {
+        }
+
         internal NetworkWatchersGetVMSecurityRulesOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<SecurityGroupViewResult>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "NetworkWatchersGetVMSecurityRulesOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         SecurityGroupViewResult IOperationSource<SecurityGroupViewResult>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return SecurityGroupViewResult.DeserializeSecurityGroupViewResult(document.RootElement);
-            }
+            return SecurityGroupViewResult.DeserializeSecurityGroupViewResult(document.RootElement);
         }
 
         async ValueTask<SecurityGroupViewResult> IOperationSource<SecurityGroupViewResult>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return SecurityGroupViewResult.DeserializeSecurityGroupViewResult(document.RootElement);
-            }
+            return SecurityGroupViewResult.DeserializeSecurityGroupViewResult(document.RootElement);
         }
     }
 }

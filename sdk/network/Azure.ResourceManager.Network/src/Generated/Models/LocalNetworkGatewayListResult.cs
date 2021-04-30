@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for ListLocalNetworkGateways API service call. </summary>
-    public partial class LocalNetworkGatewayListResult
+    internal partial class LocalNetworkGatewayListResult
     {
         /// <summary> Initializes a new instance of LocalNetworkGatewayListResult. </summary>
         internal LocalNetworkGatewayListResult()
         {
+            Value = new ChangeTrackingList<LocalNetworkGateway>();
         }
 
         /// <summary> Initializes a new instance of LocalNetworkGatewayListResult. </summary>

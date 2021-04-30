@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal VirtualHubRouteTableV2SRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of VirtualHubRouteTableV2SOperations for mocking. </summary>
         protected VirtualHubRouteTableV2SOperations()
         {
         }
+
         /// <summary> Initializes a new instance of VirtualHubRouteTableV2SOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -81,6 +83,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The resource group name of the VirtualHub. </param>
         /// <param name="virtualHubName"> The name of the VirtualHub. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="virtualHubName"/> is null. </exception>
         public virtual AsyncPageable<VirtualHubRouteTableV2> ListAsync(string resourceGroupName, string virtualHubName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -129,6 +132,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The resource group name of the VirtualHub. </param>
         /// <param name="virtualHubName"> The name of the VirtualHub. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="virtualHubName"/> is null. </exception>
         public virtual Pageable<VirtualHubRouteTableV2> List(string resourceGroupName, string virtualHubName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -179,6 +183,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="routeTableName"> The name of the VirtualHubRouteTableV2. </param>
         /// <param name="virtualHubRouteTableV2Parameters"> Parameters supplied to create or update VirtualHubRouteTableV2. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="virtualHubName"/>, <paramref name="routeTableName"/>, or <paramref name="virtualHubRouteTableV2Parameters"/> is null. </exception>
         public virtual async Task<VirtualHubRouteTableV2SCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string virtualHubName, string routeTableName, VirtualHubRouteTableV2 virtualHubRouteTableV2Parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -218,6 +223,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="routeTableName"> The name of the VirtualHubRouteTableV2. </param>
         /// <param name="virtualHubRouteTableV2Parameters"> Parameters supplied to create or update VirtualHubRouteTableV2. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="virtualHubName"/>, <paramref name="routeTableName"/>, or <paramref name="virtualHubRouteTableV2Parameters"/> is null. </exception>
         public virtual VirtualHubRouteTableV2SCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string virtualHubName, string routeTableName, VirtualHubRouteTableV2 virtualHubRouteTableV2Parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -256,6 +262,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="virtualHubName"> The name of the VirtualHub. </param>
         /// <param name="routeTableName"> The name of the VirtualHubRouteTableV2. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="virtualHubName"/>, or <paramref name="routeTableName"/> is null. </exception>
         public virtual async Task<VirtualHubRouteTableV2SDeleteOperation> StartDeleteAsync(string resourceGroupName, string virtualHubName, string routeTableName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -290,6 +297,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="virtualHubName"> The name of the VirtualHub. </param>
         /// <param name="routeTableName"> The name of the VirtualHubRouteTableV2. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="virtualHubName"/>, or <paramref name="routeTableName"/> is null. </exception>
         public virtual VirtualHubRouteTableV2SDeleteOperation StartDelete(string resourceGroupName, string virtualHubName, string routeTableName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

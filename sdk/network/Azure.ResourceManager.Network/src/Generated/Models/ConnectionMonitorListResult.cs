@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> List of connection monitors. </summary>
-    public partial class ConnectionMonitorListResult
+    internal partial class ConnectionMonitorListResult
     {
         /// <summary> Initializes a new instance of ConnectionMonitorListResult. </summary>
         internal ConnectionMonitorListResult()
         {
+            Value = new ChangeTrackingList<ConnectionMonitorResult>();
         }
 
         /// <summary> Initializes a new instance of ConnectionMonitorListResult. </summary>

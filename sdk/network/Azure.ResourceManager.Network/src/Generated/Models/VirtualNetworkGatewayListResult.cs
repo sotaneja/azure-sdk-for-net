@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for the ListVirtualNetworkGateways API service call. </summary>
-    public partial class VirtualNetworkGatewayListResult
+    internal partial class VirtualNetworkGatewayListResult
     {
         /// <summary> Initializes a new instance of VirtualNetworkGatewayListResult. </summary>
         internal VirtualNetworkGatewayListResult()
         {
+            Value = new ChangeTrackingList<VirtualNetworkGateway>();
         }
 
         /// <summary> Initializes a new instance of VirtualNetworkGatewayListResult. </summary>

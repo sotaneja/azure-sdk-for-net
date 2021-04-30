@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VirtualNetworkGatewayConnectionsResetSharedKeyOperation : Operation<ConnectionResetSharedKey>, IOperationSource<ConnectionResetSharedKey>
     {
         private readonly ArmOperationHelpers<ConnectionResetSharedKey> _operation;
+
+        /// <summary> Initializes a new instance of VirtualNetworkGatewayConnectionsResetSharedKeyOperation for mocking. </summary>
+        protected VirtualNetworkGatewayConnectionsResetSharedKeyOperation()
+        {
+        }
+
         internal VirtualNetworkGatewayConnectionsResetSharedKeyOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ConnectionResetSharedKey>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "VirtualNetworkGatewayConnectionsResetSharedKeyOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         ConnectionResetSharedKey IOperationSource<ConnectionResetSharedKey>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ConnectionResetSharedKey.DeserializeConnectionResetSharedKey(document.RootElement);
-            }
+            return ConnectionResetSharedKey.DeserializeConnectionResetSharedKey(document.RootElement);
         }
 
         async ValueTask<ConnectionResetSharedKey> IOperationSource<ConnectionResetSharedKey>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ConnectionResetSharedKey.DeserializeConnectionResetSharedKey(document.RootElement);
-            }
+            return ConnectionResetSharedKey.DeserializeConnectionResetSharedKey(document.RootElement);
         }
     }
 }

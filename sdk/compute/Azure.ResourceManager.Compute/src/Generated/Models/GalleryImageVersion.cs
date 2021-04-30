@@ -15,6 +15,7 @@ namespace Azure.ResourceManager.Compute.Models
     {
         /// <summary> Initializes a new instance of GalleryImageVersion. </summary>
         /// <param name="location"> Resource location. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public GalleryImageVersion(string location) : base(location)
         {
             if (location == null)
@@ -29,11 +30,11 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="type"> Resource type. </param>
         /// <param name="location"> Resource location. </param>
         /// <param name="tags"> Resource tags. </param>
-        /// <param name="publishingProfile"> Describes the basic gallery artifact publishing profile. </param>
+        /// <param name="publishingProfile"> The publishing profile of a gallery Image Version. </param>
         /// <param name="provisioningState"> The provisioning state, which only appears in the response. </param>
         /// <param name="storageProfile"> This is the storage profile of a Gallery Image Version. </param>
         /// <param name="replicationStatus"> This is the replication status of the gallery Image Version. </param>
-        internal GalleryImageVersion(string id, string name, string type, string location, IDictionary<string, string> tags, GalleryArtifactPublishingProfileBase publishingProfile, GalleryImageVersionPropertiesProvisioningState? provisioningState, GalleryImageVersionStorageProfile storageProfile, ReplicationStatus replicationStatus) : base(id, name, type, location, tags)
+        internal GalleryImageVersion(string id, string name, string type, string location, IDictionary<string, string> tags, GalleryImageVersionPublishingProfile publishingProfile, GalleryImageVersionPropertiesProvisioningState? provisioningState, GalleryImageVersionStorageProfile storageProfile, ReplicationStatus replicationStatus) : base(id, name, type, location, tags)
         {
             PublishingProfile = publishingProfile;
             ProvisioningState = provisioningState;
@@ -41,8 +42,8 @@ namespace Azure.ResourceManager.Compute.Models
             ReplicationStatus = replicationStatus;
         }
 
-        /// <summary> Describes the basic gallery artifact publishing profile. </summary>
-        public GalleryArtifactPublishingProfileBase PublishingProfile { get; set; }
+        /// <summary> The publishing profile of a gallery Image Version. </summary>
+        public GalleryImageVersionPublishingProfile PublishingProfile { get; set; }
         /// <summary> The provisioning state, which only appears in the response. </summary>
         public GalleryImageVersionPropertiesProvisioningState? ProvisioningState { get; }
         /// <summary> This is the storage profile of a Gallery Image Version. </summary>

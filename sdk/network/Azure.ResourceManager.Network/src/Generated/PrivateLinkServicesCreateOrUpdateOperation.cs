@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class PrivateLinkServicesCreateOrUpdateOperation : Operation<PrivateLinkService>, IOperationSource<PrivateLinkService>
     {
         private readonly ArmOperationHelpers<PrivateLinkService> _operation;
+
+        /// <summary> Initializes a new instance of PrivateLinkServicesCreateOrUpdateOperation for mocking. </summary>
+        protected PrivateLinkServicesCreateOrUpdateOperation()
+        {
+        }
+
         internal PrivateLinkServicesCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<PrivateLinkService>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "PrivateLinkServicesCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         PrivateLinkService IOperationSource<PrivateLinkService>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return PrivateLinkService.DeserializePrivateLinkService(document.RootElement);
-            }
+            return PrivateLinkService.DeserializePrivateLinkService(document.RootElement);
         }
 
         async ValueTask<PrivateLinkService> IOperationSource<PrivateLinkService>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return PrivateLinkService.DeserializePrivateLinkService(document.RootElement);
-            }
+            return PrivateLinkService.DeserializePrivateLinkService(document.RootElement);
         }
     }
 }

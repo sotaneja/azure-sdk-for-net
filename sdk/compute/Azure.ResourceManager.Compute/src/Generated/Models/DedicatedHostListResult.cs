@@ -12,10 +12,11 @@ using System.Linq;
 namespace Azure.ResourceManager.Compute.Models
 {
     /// <summary> The list dedicated host operation response. </summary>
-    public partial class DedicatedHostListResult
+    internal partial class DedicatedHostListResult
     {
         /// <summary> Initializes a new instance of DedicatedHostListResult. </summary>
         /// <param name="value"> The list of dedicated hosts. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         internal DedicatedHostListResult(IEnumerable<DedicatedHost> value)
         {
             if (value == null)
@@ -23,7 +24,7 @@ namespace Azure.ResourceManager.Compute.Models
                 throw new ArgumentNullException(nameof(value));
             }
 
-            Value = value.ToArray();
+            Value = value.ToList();
         }
 
         /// <summary> Initializes a new instance of DedicatedHostListResult. </summary>
@@ -31,7 +32,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="nextLink"> The URI to fetch the next page of dedicated hosts. Call ListNext() with this URI to fetch the next page of dedicated hosts. </param>
         internal DedicatedHostListResult(IReadOnlyList<DedicatedHost> value, string nextLink)
         {
-            Value = value ?? new List<DedicatedHost>();
+            Value = value;
             NextLink = nextLink;
         }
 

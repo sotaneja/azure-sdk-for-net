@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal InboundNatRulesRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of InboundNatRulesOperations for mocking. </summary>
         protected InboundNatRulesOperations()
         {
         }
+
         /// <summary> Initializes a new instance of InboundNatRulesOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -83,6 +85,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="loadBalancerName"> The name of the load balancer. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="loadBalancerName"/> is null. </exception>
         public virtual AsyncPageable<InboundNatRule> ListAsync(string resourceGroupName, string loadBalancerName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -131,6 +134,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="loadBalancerName"> The name of the load balancer. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="loadBalancerName"/> is null. </exception>
         public virtual Pageable<InboundNatRule> List(string resourceGroupName, string loadBalancerName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -180,6 +184,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="loadBalancerName"> The name of the load balancer. </param>
         /// <param name="inboundNatRuleName"> The name of the inbound nat rule. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="loadBalancerName"/>, or <paramref name="inboundNatRuleName"/> is null. </exception>
         public virtual async Task<InboundNatRulesDeleteOperation> StartDeleteAsync(string resourceGroupName, string loadBalancerName, string inboundNatRuleName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -214,6 +219,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="loadBalancerName"> The name of the load balancer. </param>
         /// <param name="inboundNatRuleName"> The name of the inbound nat rule. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="loadBalancerName"/>, or <paramref name="inboundNatRuleName"/> is null. </exception>
         public virtual InboundNatRulesDeleteOperation StartDelete(string resourceGroupName, string loadBalancerName, string inboundNatRuleName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -249,6 +255,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="inboundNatRuleName"> The name of the inbound nat rule. </param>
         /// <param name="inboundNatRuleParameters"> Parameters supplied to the create or update inbound nat rule operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="loadBalancerName"/>, <paramref name="inboundNatRuleName"/>, or <paramref name="inboundNatRuleParameters"/> is null. </exception>
         public virtual async Task<InboundNatRulesCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string loadBalancerName, string inboundNatRuleName, InboundNatRule inboundNatRuleParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -288,6 +295,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="inboundNatRuleName"> The name of the inbound nat rule. </param>
         /// <param name="inboundNatRuleParameters"> Parameters supplied to the create or update inbound nat rule operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="loadBalancerName"/>, <paramref name="inboundNatRuleName"/>, or <paramref name="inboundNatRuleParameters"/> is null. </exception>
         public virtual InboundNatRulesCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string loadBalancerName, string inboundNatRuleName, InboundNatRule inboundNatRuleParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

@@ -2,7 +2,7 @@ namespace Azure.ResourceManager.Resources
 {
     public partial class ApplicationDefinitionsCreateOrUpdateByIdOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.ApplicationDefinition>
     {
-        internal ApplicationDefinitionsCreateOrUpdateByIdOperation() { }
+        protected ApplicationDefinitionsCreateOrUpdateByIdOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -15,7 +15,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ApplicationDefinitionsCreateOrUpdateOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.ApplicationDefinition>
     {
-        internal ApplicationDefinitionsCreateOrUpdateOperation() { }
+        protected ApplicationDefinitionsCreateOrUpdateOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ApplicationDefinitionsDeleteByIdOperation : Azure.Operation<Azure.Response>
     {
-        internal ApplicationDefinitionsDeleteByIdOperation() { }
+        protected ApplicationDefinitionsDeleteByIdOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ApplicationDefinitionsDeleteOperation : Azure.Operation<Azure.Response>
     {
-        internal ApplicationDefinitionsDeleteOperation() { }
+        protected ApplicationDefinitionsDeleteOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -72,7 +72,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ApplicationsCreateOrUpdateByIdOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.Application>
     {
-        internal ApplicationsCreateOrUpdateByIdOperation() { }
+        protected ApplicationsCreateOrUpdateByIdOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -85,7 +85,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ApplicationsCreateOrUpdateOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.Application>
     {
-        internal ApplicationsCreateOrUpdateOperation() { }
+        protected ApplicationsCreateOrUpdateOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -98,7 +98,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ApplicationsDeleteByIdOperation : Azure.Operation<Azure.Response>
     {
-        internal ApplicationsDeleteByIdOperation() { }
+        protected ApplicationsDeleteByIdOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -111,7 +111,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ApplicationsDeleteOperation : Azure.Operation<Azure.Response>
     {
-        internal ApplicationsDeleteOperation() { }
+        protected ApplicationsDeleteOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -178,7 +178,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsCreateOrUpdateAtManagementGroupScopeOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.DeploymentExtended>
     {
-        internal DeploymentsCreateOrUpdateAtManagementGroupScopeOperation() { }
+        protected DeploymentsCreateOrUpdateAtManagementGroupScopeOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -191,7 +191,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsCreateOrUpdateAtScopeOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.DeploymentExtended>
     {
-        internal DeploymentsCreateOrUpdateAtScopeOperation() { }
+        protected DeploymentsCreateOrUpdateAtScopeOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -204,7 +204,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsCreateOrUpdateAtSubscriptionScopeOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.DeploymentExtended>
     {
-        internal DeploymentsCreateOrUpdateAtSubscriptionScopeOperation() { }
+        protected DeploymentsCreateOrUpdateAtSubscriptionScopeOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -217,7 +217,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsCreateOrUpdateAtTenantScopeOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.DeploymentExtended>
     {
-        internal DeploymentsCreateOrUpdateAtTenantScopeOperation() { }
+        protected DeploymentsCreateOrUpdateAtTenantScopeOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -230,7 +230,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsCreateOrUpdateOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.DeploymentExtended>
     {
-        internal DeploymentsCreateOrUpdateOperation() { }
+        protected DeploymentsCreateOrUpdateOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -243,7 +243,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentScriptsCreateOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.DeploymentScript>
     {
-        internal DeploymentScriptsCreateOperation() { }
+        protected DeploymentScriptsCreateOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -276,7 +276,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsDeleteAtManagementGroupScopeOperation : Azure.Operation<Azure.Response>
     {
-        internal DeploymentsDeleteAtManagementGroupScopeOperation() { }
+        protected DeploymentsDeleteAtManagementGroupScopeOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -289,7 +289,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsDeleteAtScopeOperation : Azure.Operation<Azure.Response>
     {
-        internal DeploymentsDeleteAtScopeOperation() { }
+        protected DeploymentsDeleteAtScopeOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -302,7 +302,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsDeleteAtSubscriptionScopeOperation : Azure.Operation<Azure.Response>
     {
-        internal DeploymentsDeleteAtSubscriptionScopeOperation() { }
+        protected DeploymentsDeleteAtSubscriptionScopeOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -315,7 +315,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsDeleteAtTenantScopeOperation : Azure.Operation<Azure.Response>
     {
-        internal DeploymentsDeleteAtTenantScopeOperation() { }
+        protected DeploymentsDeleteAtTenantScopeOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -328,7 +328,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsDeleteOperation : Azure.Operation<Azure.Response>
     {
-        internal DeploymentsDeleteOperation() { }
+        protected DeploymentsDeleteOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -354,16 +354,16 @@ namespace Azure.ResourceManager.Resources
         public virtual System.Threading.Tasks.Task<Azure.Response> CancelAtSubscriptionScopeAsync(string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response CancelAtTenantScope(string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response> CancelAtTenantScopeAsync(string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response CheckExistence(string resourceGroupName, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response> CheckExistenceAsync(string resourceGroupName, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response CheckExistenceAtManagementGroupScope(string groupId, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response> CheckExistenceAtManagementGroupScopeAsync(string groupId, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response CheckExistenceAtScope(string scope, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response> CheckExistenceAtScopeAsync(string scope, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response CheckExistenceAtSubscriptionScope(string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response> CheckExistenceAtSubscriptionScopeAsync(string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response CheckExistenceAtTenantScope(string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response> CheckExistenceAtTenantScopeAsync(string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> CheckExistence(string resourceGroupName, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> CheckExistenceAsync(string resourceGroupName, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> CheckExistenceAtManagementGroupScope(string groupId, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> CheckExistenceAtManagementGroupScopeAsync(string groupId, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> CheckExistenceAtScope(string scope, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> CheckExistenceAtScopeAsync(string scope, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> CheckExistenceAtSubscriptionScope(string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> CheckExistenceAtSubscriptionScopeAsync(string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> CheckExistenceAtTenantScope(string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> CheckExistenceAtTenantScopeAsync(string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Resources.Models.DeploymentExportResult> ExportTemplate(string resourceGroupName, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Resources.Models.DeploymentExportResult>> ExportTemplateAsync(string resourceGroupName, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Resources.Models.DeploymentExportResult> ExportTemplateAtManagementGroupScope(string groupId, string deploymentName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -431,7 +431,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsValidateAtManagementGroupScopeOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.DeploymentValidateResult>
     {
-        internal DeploymentsValidateAtManagementGroupScopeOperation() { }
+        protected DeploymentsValidateAtManagementGroupScopeOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -444,7 +444,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsValidateAtScopeOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.DeploymentValidateResult>
     {
-        internal DeploymentsValidateAtScopeOperation() { }
+        protected DeploymentsValidateAtScopeOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -457,7 +457,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsValidateAtSubscriptionScopeOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.DeploymentValidateResult>
     {
-        internal DeploymentsValidateAtSubscriptionScopeOperation() { }
+        protected DeploymentsValidateAtSubscriptionScopeOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -470,7 +470,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsValidateAtTenantScopeOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.DeploymentValidateResult>
     {
-        internal DeploymentsValidateAtTenantScopeOperation() { }
+        protected DeploymentsValidateAtTenantScopeOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -483,7 +483,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsValidateOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.DeploymentValidateResult>
     {
-        internal DeploymentsValidateOperation() { }
+        protected DeploymentsValidateOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -496,7 +496,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsWhatIfAtSubscriptionScopeOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.WhatIfOperationResult>
     {
-        internal DeploymentsWhatIfAtSubscriptionScopeOperation() { }
+        protected DeploymentsWhatIfAtSubscriptionScopeOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -509,7 +509,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class DeploymentsWhatIfOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.WhatIfOperationResult>
     {
-        internal DeploymentsWhatIfOperation() { }
+        protected DeploymentsWhatIfOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -666,7 +666,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ResourceGroupsDeleteOperation : Azure.Operation<Azure.Response>
     {
-        internal ResourceGroupsDeleteOperation() { }
+        protected ResourceGroupsDeleteOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -679,7 +679,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ResourceGroupsExportTemplateOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.ResourceGroupExportResult>
     {
-        internal ResourceGroupsExportTemplateOperation() { }
+        protected ResourceGroupsExportTemplateOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -693,8 +693,8 @@ namespace Azure.ResourceManager.Resources
     public partial class ResourceGroupsOperations
     {
         protected ResourceGroupsOperations() { }
-        public virtual Azure.Response CheckExistence(string resourceGroupName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response> CheckExistenceAsync(string resourceGroupName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> CheckExistence(string resourceGroupName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> CheckExistenceAsync(string resourceGroupName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Resources.Models.ResourceGroup> CreateOrUpdate(string resourceGroupName, Azure.ResourceManager.Resources.Models.ResourceGroup parameters, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Resources.Models.ResourceGroup>> CreateOrUpdateAsync(string resourceGroupName, Azure.ResourceManager.Resources.Models.ResourceGroup parameters, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Resources.Models.ResourceGroup> Get(string resourceGroupName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -722,9 +722,15 @@ namespace Azure.ResourceManager.Resources
         public virtual Azure.Pageable<Azure.ResourceManager.Resources.Models.ResourceLink> ListAtSubscription(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.AsyncPageable<Azure.ResourceManager.Resources.Models.ResourceLink> ListAtSubscriptionAsync(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
+    public partial class ResourceManagementOperations
+    {
+        protected ResourceManagementOperations() { }
+        public virtual Azure.Pageable<Azure.ResourceManager.Resources.Models.OperationAutoGenerated> ListOperations(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.Resources.Models.OperationAutoGenerated> ListOperationsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
     public partial class ResourcesCreateOrUpdateByIdOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.GenericResource>
     {
-        internal ResourcesCreateOrUpdateByIdOperation() { }
+        protected ResourcesCreateOrUpdateByIdOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -737,7 +743,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ResourcesCreateOrUpdateOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.GenericResource>
     {
-        internal ResourcesCreateOrUpdateOperation() { }
+        protected ResourcesCreateOrUpdateOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -750,7 +756,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ResourcesDeleteByIdOperation : Azure.Operation<Azure.Response>
     {
-        internal ResourcesDeleteByIdOperation() { }
+        protected ResourcesDeleteByIdOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -763,7 +769,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ResourcesDeleteOperation : Azure.Operation<Azure.Response>
     {
-        internal ResourcesDeleteOperation() { }
+        protected ResourcesDeleteOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -794,8 +800,8 @@ namespace Azure.ResourceManager.Resources
         public virtual Azure.ResourceManager.Resources.ProvidersOperations Providers { get { throw null; } }
         public virtual Azure.ResourceManager.Resources.ResourceGroupsOperations ResourceGroups { get { throw null; } }
         public virtual Azure.ResourceManager.Resources.ResourceLinksOperations ResourceLinks { get { throw null; } }
+        public virtual Azure.ResourceManager.Resources.ResourceManagementOperations ResourceManagement { get { throw null; } }
         public virtual Azure.ResourceManager.Resources.ResourcesOperations Resources { get { throw null; } }
-        public virtual Azure.ResourceManager.Resources.ServiceOperations Service { get { throw null; } }
         public virtual Azure.ResourceManager.Resources.SubscriptionsOperations Subscriptions { get { throw null; } }
         public virtual Azure.ResourceManager.Resources.TagsOperations Tags { get { throw null; } }
         public virtual Azure.ResourceManager.Resources.TenantsOperations Tenants { get { throw null; } }
@@ -806,7 +812,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ResourcesMoveResourcesOperation : Azure.Operation<Azure.Response>
     {
-        internal ResourcesMoveResourcesOperation() { }
+        protected ResourcesMoveResourcesOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -820,10 +826,10 @@ namespace Azure.ResourceManager.Resources
     public partial class ResourcesOperations
     {
         protected ResourcesOperations() { }
-        public virtual Azure.Response CheckExistence(string resourceGroupName, string resourceProviderNamespace, string parentResourcePath, string resourceType, string resourceName, string apiVersion, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response> CheckExistenceAsync(string resourceGroupName, string resourceProviderNamespace, string parentResourcePath, string resourceType, string resourceName, string apiVersion, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response CheckExistenceById(string resourceId, string apiVersion, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response> CheckExistenceByIdAsync(string resourceId, string apiVersion, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> CheckExistence(string resourceGroupName, string resourceProviderNamespace, string parentResourcePath, string resourceType, string resourceName, string apiVersion, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> CheckExistenceAsync(string resourceGroupName, string resourceProviderNamespace, string parentResourcePath, string resourceType, string resourceName, string apiVersion, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> CheckExistenceById(string resourceId, string apiVersion, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> CheckExistenceByIdAsync(string resourceId, string apiVersion, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Resources.Models.GenericResource> Get(string resourceGroupName, string resourceProviderNamespace, string parentResourcePath, string resourceType, string resourceName, string apiVersion, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Resources.Models.GenericResource>> GetAsync(string resourceGroupName, string resourceProviderNamespace, string parentResourcePath, string resourceType, string resourceName, string apiVersion, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Resources.Models.GenericResource> GetById(string resourceId, string apiVersion, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -851,7 +857,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ResourcesUpdateByIdOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.GenericResource>
     {
-        internal ResourcesUpdateByIdOperation() { }
+        protected ResourcesUpdateByIdOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -864,7 +870,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ResourcesUpdateOperation : Azure.Operation<Azure.ResourceManager.Resources.Models.GenericResource>
     {
-        internal ResourcesUpdateOperation() { }
+        protected ResourcesUpdateOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -877,7 +883,7 @@ namespace Azure.ResourceManager.Resources
     }
     public partial class ResourcesValidateMoveResourcesOperation : Azure.Operation<Azure.Response>
     {
-        internal ResourcesValidateMoveResourcesOperation() { }
+        protected ResourcesValidateMoveResourcesOperation() { }
         public override bool HasCompleted { get { throw null; } }
         public override bool HasValue { get { throw null; } }
         public override string Id { get { throw null; } }
@@ -887,12 +893,6 @@ namespace Azure.ResourceManager.Resources
         public override System.Threading.Tasks.ValueTask<Azure.Response> UpdateStatusAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public override System.Threading.Tasks.ValueTask<Azure.Response<Azure.Response>> WaitForCompletionAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public override System.Threading.Tasks.ValueTask<Azure.Response<Azure.Response>> WaitForCompletionAsync(System.TimeSpan pollingInterval, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-    }
-    public partial class ServiceOperations
-    {
-        protected ServiceOperations() { }
-        public virtual Azure.Pageable<Azure.ResourceManager.Resources.Models.OperationAutoGenerated> ListOperations(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.AsyncPageable<Azure.ResourceManager.Resources.Models.OperationAutoGenerated> ListOperationsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
     public partial class SubscriptionsOperations
     {
@@ -995,7 +995,7 @@ namespace Azure.ResourceManager.Resources.Models
     public partial class ApplicationDefinition : Azure.ResourceManager.Resources.Models.GenericResourceAutoGenerated
     {
         public ApplicationDefinition(Azure.ResourceManager.Resources.Models.ApplicationLockLevel lockLevel, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Resources.Models.ApplicationProviderAuthorization> authorizations) { }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.ApplicationArtifact> Artifacts { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.ApplicationArtifact> Artifacts { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.ApplicationProviderAuthorization> Authorizations { get { throw null; } }
         public object CreateUiDefinition { get { throw null; } set { } }
         public string Description { get { throw null; } set { } }
@@ -1004,18 +1004,6 @@ namespace Azure.ResourceManager.Resources.Models
         public Azure.ResourceManager.Resources.Models.ApplicationLockLevel LockLevel { get { throw null; } set { } }
         public object MainTemplate { get { throw null; } set { } }
         public string PackageFileUri { get { throw null; } set { } }
-    }
-    public partial class ApplicationDefinitionListResult
-    {
-        internal ApplicationDefinitionListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.ApplicationDefinition> Value { get { throw null; } }
-    }
-    public partial class ApplicationListResult
-    {
-        internal ApplicationListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.Application> Value { get { throw null; } }
     }
     public enum ApplicationLockLevel
     {
@@ -1047,29 +1035,16 @@ namespace Azure.ResourceManager.Resources.Models
         public string AzCliVersion { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.CleanupOptions? CleanupPreference { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.ContainerConfiguration ContainerSettings { get { throw null; } set { } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.EnvironmentVariable> EnvironmentVariables { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.EnvironmentVariable> EnvironmentVariables { get { throw null; } }
         public string ForceUpdateTag { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, object> Outputs { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Outputs { get { throw null; } }
         public string PrimaryScriptUri { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.ScriptProvisioningState? ProvisioningState { get { throw null; } }
         public System.TimeSpan RetentionInterval { get { throw null; } set { } }
         public string ScriptContent { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.ScriptStatus Status { get { throw null; } }
         public Azure.ResourceManager.Resources.Models.StorageAccountConfiguration StorageAccountSettings { get { throw null; } set { } }
-        public System.Collections.Generic.IList<string> SupportingScriptUris { get { throw null; } set { } }
-        public System.TimeSpan? Timeout { get { throw null; } set { } }
-    }
-    public partial class AzureCliScriptProperties : Azure.ResourceManager.Resources.Models.DeploymentScriptPropertiesBase
-    {
-        public AzureCliScriptProperties(string azCliVersion, System.TimeSpan retentionInterval) { }
-        public string Arguments { get { throw null; } set { } }
-        public string AzCliVersion { get { throw null; } set { } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.EnvironmentVariable> EnvironmentVariables { get { throw null; } set { } }
-        public string ForceUpdateTag { get { throw null; } set { } }
-        public string PrimaryScriptUri { get { throw null; } set { } }
-        public System.TimeSpan RetentionInterval { get { throw null; } set { } }
-        public string ScriptContent { get { throw null; } set { } }
-        public System.Collections.Generic.IList<string> SupportingScriptUris { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> SupportingScriptUris { get { throw null; } }
         public System.TimeSpan? Timeout { get { throw null; } set { } }
     }
     public partial class AzurePowerShellScript : Azure.ResourceManager.Resources.Models.DeploymentScript
@@ -1079,29 +1054,16 @@ namespace Azure.ResourceManager.Resources.Models
         public string AzPowerShellVersion { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.CleanupOptions? CleanupPreference { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.ContainerConfiguration ContainerSettings { get { throw null; } set { } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.EnvironmentVariable> EnvironmentVariables { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.EnvironmentVariable> EnvironmentVariables { get { throw null; } }
         public string ForceUpdateTag { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, object> Outputs { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Outputs { get { throw null; } }
         public string PrimaryScriptUri { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.ScriptProvisioningState? ProvisioningState { get { throw null; } }
         public System.TimeSpan RetentionInterval { get { throw null; } set { } }
         public string ScriptContent { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.ScriptStatus Status { get { throw null; } }
         public Azure.ResourceManager.Resources.Models.StorageAccountConfiguration StorageAccountSettings { get { throw null; } set { } }
-        public System.Collections.Generic.IList<string> SupportingScriptUris { get { throw null; } set { } }
-        public System.TimeSpan? Timeout { get { throw null; } set { } }
-    }
-    public partial class AzurePowerShellScriptProperties : Azure.ResourceManager.Resources.Models.DeploymentScriptPropertiesBase
-    {
-        public AzurePowerShellScriptProperties(string azPowerShellVersion, System.TimeSpan retentionInterval) { }
-        public string Arguments { get { throw null; } set { } }
-        public string AzPowerShellVersion { get { throw null; } set { } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.EnvironmentVariable> EnvironmentVariables { get { throw null; } set { } }
-        public string ForceUpdateTag { get { throw null; } set { } }
-        public string PrimaryScriptUri { get { throw null; } set { } }
-        public System.TimeSpan RetentionInterval { get { throw null; } set { } }
-        public string ScriptContent { get { throw null; } set { } }
-        public System.Collections.Generic.IList<string> SupportingScriptUris { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> SupportingScriptUris { get { throw null; } }
         public System.TimeSpan? Timeout { get { throw null; } set { } }
     }
     public partial class AzureResourceBase
@@ -1189,7 +1151,7 @@ namespace Azure.ResourceManager.Resources.Models
         public Deployment(Azure.ResourceManager.Resources.Models.DeploymentProperties properties) { }
         public string Location { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.DeploymentProperties Properties { get { throw null; } }
-        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
     }
     public partial class DeploymentExportResult
     {
@@ -1205,12 +1167,6 @@ namespace Azure.ResourceManager.Resources.Models
         public Azure.ResourceManager.Resources.Models.DeploymentPropertiesExtended Properties { get { throw null; } }
         public System.Collections.Generic.IReadOnlyDictionary<string, string> Tags { get { throw null; } }
         public string Type { get { throw null; } }
-    }
-    public partial class DeploymentListResult
-    {
-        internal DeploymentListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.DeploymentExtended> Value { get { throw null; } }
     }
     public enum DeploymentMode
     {
@@ -1237,12 +1193,6 @@ namespace Azure.ResourceManager.Resources.Models
         public object StatusMessage { get { throw null; } }
         public Azure.ResourceManager.Resources.Models.TargetResource TargetResource { get { throw null; } }
         public System.DateTimeOffset? Timestamp { get { throw null; } }
-    }
-    public partial class DeploymentOperationsListResult
-    {
-        internal DeploymentOperationsListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.DeploymentOperation> Value { get { throw null; } }
     }
     public partial class DeploymentProperties
     {
@@ -1282,28 +1232,12 @@ namespace Azure.ResourceManager.Resources.Models
         public Azure.ResourceManager.Resources.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
         public string Location { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.SystemData SystemData { get { throw null; } }
-        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } set { } }
-    }
-    public partial class DeploymentScriptListResult
-    {
-        internal DeploymentScriptListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.DeploymentScript> Value { get { throw null; } }
-    }
-    public partial class DeploymentScriptPropertiesBase
-    {
-        public DeploymentScriptPropertiesBase() { }
-        public Azure.ResourceManager.Resources.Models.CleanupOptions? CleanupPreference { get { throw null; } set { } }
-        public Azure.ResourceManager.Resources.Models.ContainerConfiguration ContainerSettings { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, object> Outputs { get { throw null; } }
-        public Azure.ResourceManager.Resources.Models.ScriptProvisioningState? ProvisioningState { get { throw null; } }
-        public Azure.ResourceManager.Resources.Models.ScriptStatus Status { get { throw null; } }
-        public Azure.ResourceManager.Resources.Models.StorageAccountConfiguration StorageAccountSettings { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
     }
     public partial class DeploymentScriptUpdateParameter : Azure.ResourceManager.Resources.Models.AzureResourceBase
     {
         public DeploymentScriptUpdateParameter() { }
-        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
     }
     public partial class DeploymentValidateResult
     {
@@ -1354,16 +1288,16 @@ namespace Azure.ResourceManager.Resources.Models
     }
     public partial class ErrorAdditionalInfo
     {
-        public ErrorAdditionalInfo() { }
+        internal ErrorAdditionalInfo() { }
         public object Info { get { throw null; } }
         public string Type { get { throw null; } }
     }
     public partial class ErrorResponse
     {
-        public ErrorResponse() { }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.ErrorAdditionalInfo> AdditionalInfo { get { throw null; } }
+        internal ErrorResponse() { }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.ErrorAdditionalInfo> AdditionalInfo { get { throw null; } }
         public string Code { get { throw null; } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.ErrorResponse> Details { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.ErrorResponse> Details { get { throw null; } }
         public string Message { get { throw null; } }
         public string Target { get { throw null; } }
     }
@@ -1371,13 +1305,7 @@ namespace Azure.ResourceManager.Resources.Models
     {
         public ExportTemplateRequest() { }
         public string Options { get { throw null; } set { } }
-        public System.Collections.Generic.IList<string> Resources { get { throw null; } set { } }
-    }
-    public partial class FeatureOperationsListResult
-    {
-        internal FeatureOperationsListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.FeatureResult> Value { get { throw null; } }
+        public System.Collections.Generic.IList<string> Resources { get { throw null; } }
     }
     public partial class FeatureProperties
     {
@@ -1427,7 +1355,7 @@ namespace Azure.ResourceManager.Resources.Models
         public string PrincipalId { get { throw null; } }
         public string TenantId { get { throw null; } }
         public Azure.ResourceManager.Resources.Models.ResourceIdentityType? Type { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.Models.IdentityUserAssignedIdentitiesValue> UserAssignedIdentities { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.Models.IdentityUserAssignedIdentitiesValue> UserAssignedIdentities { get { throw null; } }
     }
     public partial class IdentityAutoGenerated
     {
@@ -1458,11 +1386,6 @@ namespace Azure.ResourceManager.Resources.Models
         public string Name { get { throw null; } }
         public string RegionalDisplayName { get { throw null; } }
         public string SubscriptionId { get { throw null; } }
-    }
-    public partial class LocationListResult
-    {
-        internal LocationListResult() { }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.Location> Value { get { throw null; } }
     }
     public partial class LocationMetadata
     {
@@ -1502,14 +1425,25 @@ namespace Azure.ResourceManager.Resources.Models
     public partial class ManagedServiceIdentity
     {
         public ManagedServiceIdentity() { }
-        public string Type { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.Models.UserAssignedIdentity> UserAssignedIdentities { get { throw null; } set { } }
+        public Azure.ResourceManager.Resources.Models.ManagedServiceIdentityType? Type { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.Models.UserAssignedIdentity> UserAssignedIdentities { get { throw null; } }
     }
-    public partial class ManagementLockListResult
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ManagedServiceIdentityType : System.IEquatable<Azure.ResourceManager.Resources.Models.ManagedServiceIdentityType>
     {
-        internal ManagementLockListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.ManagementLockObject> Value { get { throw null; } }
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ManagedServiceIdentityType(string value) { throw null; }
+        public static Azure.ResourceManager.Resources.Models.ManagedServiceIdentityType UserAssigned { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Resources.Models.ManagedServiceIdentityType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Resources.Models.ManagedServiceIdentityType left, Azure.ResourceManager.Resources.Models.ManagedServiceIdentityType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Resources.Models.ManagedServiceIdentityType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Resources.Models.ManagedServiceIdentityType left, Azure.ResourceManager.Resources.Models.ManagedServiceIdentityType right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public partial class ManagementLockObject
     {
@@ -1518,7 +1452,7 @@ namespace Azure.ResourceManager.Resources.Models
         public Azure.ResourceManager.Resources.Models.LockLevel Level { get { throw null; } set { } }
         public string Name { get { throw null; } }
         public string Notes { get { throw null; } set { } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.ManagementLockOwner> Owners { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.ManagementLockOwner> Owners { get { throw null; } }
         public string Type { get { throw null; } }
     }
     public partial class ManagementLockOwner
@@ -1584,24 +1518,6 @@ namespace Azure.ResourceManager.Resources.Models
         public string Provider { get { throw null; } }
         public string Resource { get { throw null; } }
     }
-    public partial class OperationListResult
-    {
-        internal OperationListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.Operation> Value { get { throw null; } }
-    }
-    public partial class OperationListResultAutoGenerated
-    {
-        internal OperationListResultAutoGenerated() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.OperationAutoGenerated> Value { get { throw null; } }
-    }
-    public partial class OperationListResultAutoGenerated2
-    {
-        internal OperationListResultAutoGenerated2() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.OperationAutoGenerated2> Value { get { throw null; } }
-    }
     public partial class PairedRegion
     {
         internal PairedRegion() { }
@@ -1612,7 +1528,7 @@ namespace Azure.ResourceManager.Resources.Models
     public partial class ParameterDefinitionsValue
     {
         public ParameterDefinitionsValue() { }
-        public System.Collections.Generic.IList<object> AllowedValues { get { throw null; } set { } }
+        public System.Collections.Generic.IList<object> AllowedValues { get { throw null; } }
         public object DefaultValue { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.ParameterDefinitionsValueMetadata Metadata { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.ParameterType? Type { get { throw null; } set { } }
@@ -1711,18 +1627,12 @@ namespace Azure.ResourceManager.Resources.Models
         public string Location { get { throw null; } set { } }
         public object Metadata { get { throw null; } set { } }
         public string Name { get { throw null; } }
-        public System.Collections.Generic.IList<string> NotScopes { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.Models.ParameterValuesValue> Parameters { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> NotScopes { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.Models.ParameterValuesValue> Parameters { get { throw null; } }
         public string PolicyDefinitionId { get { throw null; } set { } }
         public string Scope { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.PolicySku Sku { get { throw null; } set { } }
         public string Type { get { throw null; } }
-    }
-    public partial class PolicyAssignmentListResult
-    {
-        internal PolicyAssignmentListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.PolicyAssignment> Value { get { throw null; } }
     }
     public partial class PolicyDefinition
     {
@@ -1733,7 +1643,7 @@ namespace Azure.ResourceManager.Resources.Models
         public object Metadata { get { throw null; } set { } }
         public string Mode { get { throw null; } set { } }
         public string Name { get { throw null; } }
-        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.Models.ParameterDefinitionsValue> Parameters { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.Models.ParameterDefinitionsValue> Parameters { get { throw null; } }
         public object PolicyRule { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.PolicyType? PolicyType { get { throw null; } set { } }
         public string Type { get { throw null; } }
@@ -1747,17 +1657,11 @@ namespace Azure.ResourceManager.Resources.Models
         public string DisplayName { get { throw null; } set { } }
         public string Name { get { throw null; } set { } }
     }
-    public partial class PolicyDefinitionListResult
-    {
-        internal PolicyDefinitionListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.PolicyDefinition> Value { get { throw null; } }
-    }
     public partial class PolicyDefinitionReference
     {
         public PolicyDefinitionReference(string policyDefinitionId) { }
-        public System.Collections.Generic.IList<string> GroupNames { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.Models.ParameterValuesValue> Parameters { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> GroupNames { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.Models.ParameterValuesValue> Parameters { get { throw null; } }
         public string PolicyDefinitionId { get { throw null; } set { } }
         public string PolicyDefinitionReferenceId { get { throw null; } set { } }
     }
@@ -1769,17 +1673,11 @@ namespace Azure.ResourceManager.Resources.Models
         public string Id { get { throw null; } }
         public object Metadata { get { throw null; } set { } }
         public string Name { get { throw null; } }
-        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.Models.ParameterDefinitionsValue> Parameters { get { throw null; } set { } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.PolicyDefinitionGroup> PolicyDefinitionGroups { get { throw null; } set { } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.PolicyDefinitionReference> PolicyDefinitions { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.Models.ParameterDefinitionsValue> Parameters { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.PolicyDefinitionGroup> PolicyDefinitionGroups { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.PolicyDefinitionReference> PolicyDefinitions { get { throw null; } }
         public Azure.ResourceManager.Resources.Models.PolicyType? PolicyType { get { throw null; } set { } }
         public string Type { get { throw null; } }
-    }
-    public partial class PolicySetDefinitionListResult
-    {
-        internal PolicySetDefinitionListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.PolicySetDefinition> Value { get { throw null; } }
     }
     public partial class PolicySku
     {
@@ -1822,12 +1720,6 @@ namespace Azure.ResourceManager.Resources.Models
         public string RegistrationPolicy { get { throw null; } }
         public string RegistrationState { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.ProviderResourceType> ResourceTypes { get { throw null; } }
-    }
-    public partial class ProviderListResult
-    {
-        internal ProviderListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.Provider> Value { get { throw null; } }
     }
     public partial class ProviderResourceType
     {
@@ -1921,7 +1813,7 @@ namespace Azure.ResourceManager.Resources.Models
         public string Id { get { throw null; } }
         public string Location { get { throw null; } set { } }
         public string Name { get { throw null; } }
-        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
         public string Type { get { throw null; } }
     }
     public partial class ResourceGroup
@@ -1932,7 +1824,7 @@ namespace Azure.ResourceManager.Resources.Models
         public string ManagedBy { get { throw null; } set { } }
         public string Name { get { throw null; } }
         public Azure.ResourceManager.Resources.Models.ResourceGroupProperties Properties { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
         public string Type { get { throw null; } }
     }
     public partial class ResourceGroupExportResult
@@ -1941,19 +1833,13 @@ namespace Azure.ResourceManager.Resources.Models
         public Azure.ResourceManager.Resources.Models.ErrorResponse Error { get { throw null; } }
         public object Template { get { throw null; } }
     }
-    public partial class ResourceGroupListResult
-    {
-        internal ResourceGroupListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.ResourceGroup> Value { get { throw null; } }
-    }
     public partial class ResourceGroupPatchable
     {
         public ResourceGroupPatchable() { }
         public string ManagedBy { get { throw null; } set { } }
         public string Name { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.ResourceGroupProperties Properties { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
     }
     public partial class ResourceGroupProperties
     {
@@ -1982,18 +1868,6 @@ namespace Azure.ResourceManager.Resources.Models
         public string SourceId { get { throw null; } }
         public string TargetId { get { throw null; } set { } }
     }
-    public partial class ResourceLinkResult
-    {
-        internal ResourceLinkResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.ResourceLink> Value { get { throw null; } }
-    }
-    public partial class ResourceListResult
-    {
-        internal ResourceListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.GenericResourceExpanded> Value { get { throw null; } }
-    }
     public partial class ResourceReference
     {
         internal ResourceReference() { }
@@ -2002,7 +1876,7 @@ namespace Azure.ResourceManager.Resources.Models
     public partial class ResourcesMoveInfo
     {
         public ResourcesMoveInfo() { }
-        public System.Collections.Generic.IList<string> Resources { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> Resources { get { throw null; } }
         public string TargetResourceGroup { get { throw null; } set { } }
     }
     public partial class ScopedDeployment
@@ -2010,19 +1884,7 @@ namespace Azure.ResourceManager.Resources.Models
         public ScopedDeployment(string location, Azure.ResourceManager.Resources.Models.DeploymentProperties properties) { }
         public string Location { get { throw null; } }
         public Azure.ResourceManager.Resources.Models.DeploymentProperties Properties { get { throw null; } }
-        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } set { } }
-    }
-    public partial class ScriptConfigurationBase
-    {
-        public ScriptConfigurationBase(System.TimeSpan retentionInterval) { }
-        public string Arguments { get { throw null; } set { } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.EnvironmentVariable> EnvironmentVariables { get { throw null; } set { } }
-        public string ForceUpdateTag { get { throw null; } set { } }
-        public string PrimaryScriptUri { get { throw null; } set { } }
-        public System.TimeSpan RetentionInterval { get { throw null; } set { } }
-        public string ScriptContent { get { throw null; } set { } }
-        public System.Collections.Generic.IList<string> SupportingScriptUris { get { throw null; } set { } }
-        public System.TimeSpan? Timeout { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
     }
     public partial class ScriptLog : Azure.ResourceManager.Resources.Models.AzureResourceBase
     {
@@ -2058,10 +1920,10 @@ namespace Azure.ResourceManager.Resources.Models
     }
     public partial class ScriptStatus
     {
-        public ScriptStatus() { }
+        internal ScriptStatus() { }
         public string ContainerInstanceId { get { throw null; } }
         public System.DateTimeOffset? EndTime { get { throw null; } }
-        public Azure.ResourceManager.Resources.Models.ErrorResponse Error { get { throw null; } set { } }
+        public Azure.ResourceManager.Resources.Models.ErrorResponse Error { get { throw null; } }
         public System.DateTimeOffset? ExpirationTime { get { throw null; } }
         public System.DateTimeOffset? StartTime { get { throw null; } }
         public string StorageAccountId { get { throw null; } }
@@ -2129,12 +1991,6 @@ namespace Azure.ResourceManager.Resources.Models
         public System.Collections.Generic.IReadOnlyDictionary<string, string> Tags { get { throw null; } }
         public string TenantId { get { throw null; } }
     }
-    public partial class SubscriptionListResult
-    {
-        internal SubscriptionListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.Subscription> Value { get { throw null; } }
-    }
     public partial class SubscriptionPolicies
     {
         internal SubscriptionPolicies() { }
@@ -2152,13 +2008,13 @@ namespace Azure.ResourceManager.Resources.Models
     }
     public partial class SystemData
     {
-        public SystemData() { }
-        public System.DateTimeOffset? CreatedAt { get { throw null; } set { } }
-        public string CreatedBy { get { throw null; } set { } }
-        public Azure.ResourceManager.Resources.Models.CreatedByType? CreatedByType { get { throw null; } set { } }
-        public System.DateTimeOffset? LastModifiedAt { get { throw null; } set { } }
-        public string LastModifiedBy { get { throw null; } set { } }
-        public Azure.ResourceManager.Resources.Models.CreatedByType? LastModifiedByType { get { throw null; } set { } }
+        internal SystemData() { }
+        public System.DateTimeOffset? CreatedAt { get { throw null; } }
+        public string CreatedBy { get { throw null; } }
+        public Azure.ResourceManager.Resources.Models.CreatedByType? CreatedByType { get { throw null; } }
+        public System.DateTimeOffset? LastModifiedAt { get { throw null; } }
+        public string LastModifiedBy { get { throw null; } }
+        public Azure.ResourceManager.Resources.Models.CreatedByType? LastModifiedByType { get { throw null; } }
     }
     public partial class TagCount
     {
@@ -2177,13 +2033,7 @@ namespace Azure.ResourceManager.Resources.Models
     public partial class Tags
     {
         public Tags() { }
-        public System.Collections.Generic.IDictionary<string, string> TagsValue { get { throw null; } set { } }
-    }
-    public partial class TagsListResult
-    {
-        internal TagsListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.TagDetails> Value { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, string> TagsValue { get { throw null; } }
     }
     public partial class TagsPatchResource
     {
@@ -2260,12 +2110,6 @@ namespace Azure.ResourceManager.Resources.Models
         public string Id { get { throw null; } }
         public Azure.ResourceManager.Resources.Models.TenantCategory? TenantCategory { get { throw null; } }
         public string TenantId { get { throw null; } }
-    }
-    public partial class TenantListResult
-    {
-        internal TenantListResult() { }
-        public string NextLink { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.TenantIdDescription> Value { get { throw null; } }
     }
     public partial class UserAssignedIdentity
     {

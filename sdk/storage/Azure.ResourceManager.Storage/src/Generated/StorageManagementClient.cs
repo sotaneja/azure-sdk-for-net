@@ -13,7 +13,7 @@ using Azure.ResourceManager.Storage;
 namespace Azure.ResourceManager.Storage
 {
     /// <summary> Storage service management client. </summary>
-    public class StorageManagementClient
+    public partial class StorageManagementClient
     {
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.Storage
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="tokenCredential"> The OAuth token for making client requests. </param>
         /// <param name="options"> The options for configuring the client. </param>
-        /// <exception cref="ArgumentNullException"> This occurs when one of the required arguments is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
         public StorageManagementClient(Uri endpoint, string subscriptionId, TokenCredential tokenCredential, StorageManagementClientOptions options = null)
         {
             endpoint ??= new Uri("https://management.azure.com");

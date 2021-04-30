@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Storage
     public partial class StorageAccountsCreateOperation : Operation<StorageAccount>, IOperationSource<StorageAccount>
     {
         private readonly ArmOperationHelpers<StorageAccount> _operation;
+
+        /// <summary> Initializes a new instance of StorageAccountsCreateOperation for mocking. </summary>
+        protected StorageAccountsCreateOperation()
+        {
+        }
+
         internal StorageAccountsCreateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<StorageAccount>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "StorageAccountsCreateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Storage
         StorageAccount IOperationSource<StorageAccount>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return StorageAccount.DeserializeStorageAccount(document.RootElement);
-            }
+            return StorageAccount.DeserializeStorageAccount(document.RootElement);
         }
 
         async ValueTask<StorageAccount> IOperationSource<StorageAccount>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return StorageAccount.DeserializeStorageAccount(document.RootElement);
-            }
+            return StorageAccount.DeserializeStorageAccount(document.RootElement);
         }
     }
 }

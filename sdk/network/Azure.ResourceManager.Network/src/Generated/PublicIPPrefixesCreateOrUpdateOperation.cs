@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class PublicIPPrefixesCreateOrUpdateOperation : Operation<PublicIPPrefix>, IOperationSource<PublicIPPrefix>
     {
         private readonly ArmOperationHelpers<PublicIPPrefix> _operation;
+
+        /// <summary> Initializes a new instance of PublicIPPrefixesCreateOrUpdateOperation for mocking. </summary>
+        protected PublicIPPrefixesCreateOrUpdateOperation()
+        {
+        }
+
         internal PublicIPPrefixesCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<PublicIPPrefix>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "PublicIPPrefixesCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         PublicIPPrefix IOperationSource<PublicIPPrefix>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return PublicIPPrefix.DeserializePublicIPPrefix(document.RootElement);
-            }
+            return PublicIPPrefix.DeserializePublicIPPrefix(document.RootElement);
         }
 
         async ValueTask<PublicIPPrefix> IOperationSource<PublicIPPrefix>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return PublicIPPrefix.DeserializePublicIPPrefix(document.RootElement);
-            }
+            return PublicIPPrefix.DeserializePublicIPPrefix(document.RootElement);
         }
     }
 }

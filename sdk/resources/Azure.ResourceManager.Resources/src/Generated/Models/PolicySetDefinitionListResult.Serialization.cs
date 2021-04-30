@@ -11,46 +11,36 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Resources.Models
 {
-    public partial class PolicySetDefinitionListResult
+    internal partial class PolicySetDefinitionListResult
     {
         internal static PolicySetDefinitionListResult DeserializePolicySetDefinitionListResult(JsonElement element)
         {
-            IReadOnlyList<PolicySetDefinition> value = default;
-            string nextLink = default;
+            Optional<IReadOnlyList<PolicySetDefinition>> value = default;
+            Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
+                        property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
                     List<PolicySetDefinition> array = new List<PolicySetDefinition>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(PolicySetDefinition.DeserializePolicySetDefinition(item));
-                        }
+                        array.Add(PolicySetDefinition.DeserializePolicySetDefinition(item));
                     }
                     value = array;
                     continue;
                 }
                 if (property.NameEquals("nextLink"))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     nextLink = property.Value.GetString();
                     continue;
                 }
             }
-            return new PolicySetDefinitionListResult(value, nextLink);
+            return new PolicySetDefinitionListResult(Optional.ToList(value), nextLink.Value);
         }
     }
 }

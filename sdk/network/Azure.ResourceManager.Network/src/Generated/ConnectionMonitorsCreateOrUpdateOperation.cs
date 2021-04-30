@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class ConnectionMonitorsCreateOrUpdateOperation : Operation<ConnectionMonitorResult>, IOperationSource<ConnectionMonitorResult>
     {
         private readonly ArmOperationHelpers<ConnectionMonitorResult> _operation;
+
+        /// <summary> Initializes a new instance of ConnectionMonitorsCreateOrUpdateOperation for mocking. </summary>
+        protected ConnectionMonitorsCreateOrUpdateOperation()
+        {
+        }
+
         internal ConnectionMonitorsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ConnectionMonitorResult>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "ConnectionMonitorsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         ConnectionMonitorResult IOperationSource<ConnectionMonitorResult>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ConnectionMonitorResult.DeserializeConnectionMonitorResult(document.RootElement);
-            }
+            return ConnectionMonitorResult.DeserializeConnectionMonitorResult(document.RootElement);
         }
 
         async ValueTask<ConnectionMonitorResult> IOperationSource<ConnectionMonitorResult>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ConnectionMonitorResult.DeserializeConnectionMonitorResult(document.RootElement);
-            }
+            return ConnectionMonitorResult.DeserializeConnectionMonitorResult(document.RootElement);
         }
     }
 }

@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal IpAllocationsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of IpAllocationsOperations for mocking. </summary>
         protected IpAllocationsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of IpAllocationsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -194,6 +196,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all IpAllocations in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<IpAllocation> ListByResourceGroupAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -237,6 +240,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all IpAllocations in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<IpAllocation> ListByResourceGroup(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -281,6 +285,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="ipAllocationName"> The name of the IpAllocation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="ipAllocationName"/> is null. </exception>
         public virtual async Task<IpAllocationsDeleteOperation> StartDeleteAsync(string resourceGroupName, string ipAllocationName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -310,6 +315,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="ipAllocationName"> The name of the IpAllocation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="ipAllocationName"/> is null. </exception>
         public virtual IpAllocationsDeleteOperation StartDelete(string resourceGroupName, string ipAllocationName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -340,6 +346,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="ipAllocationName"> The name of the IpAllocation. </param>
         /// <param name="parameters"> Parameters supplied to the create or update virtual network operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="ipAllocationName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<IpAllocationsCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string ipAllocationName, IpAllocation parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -374,6 +381,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="ipAllocationName"> The name of the IpAllocation. </param>
         /// <param name="parameters"> Parameters supplied to the create or update virtual network operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="ipAllocationName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual IpAllocationsCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string ipAllocationName, IpAllocation parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

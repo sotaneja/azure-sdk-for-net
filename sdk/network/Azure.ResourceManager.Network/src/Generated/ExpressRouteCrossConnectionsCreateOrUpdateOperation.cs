@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class ExpressRouteCrossConnectionsCreateOrUpdateOperation : Operation<ExpressRouteCrossConnection>, IOperationSource<ExpressRouteCrossConnection>
     {
         private readonly ArmOperationHelpers<ExpressRouteCrossConnection> _operation;
+
+        /// <summary> Initializes a new instance of ExpressRouteCrossConnectionsCreateOrUpdateOperation for mocking. </summary>
+        protected ExpressRouteCrossConnectionsCreateOrUpdateOperation()
+        {
+        }
+
         internal ExpressRouteCrossConnectionsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ExpressRouteCrossConnection>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "ExpressRouteCrossConnectionsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         ExpressRouteCrossConnection IOperationSource<ExpressRouteCrossConnection>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ExpressRouteCrossConnection.DeserializeExpressRouteCrossConnection(document.RootElement);
-            }
+            return ExpressRouteCrossConnection.DeserializeExpressRouteCrossConnection(document.RootElement);
         }
 
         async ValueTask<ExpressRouteCrossConnection> IOperationSource<ExpressRouteCrossConnection>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ExpressRouteCrossConnection.DeserializeExpressRouteCrossConnection(document.RootElement);
-            }
+            return ExpressRouteCrossConnection.DeserializeExpressRouteCrossConnection(document.RootElement);
         }
     }
 }

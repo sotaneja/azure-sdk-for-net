@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class DdosProtectionPlansCreateOrUpdateOperation : Operation<DdosProtectionPlan>, IOperationSource<DdosProtectionPlan>
     {
         private readonly ArmOperationHelpers<DdosProtectionPlan> _operation;
+
+        /// <summary> Initializes a new instance of DdosProtectionPlansCreateOrUpdateOperation for mocking. </summary>
+        protected DdosProtectionPlansCreateOrUpdateOperation()
+        {
+        }
+
         internal DdosProtectionPlansCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<DdosProtectionPlan>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "DdosProtectionPlansCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         DdosProtectionPlan IOperationSource<DdosProtectionPlan>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return DdosProtectionPlan.DeserializeDdosProtectionPlan(document.RootElement);
-            }
+            return DdosProtectionPlan.DeserializeDdosProtectionPlan(document.RootElement);
         }
 
         async ValueTask<DdosProtectionPlan> IOperationSource<DdosProtectionPlan>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return DdosProtectionPlan.DeserializeDdosProtectionPlan(document.RootElement);
-            }
+            return DdosProtectionPlan.DeserializeDdosProtectionPlan(document.RootElement);
         }
     }
 }

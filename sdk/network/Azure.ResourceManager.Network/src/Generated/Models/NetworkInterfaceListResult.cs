@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for the ListNetworkInterface API service call. </summary>
-    public partial class NetworkInterfaceListResult
+    internal partial class NetworkInterfaceListResult
     {
         /// <summary> Initializes a new instance of NetworkInterfaceListResult. </summary>
         internal NetworkInterfaceListResult()
         {
+            Value = new ChangeTrackingList<NetworkInterface>();
         }
 
         /// <summary> Initializes a new instance of NetworkInterfaceListResult. </summary>

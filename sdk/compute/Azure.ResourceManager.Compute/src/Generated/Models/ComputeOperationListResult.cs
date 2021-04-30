@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Compute.Models
 {
     /// <summary> The List Compute Operation operation response. </summary>
-    public partial class ComputeOperationListResult
+    internal partial class ComputeOperationListResult
     {
         /// <summary> Initializes a new instance of ComputeOperationListResult. </summary>
         internal ComputeOperationListResult()
         {
+            Value = new ChangeTrackingList<ComputeOperationValue>();
         }
 
         /// <summary> Initializes a new instance of ComputeOperationListResult. </summary>

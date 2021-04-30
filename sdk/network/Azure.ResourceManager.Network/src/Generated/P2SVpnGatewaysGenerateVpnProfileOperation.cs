@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class P2SVpnGatewaysGenerateVpnProfileOperation : Operation<VpnProfileResponse>, IOperationSource<VpnProfileResponse>
     {
         private readonly ArmOperationHelpers<VpnProfileResponse> _operation;
+
+        /// <summary> Initializes a new instance of P2SVpnGatewaysGenerateVpnProfileOperation for mocking. </summary>
+        protected P2SVpnGatewaysGenerateVpnProfileOperation()
+        {
+        }
+
         internal P2SVpnGatewaysGenerateVpnProfileOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VpnProfileResponse>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "P2SVpnGatewaysGenerateVpnProfileOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         VpnProfileResponse IOperationSource<VpnProfileResponse>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnProfileResponse.DeserializeVpnProfileResponse(document.RootElement);
-            }
+            return VpnProfileResponse.DeserializeVpnProfileResponse(document.RootElement);
         }
 
         async ValueTask<VpnProfileResponse> IOperationSource<VpnProfileResponse>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnProfileResponse.DeserializeVpnProfileResponse(document.RootElement);
-            }
+            return VpnProfileResponse.DeserializeVpnProfileResponse(document.RootElement);
         }
     }
 }

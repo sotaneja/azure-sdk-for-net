@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class RouteFilterRulesCreateOrUpdateOperation : Operation<RouteFilterRule>, IOperationSource<RouteFilterRule>
     {
         private readonly ArmOperationHelpers<RouteFilterRule> _operation;
+
+        /// <summary> Initializes a new instance of RouteFilterRulesCreateOrUpdateOperation for mocking. </summary>
+        protected RouteFilterRulesCreateOrUpdateOperation()
+        {
+        }
+
         internal RouteFilterRulesCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<RouteFilterRule>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "RouteFilterRulesCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         RouteFilterRule IOperationSource<RouteFilterRule>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return RouteFilterRule.DeserializeRouteFilterRule(document.RootElement);
-            }
+            return RouteFilterRule.DeserializeRouteFilterRule(document.RootElement);
         }
 
         async ValueTask<RouteFilterRule> IOperationSource<RouteFilterRule>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return RouteFilterRule.DeserializeRouteFilterRule(document.RootElement);
-            }
+            return RouteFilterRule.DeserializeRouteFilterRule(document.RootElement);
         }
     }
 }

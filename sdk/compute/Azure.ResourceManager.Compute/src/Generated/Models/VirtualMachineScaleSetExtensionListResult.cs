@@ -12,10 +12,11 @@ using System.Linq;
 namespace Azure.ResourceManager.Compute.Models
 {
     /// <summary> The List VM scale set extension operation response. </summary>
-    public partial class VirtualMachineScaleSetExtensionListResult
+    internal partial class VirtualMachineScaleSetExtensionListResult
     {
         /// <summary> Initializes a new instance of VirtualMachineScaleSetExtensionListResult. </summary>
         /// <param name="value"> The list of VM scale set extensions. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         internal VirtualMachineScaleSetExtensionListResult(IEnumerable<VirtualMachineScaleSetExtension> value)
         {
             if (value == null)
@@ -23,7 +24,7 @@ namespace Azure.ResourceManager.Compute.Models
                 throw new ArgumentNullException(nameof(value));
             }
 
-            Value = value.ToArray();
+            Value = value.ToList();
         }
 
         /// <summary> Initializes a new instance of VirtualMachineScaleSetExtensionListResult. </summary>
@@ -31,7 +32,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="nextLink"> The uri to fetch the next page of VM scale set extensions. Call ListNext() with this to fetch the next page of VM scale set extensions. </param>
         internal VirtualMachineScaleSetExtensionListResult(IReadOnlyList<VirtualMachineScaleSetExtension> value, string nextLink)
         {
-            Value = value ?? new List<VirtualMachineScaleSetExtension>();
+            Value = value;
             NextLink = nextLink;
         }
 

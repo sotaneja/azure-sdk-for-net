@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VpnGatewaysResetOperation : Operation<VpnGateway>, IOperationSource<VpnGateway>
     {
         private readonly ArmOperationHelpers<VpnGateway> _operation;
+
+        /// <summary> Initializes a new instance of VpnGatewaysResetOperation for mocking. </summary>
+        protected VpnGatewaysResetOperation()
+        {
+        }
+
         internal VpnGatewaysResetOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VpnGateway>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "VpnGatewaysResetOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         VpnGateway IOperationSource<VpnGateway>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnGateway.DeserializeVpnGateway(document.RootElement);
-            }
+            return VpnGateway.DeserializeVpnGateway(document.RootElement);
         }
 
         async ValueTask<VpnGateway> IOperationSource<VpnGateway>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnGateway.DeserializeVpnGateway(document.RootElement);
-            }
+            return VpnGateway.DeserializeVpnGateway(document.RootElement);
         }
     }
 }

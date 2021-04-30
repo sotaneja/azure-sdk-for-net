@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Compute
     public partial class LogAnalyticsExportThrottledRequestsOperation : Operation<LogAnalyticsOperationResult>, IOperationSource<LogAnalyticsOperationResult>
     {
         private readonly ArmOperationHelpers<LogAnalyticsOperationResult> _operation;
+
+        /// <summary> Initializes a new instance of LogAnalyticsExportThrottledRequestsOperation for mocking. </summary>
+        protected LogAnalyticsExportThrottledRequestsOperation()
+        {
+        }
+
         internal LogAnalyticsExportThrottledRequestsOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<LogAnalyticsOperationResult>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "LogAnalyticsExportThrottledRequestsOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Compute
         LogAnalyticsOperationResult IOperationSource<LogAnalyticsOperationResult>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return LogAnalyticsOperationResult.DeserializeLogAnalyticsOperationResult(document.RootElement);
-            }
+            return LogAnalyticsOperationResult.DeserializeLogAnalyticsOperationResult(document.RootElement);
         }
 
         async ValueTask<LogAnalyticsOperationResult> IOperationSource<LogAnalyticsOperationResult>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return LogAnalyticsOperationResult.DeserializeLogAnalyticsOperationResult(document.RootElement);
-            }
+            return LogAnalyticsOperationResult.DeserializeLogAnalyticsOperationResult(document.RootElement);
         }
     }
 }

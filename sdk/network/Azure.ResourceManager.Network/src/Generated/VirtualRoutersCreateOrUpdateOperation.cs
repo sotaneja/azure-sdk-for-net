@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VirtualRoutersCreateOrUpdateOperation : Operation<VirtualRouter>, IOperationSource<VirtualRouter>
     {
         private readonly ArmOperationHelpers<VirtualRouter> _operation;
+
+        /// <summary> Initializes a new instance of VirtualRoutersCreateOrUpdateOperation for mocking. </summary>
+        protected VirtualRoutersCreateOrUpdateOperation()
+        {
+        }
+
         internal VirtualRoutersCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VirtualRouter>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "VirtualRoutersCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         VirtualRouter IOperationSource<VirtualRouter>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualRouter.DeserializeVirtualRouter(document.RootElement);
-            }
+            return VirtualRouter.DeserializeVirtualRouter(document.RootElement);
         }
 
         async ValueTask<VirtualRouter> IOperationSource<VirtualRouter>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualRouter.DeserializeVirtualRouter(document.RootElement);
-            }
+            return VirtualRouter.DeserializeVirtualRouter(document.RootElement);
         }
     }
 }

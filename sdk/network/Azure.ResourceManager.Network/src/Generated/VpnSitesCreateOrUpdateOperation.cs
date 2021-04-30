@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VpnSitesCreateOrUpdateOperation : Operation<VpnSite>, IOperationSource<VpnSite>
     {
         private readonly ArmOperationHelpers<VpnSite> _operation;
+
+        /// <summary> Initializes a new instance of VpnSitesCreateOrUpdateOperation for mocking. </summary>
+        protected VpnSitesCreateOrUpdateOperation()
+        {
+        }
+
         internal VpnSitesCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VpnSite>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "VpnSitesCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         VpnSite IOperationSource<VpnSite>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnSite.DeserializeVpnSite(document.RootElement);
-            }
+            return VpnSite.DeserializeVpnSite(document.RootElement);
         }
 
         async ValueTask<VpnSite> IOperationSource<VpnSite>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnSite.DeserializeVpnSite(document.RootElement);
-            }
+            return VpnSite.DeserializeVpnSite(document.RootElement);
         }
     }
 }

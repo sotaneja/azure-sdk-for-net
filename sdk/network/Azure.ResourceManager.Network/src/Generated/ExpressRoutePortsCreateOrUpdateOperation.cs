@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class ExpressRoutePortsCreateOrUpdateOperation : Operation<ExpressRoutePort>, IOperationSource<ExpressRoutePort>
     {
         private readonly ArmOperationHelpers<ExpressRoutePort> _operation;
+
+        /// <summary> Initializes a new instance of ExpressRoutePortsCreateOrUpdateOperation for mocking. </summary>
+        protected ExpressRoutePortsCreateOrUpdateOperation()
+        {
+        }
+
         internal ExpressRoutePortsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ExpressRoutePort>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "ExpressRoutePortsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         ExpressRoutePort IOperationSource<ExpressRoutePort>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ExpressRoutePort.DeserializeExpressRoutePort(document.RootElement);
-            }
+            return ExpressRoutePort.DeserializeExpressRoutePort(document.RootElement);
         }
 
         async ValueTask<ExpressRoutePort> IOperationSource<ExpressRoutePort>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ExpressRoutePort.DeserializeExpressRoutePort(document.RootElement);
-            }
+            return ExpressRoutePort.DeserializeExpressRoutePort(document.RootElement);
         }
     }
 }

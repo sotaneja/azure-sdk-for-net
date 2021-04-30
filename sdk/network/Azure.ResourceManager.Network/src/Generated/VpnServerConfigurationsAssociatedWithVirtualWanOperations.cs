@@ -18,10 +18,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal VpnServerConfigurationsAssociatedWithVirtualWanRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of VpnServerConfigurationsAssociatedWithVirtualWanOperations for mocking. </summary>
         protected VpnServerConfigurationsAssociatedWithVirtualWanOperations()
         {
         }
+
         /// <summary> Initializes a new instance of VpnServerConfigurationsAssociatedWithVirtualWanOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -38,6 +40,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="virtualWANName"> The name of the VirtualWAN whose associated VpnServerConfigurations is needed. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="virtualWANName"/> is null. </exception>
         public virtual async Task<VpnServerConfigurationsAssociatedWithVirtualWanListOperation> StartListAsync(string resourceGroupName, string virtualWANName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -67,6 +70,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="virtualWANName"> The name of the VirtualWAN whose associated VpnServerConfigurations is needed. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="virtualWANName"/> is null. </exception>
         public virtual VpnServerConfigurationsAssociatedWithVirtualWanListOperation StartList(string resourceGroupName, string virtualWANName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

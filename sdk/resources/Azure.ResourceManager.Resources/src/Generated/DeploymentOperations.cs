@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Resources
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal DeploymentRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of DeploymentOperations for mocking. </summary>
         protected DeploymentOperations()
         {
         }
+
         /// <summary> Initializes a new instance of DeploymentOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -238,6 +240,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="top"> The number of results to return. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> or <paramref name="deploymentName"/> is null. </exception>
         public virtual AsyncPageable<DeploymentOperation> ListAtScopeAsync(string scope, string deploymentName, int? top = null, CancellationToken cancellationToken = default)
         {
             if (scope == null)
@@ -287,6 +290,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="top"> The number of results to return. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> or <paramref name="deploymentName"/> is null. </exception>
         public virtual Pageable<DeploymentOperation> ListAtScope(string scope, string deploymentName, int? top = null, CancellationToken cancellationToken = default)
         {
             if (scope == null)
@@ -335,6 +339,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="top"> The number of results to return. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
         public virtual AsyncPageable<DeploymentOperation> ListAtTenantScopeAsync(string deploymentName, int? top = null, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -379,6 +384,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="top"> The number of results to return. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
         public virtual Pageable<DeploymentOperation> ListAtTenantScope(string deploymentName, int? top = null, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -424,6 +430,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="top"> The number of results to return. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="groupId"/> or <paramref name="deploymentName"/> is null. </exception>
         public virtual AsyncPageable<DeploymentOperation> ListAtManagementGroupScopeAsync(string groupId, string deploymentName, int? top = null, CancellationToken cancellationToken = default)
         {
             if (groupId == null)
@@ -473,6 +480,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="top"> The number of results to return. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="groupId"/> or <paramref name="deploymentName"/> is null. </exception>
         public virtual Pageable<DeploymentOperation> ListAtManagementGroupScope(string groupId, string deploymentName, int? top = null, CancellationToken cancellationToken = default)
         {
             if (groupId == null)
@@ -521,6 +529,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="top"> The number of results to return. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
         public virtual AsyncPageable<DeploymentOperation> ListAtSubscriptionScopeAsync(string deploymentName, int? top = null, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -565,6 +574,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="top"> The number of results to return. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
         public virtual Pageable<DeploymentOperation> ListAtSubscriptionScope(string deploymentName, int? top = null, CancellationToken cancellationToken = default)
         {
             if (deploymentName == null)
@@ -610,6 +620,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="top"> The number of results to return. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="deploymentName"/> is null. </exception>
         public virtual AsyncPageable<DeploymentOperation> ListAsync(string resourceGroupName, string deploymentName, int? top = null, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -659,6 +670,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="deploymentName"> The name of the deployment. </param>
         /// <param name="top"> The number of results to return. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="deploymentName"/> is null. </exception>
         public virtual Pageable<DeploymentOperation> List(string resourceGroupName, string deploymentName, int? top = null, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal AvailableDelegationsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of AvailableDelegationsOperations for mocking. </summary>
         protected AvailableDelegationsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of AvailableDelegationsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -40,6 +42,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all of the available subnet delegations for this subscription in this region. </summary>
         /// <param name="location"> The location of the subnet. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public virtual AsyncPageable<AvailableDelegation> ListAsync(string location, CancellationToken cancellationToken = default)
         {
             if (location == null)
@@ -83,6 +86,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all of the available subnet delegations for this subscription in this region. </summary>
         /// <param name="location"> The location of the subnet. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public virtual Pageable<AvailableDelegation> List(string location, CancellationToken cancellationToken = default)
         {
             if (location == null)

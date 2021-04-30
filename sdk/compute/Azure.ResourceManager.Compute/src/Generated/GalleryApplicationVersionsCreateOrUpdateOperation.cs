@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Compute
     public partial class GalleryApplicationVersionsCreateOrUpdateOperation : Operation<GalleryApplicationVersion>, IOperationSource<GalleryApplicationVersion>
     {
         private readonly ArmOperationHelpers<GalleryApplicationVersion> _operation;
+
+        /// <summary> Initializes a new instance of GalleryApplicationVersionsCreateOrUpdateOperation for mocking. </summary>
+        protected GalleryApplicationVersionsCreateOrUpdateOperation()
+        {
+        }
+
         internal GalleryApplicationVersionsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<GalleryApplicationVersion>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "GalleryApplicationVersionsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Compute
         GalleryApplicationVersion IOperationSource<GalleryApplicationVersion>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return GalleryApplicationVersion.DeserializeGalleryApplicationVersion(document.RootElement);
-            }
+            return GalleryApplicationVersion.DeserializeGalleryApplicationVersion(document.RootElement);
         }
 
         async ValueTask<GalleryApplicationVersion> IOperationSource<GalleryApplicationVersion>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return GalleryApplicationVersion.DeserializeGalleryApplicationVersion(document.RootElement);
-            }
+            return GalleryApplicationVersion.DeserializeGalleryApplicationVersion(document.RootElement);
         }
     }
 }

@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for ListAzureFirewalls API service call. </summary>
-    public partial class AzureFirewallListResult
+    internal partial class AzureFirewallListResult
     {
         /// <summary> Initializes a new instance of AzureFirewallListResult. </summary>
         internal AzureFirewallListResult()
         {
+            Value = new ChangeTrackingList<AzureFirewall>();
         }
 
         /// <summary> Initializes a new instance of AzureFirewallListResult. </summary>

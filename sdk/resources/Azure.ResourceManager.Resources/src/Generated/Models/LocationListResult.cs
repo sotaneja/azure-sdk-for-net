@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Resources.Models
 {
     /// <summary> Location list operation response. </summary>
-    public partial class LocationListResult
+    internal partial class LocationListResult
     {
         /// <summary> Initializes a new instance of LocationListResult. </summary>
         internal LocationListResult()
         {
+            Value = new ChangeTrackingList<Location>();
         }
 
         /// <summary> Initializes a new instance of LocationListResult. </summary>

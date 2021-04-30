@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Compute
     public partial class DedicatedHostsCreateOrUpdateOperation : Operation<DedicatedHost>, IOperationSource<DedicatedHost>
     {
         private readonly ArmOperationHelpers<DedicatedHost> _operation;
+
+        /// <summary> Initializes a new instance of DedicatedHostsCreateOrUpdateOperation for mocking. </summary>
+        protected DedicatedHostsCreateOrUpdateOperation()
+        {
+        }
+
         internal DedicatedHostsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<DedicatedHost>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "DedicatedHostsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Compute
         DedicatedHost IOperationSource<DedicatedHost>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return DedicatedHost.DeserializeDedicatedHost(document.RootElement);
-            }
+            return DedicatedHost.DeserializeDedicatedHost(document.RootElement);
         }
 
         async ValueTask<DedicatedHost> IOperationSource<DedicatedHost>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return DedicatedHost.DeserializeDedicatedHost(document.RootElement);
-            }
+            return DedicatedHost.DeserializeDedicatedHost(document.RootElement);
         }
     }
 }

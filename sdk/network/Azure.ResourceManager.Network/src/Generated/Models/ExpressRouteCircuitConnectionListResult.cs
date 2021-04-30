@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for ListConnections API service call retrieves all global reach connections that belongs to a Private Peering for an ExpressRouteCircuit. </summary>
-    public partial class ExpressRouteCircuitConnectionListResult
+    internal partial class ExpressRouteCircuitConnectionListResult
     {
         /// <summary> Initializes a new instance of ExpressRouteCircuitConnectionListResult. </summary>
         internal ExpressRouteCircuitConnectionListResult()
         {
+            Value = new ChangeTrackingList<ExpressRouteCircuitConnection>();
         }
 
         /// <summary> Initializes a new instance of ExpressRouteCircuitConnectionListResult. </summary>

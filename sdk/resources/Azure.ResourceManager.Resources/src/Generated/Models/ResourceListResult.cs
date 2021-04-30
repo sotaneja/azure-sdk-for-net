@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Resources.Models
 {
     /// <summary> List of resource groups. </summary>
-    public partial class ResourceListResult
+    internal partial class ResourceListResult
     {
         /// <summary> Initializes a new instance of ResourceListResult. </summary>
         internal ResourceListResult()
         {
+            Value = new ChangeTrackingList<GenericResourceExpanded>();
         }
 
         /// <summary> Initializes a new instance of ResourceListResult. </summary>

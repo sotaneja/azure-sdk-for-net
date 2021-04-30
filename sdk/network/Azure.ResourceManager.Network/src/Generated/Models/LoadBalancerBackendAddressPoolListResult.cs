@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for ListBackendAddressPool API service call. </summary>
-    public partial class LoadBalancerBackendAddressPoolListResult
+    internal partial class LoadBalancerBackendAddressPoolListResult
     {
         /// <summary> Initializes a new instance of LoadBalancerBackendAddressPoolListResult. </summary>
         internal LoadBalancerBackendAddressPoolListResult()
         {
+            Value = new ChangeTrackingList<BackendAddressPool>();
         }
 
         /// <summary> Initializes a new instance of LoadBalancerBackendAddressPoolListResult. </summary>

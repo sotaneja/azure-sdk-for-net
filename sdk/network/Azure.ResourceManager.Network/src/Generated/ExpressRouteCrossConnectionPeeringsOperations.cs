@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal ExpressRouteCrossConnectionPeeringsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of ExpressRouteCrossConnectionPeeringsOperations for mocking. </summary>
         protected ExpressRouteCrossConnectionPeeringsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of ExpressRouteCrossConnectionPeeringsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -81,6 +83,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="crossConnectionName"> The name of the ExpressRouteCrossConnection. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="crossConnectionName"/> is null. </exception>
         public virtual AsyncPageable<ExpressRouteCrossConnectionPeering> ListAsync(string resourceGroupName, string crossConnectionName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -129,6 +132,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="crossConnectionName"> The name of the ExpressRouteCrossConnection. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="crossConnectionName"/> is null. </exception>
         public virtual Pageable<ExpressRouteCrossConnectionPeering> List(string resourceGroupName, string crossConnectionName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -178,6 +182,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="crossConnectionName"> The name of the ExpressRouteCrossConnection. </param>
         /// <param name="peeringName"> The name of the peering. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="crossConnectionName"/>, or <paramref name="peeringName"/> is null. </exception>
         public virtual async Task<ExpressRouteCrossConnectionPeeringsDeleteOperation> StartDeleteAsync(string resourceGroupName, string crossConnectionName, string peeringName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -212,6 +217,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="crossConnectionName"> The name of the ExpressRouteCrossConnection. </param>
         /// <param name="peeringName"> The name of the peering. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="crossConnectionName"/>, or <paramref name="peeringName"/> is null. </exception>
         public virtual ExpressRouteCrossConnectionPeeringsDeleteOperation StartDelete(string resourceGroupName, string crossConnectionName, string peeringName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -247,6 +253,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="peeringName"> The name of the peering. </param>
         /// <param name="peeringParameters"> Parameters supplied to the create or update ExpressRouteCrossConnection peering operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="crossConnectionName"/>, <paramref name="peeringName"/>, or <paramref name="peeringParameters"/> is null. </exception>
         public virtual async Task<ExpressRouteCrossConnectionPeeringsCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string crossConnectionName, string peeringName, ExpressRouteCrossConnectionPeering peeringParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -286,6 +293,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="peeringName"> The name of the peering. </param>
         /// <param name="peeringParameters"> Parameters supplied to the create or update ExpressRouteCrossConnection peering operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="crossConnectionName"/>, <paramref name="peeringName"/>, or <paramref name="peeringParameters"/> is null. </exception>
         public virtual ExpressRouteCrossConnectionPeeringsCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string crossConnectionName, string peeringName, ExpressRouteCrossConnectionPeering peeringParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

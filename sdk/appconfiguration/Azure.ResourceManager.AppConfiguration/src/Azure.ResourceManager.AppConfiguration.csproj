@@ -8,6 +8,9 @@
     </Description>
     <PackageTags>azure;management;appconfiguration</PackageTags>
     <NoWarn>$(NoWarn);AZC0001;AZC0008;</NoWarn>
-    <TemporaryUsePreviousGeneratorVersion>true</TemporaryUsePreviousGeneratorVersion><!-- https://github.com/Azure/azure-sdk-for-net/issues/13506 -->
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.AutoRest.CSharp" VersionOverride="$(MgmtAutorestVersion)" PrivateAssets="All" />
+  </ItemGroup>
 </Project>

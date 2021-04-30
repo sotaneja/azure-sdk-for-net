@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for the ListPrivateEndpoints API service call. </summary>
-    public partial class PrivateEndpointListResult
+    internal partial class PrivateEndpointListResult
     {
         /// <summary> Initializes a new instance of PrivateEndpointListResult. </summary>
         internal PrivateEndpointListResult()
         {
+            Value = new ChangeTrackingList<PrivateEndpoint>();
         }
 
         /// <summary> Initializes a new instance of PrivateEndpointListResult. </summary>

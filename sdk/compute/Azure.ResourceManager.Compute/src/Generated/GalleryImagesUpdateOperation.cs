@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Compute
     public partial class GalleryImagesUpdateOperation : Operation<GalleryImage>, IOperationSource<GalleryImage>
     {
         private readonly ArmOperationHelpers<GalleryImage> _operation;
+
+        /// <summary> Initializes a new instance of GalleryImagesUpdateOperation for mocking. </summary>
+        protected GalleryImagesUpdateOperation()
+        {
+        }
+
         internal GalleryImagesUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<GalleryImage>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "GalleryImagesUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Compute
         GalleryImage IOperationSource<GalleryImage>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return GalleryImage.DeserializeGalleryImage(document.RootElement);
-            }
+            return GalleryImage.DeserializeGalleryImage(document.RootElement);
         }
 
         async ValueTask<GalleryImage> IOperationSource<GalleryImage>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return GalleryImage.DeserializeGalleryImage(document.RootElement);
-            }
+            return GalleryImage.DeserializeGalleryImage(document.RootElement);
         }
     }
 }

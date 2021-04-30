@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for ListBastionHosts API service call. </summary>
-    public partial class BastionHostListResult
+    internal partial class BastionHostListResult
     {
         /// <summary> Initializes a new instance of BastionHostListResult. </summary>
         internal BastionHostListResult()
         {
+            Value = new ChangeTrackingList<BastionHost>();
         }
 
         /// <summary> Initializes a new instance of BastionHostListResult. </summary>

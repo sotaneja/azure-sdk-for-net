@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal ExpressRouteCrossConnectionsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of ExpressRouteCrossConnectionsOperations for mocking. </summary>
         protected ExpressRouteCrossConnectionsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of ExpressRouteCrossConnectionsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -192,6 +194,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Retrieves all the ExpressRouteCrossConnections in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<ExpressRouteCrossConnection> ListByResourceGroupAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -235,6 +238,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Retrieves all the ExpressRouteCrossConnections in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<ExpressRouteCrossConnection> ListByResourceGroup(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -280,6 +284,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="crossConnectionName"> The name of the ExpressRouteCrossConnection. </param>
         /// <param name="parameters"> Parameters supplied to the update express route crossConnection operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="crossConnectionName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<ExpressRouteCrossConnectionsCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string crossConnectionName, ExpressRouteCrossConnection parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -314,6 +319,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="crossConnectionName"> The name of the ExpressRouteCrossConnection. </param>
         /// <param name="parameters"> Parameters supplied to the update express route crossConnection operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="crossConnectionName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual ExpressRouteCrossConnectionsCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string crossConnectionName, ExpressRouteCrossConnection parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -349,6 +355,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="peeringName"> The name of the peering. </param>
         /// <param name="devicePath"> The path of the device. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="crossConnectionName"/>, <paramref name="peeringName"/>, or <paramref name="devicePath"/> is null. </exception>
         public virtual async Task<ExpressRouteCrossConnectionsListArpTableOperation> StartListArpTableAsync(string resourceGroupName, string crossConnectionName, string peeringName, string devicePath, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -388,6 +395,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="peeringName"> The name of the peering. </param>
         /// <param name="devicePath"> The path of the device. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="crossConnectionName"/>, <paramref name="peeringName"/>, or <paramref name="devicePath"/> is null. </exception>
         public virtual ExpressRouteCrossConnectionsListArpTableOperation StartListArpTable(string resourceGroupName, string crossConnectionName, string peeringName, string devicePath, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -427,6 +435,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="peeringName"> The name of the peering. </param>
         /// <param name="devicePath"> The path of the device. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="crossConnectionName"/>, <paramref name="peeringName"/>, or <paramref name="devicePath"/> is null. </exception>
         public virtual async Task<ExpressRouteCrossConnectionsListRoutesTableSummaryOperation> StartListRoutesTableSummaryAsync(string resourceGroupName, string crossConnectionName, string peeringName, string devicePath, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -466,6 +475,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="peeringName"> The name of the peering. </param>
         /// <param name="devicePath"> The path of the device. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="crossConnectionName"/>, <paramref name="peeringName"/>, or <paramref name="devicePath"/> is null. </exception>
         public virtual ExpressRouteCrossConnectionsListRoutesTableSummaryOperation StartListRoutesTableSummary(string resourceGroupName, string crossConnectionName, string peeringName, string devicePath, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -505,6 +515,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="peeringName"> The name of the peering. </param>
         /// <param name="devicePath"> The path of the device. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="crossConnectionName"/>, <paramref name="peeringName"/>, or <paramref name="devicePath"/> is null. </exception>
         public virtual async Task<ExpressRouteCrossConnectionsListRoutesTableOperation> StartListRoutesTableAsync(string resourceGroupName, string crossConnectionName, string peeringName, string devicePath, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -544,6 +555,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="peeringName"> The name of the peering. </param>
         /// <param name="devicePath"> The path of the device. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="crossConnectionName"/>, <paramref name="peeringName"/>, or <paramref name="devicePath"/> is null. </exception>
         public virtual ExpressRouteCrossConnectionsListRoutesTableOperation StartListRoutesTable(string resourceGroupName, string crossConnectionName, string peeringName, string devicePath, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

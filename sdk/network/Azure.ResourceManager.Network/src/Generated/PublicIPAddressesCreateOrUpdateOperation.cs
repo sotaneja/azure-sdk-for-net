@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class PublicIPAddressesCreateOrUpdateOperation : Operation<PublicIPAddress>, IOperationSource<PublicIPAddress>
     {
         private readonly ArmOperationHelpers<PublicIPAddress> _operation;
+
+        /// <summary> Initializes a new instance of PublicIPAddressesCreateOrUpdateOperation for mocking. </summary>
+        protected PublicIPAddressesCreateOrUpdateOperation()
+        {
+        }
+
         internal PublicIPAddressesCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<PublicIPAddress>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "PublicIPAddressesCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         PublicIPAddress IOperationSource<PublicIPAddress>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return PublicIPAddress.DeserializePublicIPAddress(document.RootElement);
-            }
+            return PublicIPAddress.DeserializePublicIPAddress(document.RootElement);
         }
 
         async ValueTask<PublicIPAddress> IOperationSource<PublicIPAddress>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return PublicIPAddress.DeserializePublicIPAddress(document.RootElement);
-            }
+            return PublicIPAddress.DeserializePublicIPAddress(document.RootElement);
         }
     }
 }

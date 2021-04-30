@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class SubnetsCreateOrUpdateOperation : Operation<Subnet>, IOperationSource<Subnet>
     {
         private readonly ArmOperationHelpers<Subnet> _operation;
+
+        /// <summary> Initializes a new instance of SubnetsCreateOrUpdateOperation for mocking. </summary>
+        protected SubnetsCreateOrUpdateOperation()
+        {
+        }
+
         internal SubnetsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<Subnet>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "SubnetsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         Subnet IOperationSource<Subnet>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return Subnet.DeserializeSubnet(document.RootElement);
-            }
+            return Subnet.DeserializeSubnet(document.RootElement);
         }
 
         async ValueTask<Subnet> IOperationSource<Subnet>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return Subnet.DeserializeSubnet(document.RootElement);
-            }
+            return Subnet.DeserializeSubnet(document.RootElement);
         }
     }
 }

@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Compute
     public partial class SnapshotsCreateOrUpdateOperation : Operation<Snapshot>, IOperationSource<Snapshot>
     {
         private readonly ArmOperationHelpers<Snapshot> _operation;
+
+        /// <summary> Initializes a new instance of SnapshotsCreateOrUpdateOperation for mocking. </summary>
+        protected SnapshotsCreateOrUpdateOperation()
+        {
+        }
+
         internal SnapshotsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<Snapshot>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "SnapshotsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Compute
         Snapshot IOperationSource<Snapshot>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return Snapshot.DeserializeSnapshot(document.RootElement);
-            }
+            return Snapshot.DeserializeSnapshot(document.RootElement);
         }
 
         async ValueTask<Snapshot> IOperationSource<Snapshot>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return Snapshot.DeserializeSnapshot(document.RootElement);
-            }
+            return Snapshot.DeserializeSnapshot(document.RootElement);
         }
     }
 }

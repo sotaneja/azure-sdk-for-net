@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Compute
     public partial class VirtualMachineScaleSetsCreateOrUpdateOperation : Operation<VirtualMachineScaleSet>, IOperationSource<VirtualMachineScaleSet>
     {
         private readonly ArmOperationHelpers<VirtualMachineScaleSet> _operation;
+
+        /// <summary> Initializes a new instance of VirtualMachineScaleSetsCreateOrUpdateOperation for mocking. </summary>
+        protected VirtualMachineScaleSetsCreateOrUpdateOperation()
+        {
+        }
+
         internal VirtualMachineScaleSetsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VirtualMachineScaleSet>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "VirtualMachineScaleSetsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Compute
         VirtualMachineScaleSet IOperationSource<VirtualMachineScaleSet>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualMachineScaleSet.DeserializeVirtualMachineScaleSet(document.RootElement);
-            }
+            return VirtualMachineScaleSet.DeserializeVirtualMachineScaleSet(document.RootElement);
         }
 
         async ValueTask<VirtualMachineScaleSet> IOperationSource<VirtualMachineScaleSet>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualMachineScaleSet.DeserializeVirtualMachineScaleSet(document.RootElement);
-            }
+            return VirtualMachineScaleSet.DeserializeVirtualMachineScaleSet(document.RootElement);
         }
     }
 }

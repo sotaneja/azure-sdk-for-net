@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Azure.Core.TestFramework;
 using Azure.ResourceManager.Compute.Models;
-using Azure.Management.Resources;
+using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.Compute.Tests
@@ -104,23 +104,22 @@ namespace Azure.ResourceManager.Compute.Tests
             var storageAccountOutput = await CreateStorageAccount(rg1Name, storageAccountName);
 
             var returnTwovm = await CreateVM(rg1Name, as1Name, storageAccountOutput, imageRef);
-            var vm1 = returnTwovm.Item1;
-            inputVM1 = returnTwovm.Item2;
+            var vm1 = returnTwovm.Response;
+            inputVM1 = returnTwovm.Input;
             await WaitForCompletionAsync(await VirtualMachinesOperations.StartStartAsync(rg1Name, vm1.Name));
             await WaitForCompletionAsync(await VirtualMachinesOperations.StartRedeployAsync(rg1Name, vm1.Name));
             await WaitForCompletionAsync(await VirtualMachinesOperations.StartRestartAsync(rg1Name, vm1.Name));
 
             var runCommandImput = new RunCommandInput("RunPowerShellScript")
             {
-                Script = new List<string>() {
+                Script = {
                             "param(",
                             "    [string]$arg1,",
                             "    [string]$arg2",
                             ")",
                             "echo This is a sample script with parameters $arg1 $arg2"
                         },
-                Parameters = new List<RunCommandInputParameter>()
-                        {
+                Parameters = {
                             new RunCommandInputParameter("arg1","value1"),
                             new RunCommandInputParameter("arg2","value2"),
                         }
@@ -138,7 +137,7 @@ namespace Azure.ResourceManager.Compute.Tests
             string as2Name = as1Name + "_ephemeral";
             var returnTwoVM = await CreateVM(rg1Name, as2Name, storageAccountName, imageRef, hasManagedDisks: true, hasDiffDisks: true, vmSize: VirtualMachineSizeTypes.StandardDS5V2.ToString(),
                 osDiskStorageAccountType: StorageAccountTypes.StandardLRS.ToString(), dataDiskStorageAccountType: StorageAccountTypes.StandardLRS.ToString());
-            ephemeralVM = returnTwoVM.Item2;
+            ephemeralVM = returnTwovm.Input;
             await WaitForCompletionAsync(await VirtualMachinesOperations.StartReimageAsync(rg1Name, ephemeralVM.Name));
             var captureParams = new VirtualMachineCaptureParameters(Recording.GenerateAssetName(TestPrefix), Recording.GenerateAssetName(TestPrefix), true);
 
@@ -165,8 +164,8 @@ namespace Azure.ResourceManager.Compute.Tests
                     vm.StorageProfile.OsDisk.Vhd.Uri = vm.StorageProfile.OsDisk.Vhd.Uri.Replace(".vhd", "copy.vhd");
                     vm.StorageProfile.OsDisk.OsType = OperatingSystemTypes.Windows;
                 }, false, false);
-            var vm3 = returnTwovm.Item1;
-            inputVM2 = returnTwovm.Item2;
+            var vm3 = returnTwovm.Response;
+            inputVM2 = returnTwovm.Input;
             Assert.True(vm3.StorageProfile.OsDisk.Image.Uri == imageUri);
         }
         /// <summary>
@@ -197,8 +196,8 @@ namespace Azure.ResourceManager.Compute.Tests
             var storageAccountOutput = await CreateStorageAccount(rg1Name, storageAccountName);
 
             var returnTwovm = await CreateVM(rg1Name, asName, storageAccountOutput, imageRef);
-            VirtualMachine vm1 = returnTwovm.Item1;
-            inputVM1 = returnTwovm.Item2;
+            VirtualMachine vm1 = returnTwovm.Response;
+            inputVM1 = returnTwovm.Input;
             var redeployOperationResponse = await WaitForCompletionAsync(await VirtualMachinesOperations.StartRedeployAsync(rg1Name, vm1.Name));
             //.BeginRedeployWithHttpMessagesAsync
             //Assert.Equal(HttpStatusCode.Accepted, redeployOperationResponse.Result.Response.StatusCode);
@@ -229,8 +228,8 @@ namespace Azure.ResourceManager.Compute.Tests
             var storageAccountOutput = await CreateStorageAccount(rg1Name, storageAccountName);
 
             var returnTwovm = await CreateVM(rg1Name, asName, storageAccountOutput, imageRef);
-            VirtualMachine vm1 = returnTwovm.Item1;
-            inputVM1 = returnTwovm.Item2;
+            VirtualMachine vm1 = returnTwovm.Response;
+            inputVM1 = returnTwovm.Input;
             var reapplyperationResponse = await WaitForCompletionAsync(await VirtualMachinesOperations.StartReapplyAsync(rg1Name, vm1.Name));
             var lroResponse = await WaitForCompletionAsync(await VirtualMachinesOperations.StartReapplyAsync(rg1Name,
                 vm1.Name));
@@ -267,8 +266,8 @@ namespace Azure.ResourceManager.Compute.Tests
             var storageAccountOutput = await CreateStorageAccount(rg1Name, storageAccountName);
 
             var returnTwovm = await CreateVM(rg1Name, asName, storageAccountOutput, imageRef);
-            VirtualMachine vm1 = returnTwovm.Item1;
-            inputVM1 = returnTwovm.Item2;
+            VirtualMachine vm1 = returnTwovm.Response;
+            inputVM1 = returnTwovm.Input;
             await WaitForCompletionAsync(await VirtualMachinesOperations.StartStartAsync(rg1Name, vm1.Name));
             // Shutdown VM with SkipShutdown = true
             await WaitForCompletionAsync(await VirtualMachinesOperations.StartPowerOffAsync(rg1Name, vm1.Name, true));
@@ -297,6 +296,7 @@ namespace Azure.ResourceManager.Compute.Tests
             string asName = Recording.GenerateAssetName("as");
             string storageAccountName = Recording.GenerateAssetName(TestPrefix);
             VirtualMachine inputVM1 = null;
+            string inputVM1Name = null;
 
             bool passed = false;
             try
@@ -305,16 +305,16 @@ namespace Azure.ResourceManager.Compute.Tests
                 var storageAccountOutput = await CreateStorageAccount(rg1Name, storageAccountName);
 
                 var returnTwovm = await CreateVM(rg1Name, asName, storageAccountOutput, imageRef);
-                VirtualMachine vm1 = returnTwovm.Item1;
-                inputVM1 = returnTwovm.Item2;
+                VirtualMachine vm1 = returnTwovm.Response;
+                inputVM1 = returnTwovm.Input;
+                inputVM1Name = returnTwovm.Name;
                 await WaitForCompletionAsync(await VirtualMachinesOperations.StartPerformMaintenanceAsync(rg1Name, vm1.Name));
                 passed = true;
-
             }
             catch (Exception cex)
             {
                 passed = true;
-                string expectedMessage = $"Operation 'performMaintenance' is not allowed on VM '{inputVM1.Name}' since the Subscription of this VM" +
+                string expectedMessage = $"Operation 'performMaintenance' is not allowed on VM '{inputVM1Name}' since the Subscription of this VM" +
                     " is not eligible.";
                 Assert.IsTrue(cex.Message.Contains(expectedMessage));
             }
@@ -357,9 +357,8 @@ namespace Azure.ResourceManager.Compute.Tests
                                                virtualMachine.BillingProfile = new BillingProfile { MaxPrice = -1 };
                                            },
                                            vmSize: VirtualMachineSizeTypes.StandardA1.ToString());
-            VirtualMachine vm1 = returnTwoVM.Item1;
-            inputVM1 = returnTwoVM.Item2;
-
+            VirtualMachine vm1 = returnTwoVM.Response;
+            inputVM1 = returnTwoVM.Input;
 
             await VirtualMachinesOperations.SimulateEvictionAsync(rg1Name, vm1.Name);
             passed = true;

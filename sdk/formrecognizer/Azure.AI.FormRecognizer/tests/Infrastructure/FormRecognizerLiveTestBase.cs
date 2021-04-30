@@ -9,12 +9,21 @@ using Azure.Core.TestFramework;
 
 namespace Azure.AI.FormRecognizer.Tests
 {
+    [ClientTestFixture(
+    FormRecognizerClientOptions.ServiceVersion.V2_0,
+    FormRecognizerClientOptions.ServiceVersion.V2_1_Preview_3)]
     public class FormRecognizerLiveTestBase : RecordedTestBase<FormRecognizerTestEnvironment>
     {
-        protected TimeSpan PollingInterval => TimeSpan.FromSeconds(Mode == RecordedTestMode.Playback ? 0 : 1);
+        /// <summary>
+        /// The version of the REST API to test against.  This will be passed
+        /// to the .ctor via ClientTestFixture's values.
+        /// </summary>
+        private readonly FormRecognizerClientOptions.ServiceVersion _serviceVersion;
 
-        public FormRecognizerLiveTestBase(bool isAsync) : base(isAsync)
+        public FormRecognizerLiveTestBase(bool isAsync, FormRecognizerClientOptions.ServiceVersion serviceVersion)
+            : base(isAsync)
         {
+            _serviceVersion = serviceVersion;
             Sanitizer = new FormRecognizerRecordedTestSanitizer();
         }
 
@@ -26,50 +35,71 @@ namespace Azure.AI.FormRecognizer.Tests
         /// <param name="apiKey">The API key to use for authentication. Defaults to <see cref="FormRecognizerTestEnvironment.ApiKey"/>.</param>
         /// <param name="skipInstrumenting">Whether or not instrumenting should be skipped. Avoid skipping it as much as possible.</param>
         /// <returns>The instrumented <see cref="FormRecognizerClient" />.</returns>
-        protected FormRecognizerClient CreateFormRecognizerClient(bool useTokenCredential = false, string apiKey = default, bool skipInstrumenting = false)
+        protected FormRecognizerClient CreateFormRecognizerClient(bool useTokenCredential = false, string apiKey = default) => CreateFormRecognizerClient(out _, useTokenCredential, apiKey);
+
+        /// <summary>
+        /// Creates a <see cref="FormRecognizerClient" /> with the endpoint and API key provided via environment
+        /// variables and instruments it to make use of the Azure Core Test Framework functionalities.
+        /// </summary>
+        /// <param name="nonInstrumentedClient">The non-instrumented version of the client to be used to resume LROs.</param>
+        /// <param name="useTokenCredential">Whether or not to use a <see cref="TokenCredential"/> to authenticate. An <see cref="AzureKeyCredential"/> is used by default.</param>
+        /// <param name="apiKey">The API key to use for authentication. Defaults to <see cref="FormRecognizerTestEnvironment.ApiKey"/>.</param>
+        /// <param name="skipInstrumenting">Whether or not instrumenting should be skipped. Avoid skipping it as much as possible.</param>
+        /// <returns>The instrumented <see cref="FormRecognizerClient" />.</returns>
+        protected FormRecognizerClient CreateFormRecognizerClient(out FormRecognizerClient nonInstrumentedClient, bool useTokenCredential = false, string apiKey = default)
         {
             var endpoint = new Uri(TestEnvironment.Endpoint);
-            var options = Recording.InstrumentClientOptions(new FormRecognizerClientOptions());
-            FormRecognizerClient client;
+            var options = InstrumentClientOptions(new FormRecognizerClientOptions(_serviceVersion));
 
             if (useTokenCredential)
             {
-                client = new FormRecognizerClient(endpoint, TestEnvironment.Credential, options);
+                nonInstrumentedClient = new FormRecognizerClient(endpoint, TestEnvironment.Credential, options);
             }
             else
             {
                 var credential = new AzureKeyCredential(apiKey ?? TestEnvironment.ApiKey);
-                client = new FormRecognizerClient(endpoint, credential, options);
+                nonInstrumentedClient = new FormRecognizerClient(endpoint, credential, options);
             }
 
-            return skipInstrumenting ? client : InstrumentClient(client);
+            return InstrumentClient(nonInstrumentedClient);
         }
 
         /// <summary>
         /// Creates a <see cref="FormTrainingClient" /> with the endpoint and API key provided via environment
         /// variables and instruments it to make use of the Azure Core Test Framework functionalities.
         /// </summary>
+        /// <param name="nonInstrumentedClient">The non-instrumented version of the client to be used to resume LROs.</param>
         /// <param name="useTokenCredential">Whether or not to use a <see cref="TokenCredential"/> to authenticate. An <see cref="AzureKeyCredential"/> is used by default.</param>
         /// <param name="apiKey">The API key to use for authentication. Defaults to <see cref="FormRecognizerTestEnvironment.ApiKey"/>.</param>
         /// <param name="skipInstrumenting">Whether or not instrumenting should be skipped. Avoid skipping it as much as possible.</param>
         /// <returns>The instrumented <see cref="FormTrainingClient" />.</returns>
-        protected FormTrainingClient CreateFormTrainingClient(bool useTokenCredential = false, string apiKey = default, bool skipInstrumenting = false)
+        protected FormTrainingClient CreateFormTrainingClient(bool useTokenCredential = false, string apiKey = default) => CreateFormTrainingClient(out _, useTokenCredential, apiKey);
+
+        /// <summary>
+        /// Creates a <see cref="FormTrainingClient" /> with the endpoint and API key provided via environment
+        /// variables and instruments it to make use of the Azure Core Test Framework functionalities.
+        /// </summary>
+        /// <param name="nonInstrumentedClient">The non-instrumented version of the client to be used to resume LROs.</param>
+        /// <param name="useTokenCredential">Whether or not to use a <see cref="TokenCredential"/> to authenticate. An <see cref="AzureKeyCredential"/> is used by default.</param>
+        /// <param name="apiKey">The API key to use for authentication. Defaults to <see cref="FormRecognizerTestEnvironment.ApiKey"/>.</param>
+        /// <param name="skipInstrumenting">Whether or not instrumenting should be skipped. Avoid skipping it as much as possible.</param>
+        /// <returns>The instrumented <see cref="FormTrainingClient" />.</returns>
+        protected FormTrainingClient CreateFormTrainingClient(out FormTrainingClient nonInstrumentedClient, bool useTokenCredential = false, string apiKey = default)
         {
             var endpoint = new Uri(TestEnvironment.Endpoint);
-            var options = Recording.InstrumentClientOptions(new FormRecognizerClientOptions());
-            FormTrainingClient client;
+            var options = InstrumentClientOptions(new FormRecognizerClientOptions(_serviceVersion));
 
             if (useTokenCredential)
             {
-                client = new FormTrainingClient(endpoint, TestEnvironment.Credential, options);
+                nonInstrumentedClient = new FormTrainingClient(endpoint, TestEnvironment.Credential, options);
             }
             else
             {
                 var credential = new AzureKeyCredential(apiKey ?? TestEnvironment.ApiKey);
-                client = new FormTrainingClient(endpoint, credential, options);
+                nonInstrumentedClient = new FormTrainingClient(endpoint, credential, options);
             }
 
-            return skipInstrumenting ? client : InstrumentClient(client);
+            return InstrumentClient(nonInstrumentedClient);
         }
 
         /// <summary>
@@ -77,14 +107,34 @@ namespace Azure.AI.FormRecognizer.Tests
         /// the model ID can be obtained. Upon disposal, the model will be deleted.
         /// </summary>
         /// <param name="useTrainingLabels">If <c>true</c>, use a label file created in the &lt;link-to-label-tool-doc&gt; to provide training-time labels for training a model. If <c>false</c>, the model will be trained from forms only.</param>
-        /// <param name="useMultipageFiles">Whether or not to use multipage files for training.</param>
+        /// <param name="containerType">Type of container to use to execute training.</param>
+        /// <param name="modelName">Optional model name.</param>
         /// <returns>A <see cref="DisposableTrainedModel"/> instance from which the trained model ID can be obtained.</returns>
-        protected async Task<DisposableTrainedModel> CreateDisposableTrainedModelAsync(bool useTrainingLabels, bool useMultipageFiles = false)
+        protected async Task<DisposableTrainedModel> CreateDisposableTrainedModelAsync(bool useTrainingLabels, ContainerType containerType = default, string modelName = default)
         {
             var trainingClient = CreateFormTrainingClient();
-            var trainingFilesUri = new Uri(useMultipageFiles ? TestEnvironment.MultipageBlobContainerSasUrl : TestEnvironment.BlobContainerSasUrl);
 
-            return await DisposableTrainedModel.TrainModelAsync(trainingClient, trainingFilesUri, useTrainingLabels, PollingInterval);
+            string trainingFiles = containerType switch
+            {
+                ContainerType.Singleforms => TestEnvironment.BlobContainerSasUrl,
+                ContainerType.MultipageFiles => TestEnvironment.MultipageBlobContainerSasUrl,
+                ContainerType.SelectionMarks => TestEnvironment.SelectionMarkBlobContainerSasUrl,
+                ContainerType.TableVariableRows => TestEnvironment.TableVariableRowsContainerSasUrl,
+                ContainerType.TableFixedRows => TestEnvironment.TableFixedRowsContainerSasUrl,
+                _ => TestEnvironment.BlobContainerSasUrl,
+            };
+            var trainingFilesUri = new Uri(trainingFiles);
+
+            return await DisposableTrainedModel.TrainModelAsync(trainingClient, trainingFilesUri, useTrainingLabels, modelName);
+        }
+
+        protected enum ContainerType
+        {
+            Singleforms,
+            MultipageFiles,
+            SelectionMarks,
+            TableVariableRows,
+            TableFixedRows
         }
     }
 }

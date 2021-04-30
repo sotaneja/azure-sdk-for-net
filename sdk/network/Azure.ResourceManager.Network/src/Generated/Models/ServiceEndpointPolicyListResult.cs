@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for ListServiceEndpointPolicies API service call. </summary>
-    public partial class ServiceEndpointPolicyListResult
+    internal partial class ServiceEndpointPolicyListResult
     {
         /// <summary> Initializes a new instance of ServiceEndpointPolicyListResult. </summary>
         internal ServiceEndpointPolicyListResult()
         {
+            Value = new ChangeTrackingList<ServiceEndpointPolicy>();
         }
 
         /// <summary> Initializes a new instance of ServiceEndpointPolicyListResult. </summary>

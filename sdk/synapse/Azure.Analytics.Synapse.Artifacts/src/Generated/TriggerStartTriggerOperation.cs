@@ -17,10 +17,16 @@ namespace Azure.Analytics.Synapse.Artifacts
     /// <summary> Starts a trigger. </summary>
     public partial class TriggerStartTriggerOperation : Operation<Response>, IOperationSource<Response>
     {
-        private readonly ArmOperationHelpers<Response> _operation;
+        private readonly OperationInternals<Response> _operation;
+
+        /// <summary> Initializes a new instance of TriggerStartTriggerOperation for mocking. </summary>
+        protected TriggerStartTriggerOperation()
+        {
+        }
+
         internal TriggerStartTriggerOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
-            _operation = new ArmOperationHelpers<Response>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "TriggerStartTriggerOperation");
+            _operation = new OperationInternals<Response>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "TriggerStartTriggerOperation");
         }
         /// <inheritdoc />
         public override string Id => _operation.Id;

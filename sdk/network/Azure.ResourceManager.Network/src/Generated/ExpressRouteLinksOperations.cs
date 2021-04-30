@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal ExpressRouteLinksRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of ExpressRouteLinksOperations for mocking. </summary>
         protected ExpressRouteLinksOperations()
         {
         }
+
         /// <summary> Initializes a new instance of ExpressRouteLinksOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -81,6 +83,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="expressRoutePortName"> The name of the ExpressRoutePort resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="expressRoutePortName"/> is null. </exception>
         public virtual AsyncPageable<ExpressRouteLink> ListAsync(string resourceGroupName, string expressRoutePortName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -129,6 +132,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="expressRoutePortName"> The name of the ExpressRoutePort resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="expressRoutePortName"/> is null. </exception>
         public virtual Pageable<ExpressRouteLink> List(string resourceGroupName, string expressRoutePortName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

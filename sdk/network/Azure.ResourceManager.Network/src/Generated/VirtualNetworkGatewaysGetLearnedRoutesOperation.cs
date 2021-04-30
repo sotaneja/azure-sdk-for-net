@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VirtualNetworkGatewaysGetLearnedRoutesOperation : Operation<GatewayRouteListResult>, IOperationSource<GatewayRouteListResult>
     {
         private readonly ArmOperationHelpers<GatewayRouteListResult> _operation;
+
+        /// <summary> Initializes a new instance of VirtualNetworkGatewaysGetLearnedRoutesOperation for mocking. </summary>
+        protected VirtualNetworkGatewaysGetLearnedRoutesOperation()
+        {
+        }
+
         internal VirtualNetworkGatewaysGetLearnedRoutesOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<GatewayRouteListResult>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "VirtualNetworkGatewaysGetLearnedRoutesOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         GatewayRouteListResult IOperationSource<GatewayRouteListResult>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return GatewayRouteListResult.DeserializeGatewayRouteListResult(document.RootElement);
-            }
+            return GatewayRouteListResult.DeserializeGatewayRouteListResult(document.RootElement);
         }
 
         async ValueTask<GatewayRouteListResult> IOperationSource<GatewayRouteListResult>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return GatewayRouteListResult.DeserializeGatewayRouteListResult(document.RootElement);
-            }
+            return GatewayRouteListResult.DeserializeGatewayRouteListResult(document.RootElement);
         }
     }
 }

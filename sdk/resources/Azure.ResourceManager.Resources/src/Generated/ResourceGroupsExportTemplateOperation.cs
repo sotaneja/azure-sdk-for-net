@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Resources
     public partial class ResourceGroupsExportTemplateOperation : Operation<ResourceGroupExportResult>, IOperationSource<ResourceGroupExportResult>
     {
         private readonly ArmOperationHelpers<ResourceGroupExportResult> _operation;
+
+        /// <summary> Initializes a new instance of ResourceGroupsExportTemplateOperation for mocking. </summary>
+        protected ResourceGroupsExportTemplateOperation()
+        {
+        }
+
         internal ResourceGroupsExportTemplateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ResourceGroupExportResult>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "ResourceGroupsExportTemplateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Resources
         ResourceGroupExportResult IOperationSource<ResourceGroupExportResult>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ResourceGroupExportResult.DeserializeResourceGroupExportResult(document.RootElement);
-            }
+            return ResourceGroupExportResult.DeserializeResourceGroupExportResult(document.RootElement);
         }
 
         async ValueTask<ResourceGroupExportResult> IOperationSource<ResourceGroupExportResult>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ResourceGroupExportResult.DeserializeResourceGroupExportResult(document.RootElement);
-            }
+            return ResourceGroupExportResult.DeserializeResourceGroupExportResult(document.RootElement);
         }
     }
 }

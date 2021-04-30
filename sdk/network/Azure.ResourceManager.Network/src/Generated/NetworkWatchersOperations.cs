@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal NetworkWatchersRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of NetworkWatchersOperations for mocking. </summary>
         protected NetworkWatchersOperations()
         {
         }
+
         /// <summary> Initializes a new instance of NetworkWatchersOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -198,6 +200,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all network watchers by resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<NetworkWatcher> ListAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -226,6 +229,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all network watchers by resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<NetworkWatcher> List(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -299,6 +303,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="networkWatcherName"> The name of the network watcher. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="networkWatcherName"/> is null. </exception>
         public virtual async Task<NetworkWatchersDeleteOperation> StartDeleteAsync(string resourceGroupName, string networkWatcherName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -328,6 +333,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="networkWatcherName"> The name of the network watcher. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="networkWatcherName"/> is null. </exception>
         public virtual NetworkWatchersDeleteOperation StartDelete(string resourceGroupName, string networkWatcherName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -358,6 +364,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher. </param>
         /// <param name="parameters"> Parameters that define the IP flow to be verified. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<NetworkWatchersVerifyIPFlowOperation> StartVerifyIPFlowAsync(string resourceGroupName, string networkWatcherName, VerificationIPFlowParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -392,6 +399,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher. </param>
         /// <param name="parameters"> Parameters that define the IP flow to be verified. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual NetworkWatchersVerifyIPFlowOperation StartVerifyIPFlow(string resourceGroupName, string networkWatcherName, VerificationIPFlowParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -426,6 +434,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher. </param>
         /// <param name="parameters"> Parameters that define the source and destination endpoint. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<NetworkWatchersGetNextHopOperation> StartGetNextHopAsync(string resourceGroupName, string networkWatcherName, NextHopParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -460,6 +469,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher. </param>
         /// <param name="parameters"> Parameters that define the source and destination endpoint. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual NetworkWatchersGetNextHopOperation StartGetNextHop(string resourceGroupName, string networkWatcherName, NextHopParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -494,6 +504,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher. </param>
         /// <param name="parameters"> Parameters that define the VM to check security groups for. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<NetworkWatchersGetVMSecurityRulesOperation> StartGetVMSecurityRulesAsync(string resourceGroupName, string networkWatcherName, SecurityGroupViewParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -528,6 +539,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher. </param>
         /// <param name="parameters"> Parameters that define the VM to check security groups for. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual NetworkWatchersGetVMSecurityRulesOperation StartGetVMSecurityRules(string resourceGroupName, string networkWatcherName, SecurityGroupViewParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -562,6 +574,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher resource. </param>
         /// <param name="parameters"> Parameters that define the resource to troubleshoot. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<NetworkWatchersGetTroubleshootingOperation> StartGetTroubleshootingAsync(string resourceGroupName, string networkWatcherName, TroubleshootingParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -596,6 +609,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher resource. </param>
         /// <param name="parameters"> Parameters that define the resource to troubleshoot. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual NetworkWatchersGetTroubleshootingOperation StartGetTroubleshooting(string resourceGroupName, string networkWatcherName, TroubleshootingParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -630,6 +644,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher resource. </param>
         /// <param name="parameters"> Parameters that define the resource to query the troubleshooting result. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<NetworkWatchersGetTroubleshootingResultOperation> StartGetTroubleshootingResultAsync(string resourceGroupName, string networkWatcherName, QueryTroubleshootingParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -664,6 +679,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher resource. </param>
         /// <param name="parameters"> Parameters that define the resource to query the troubleshooting result. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual NetworkWatchersGetTroubleshootingResultOperation StartGetTroubleshootingResult(string resourceGroupName, string networkWatcherName, QueryTroubleshootingParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -698,6 +714,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher resource. </param>
         /// <param name="parameters"> Parameters that define the configuration of flow log. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<NetworkWatchersSetFlowLogConfigurationOperation> StartSetFlowLogConfigurationAsync(string resourceGroupName, string networkWatcherName, FlowLogInformation parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -732,6 +749,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher resource. </param>
         /// <param name="parameters"> Parameters that define the configuration of flow log. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual NetworkWatchersSetFlowLogConfigurationOperation StartSetFlowLogConfiguration(string resourceGroupName, string networkWatcherName, FlowLogInformation parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -766,6 +784,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher resource. </param>
         /// <param name="parameters"> Parameters that define a resource to query flow log and traffic analytics (optional) status. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<NetworkWatchersGetFlowLogStatusOperation> StartGetFlowLogStatusAsync(string resourceGroupName, string networkWatcherName, FlowLogStatusParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -800,6 +819,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher resource. </param>
         /// <param name="parameters"> Parameters that define a resource to query flow log and traffic analytics (optional) status. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual NetworkWatchersGetFlowLogStatusOperation StartGetFlowLogStatus(string resourceGroupName, string networkWatcherName, FlowLogStatusParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -834,6 +854,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher resource. </param>
         /// <param name="parameters"> Parameters that determine how the connectivity check will be performed. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<NetworkWatchersCheckConnectivityOperation> StartCheckConnectivityAsync(string resourceGroupName, string networkWatcherName, ConnectivityParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -868,6 +889,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher resource. </param>
         /// <param name="parameters"> Parameters that determine how the connectivity check will be performed. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual NetworkWatchersCheckConnectivityOperation StartCheckConnectivity(string resourceGroupName, string networkWatcherName, ConnectivityParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -902,6 +924,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher resource. </param>
         /// <param name="parameters"> Parameters that determine Azure reachability report configuration. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<NetworkWatchersGetAzureReachabilityReportOperation> StartGetAzureReachabilityReportAsync(string resourceGroupName, string networkWatcherName, AzureReachabilityReportParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -936,6 +959,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher resource. </param>
         /// <param name="parameters"> Parameters that determine Azure reachability report configuration. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual NetworkWatchersGetAzureReachabilityReportOperation StartGetAzureReachabilityReport(string resourceGroupName, string networkWatcherName, AzureReachabilityReportParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -970,6 +994,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher resource. </param>
         /// <param name="parameters"> Parameters that scope the list of available providers. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<NetworkWatchersListAvailableProvidersOperation> StartListAvailableProvidersAsync(string resourceGroupName, string networkWatcherName, AvailableProvidersListParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -1004,6 +1029,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher resource. </param>
         /// <param name="parameters"> Parameters that scope the list of available providers. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual NetworkWatchersListAvailableProvidersOperation StartListAvailableProviders(string resourceGroupName, string networkWatcherName, AvailableProvidersListParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -1038,6 +1064,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher. </param>
         /// <param name="parameters"> Parameters to get network configuration diagnostic. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<NetworkWatchersGetNetworkConfigurationDiagnosticOperation> StartGetNetworkConfigurationDiagnosticAsync(string resourceGroupName, string networkWatcherName, NetworkConfigurationDiagnosticParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -1072,6 +1099,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher. </param>
         /// <param name="parameters"> Parameters to get network configuration diagnostic. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual NetworkWatchersGetNetworkConfigurationDiagnosticOperation StartGetNetworkConfigurationDiagnostic(string resourceGroupName, string networkWatcherName, NetworkConfigurationDiagnosticParameters parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

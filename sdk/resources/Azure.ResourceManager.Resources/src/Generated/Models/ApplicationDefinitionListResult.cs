@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Resources.Models
 {
     /// <summary> List of managed application definitions. </summary>
-    public partial class ApplicationDefinitionListResult
+    internal partial class ApplicationDefinitionListResult
     {
         /// <summary> Initializes a new instance of ApplicationDefinitionListResult. </summary>
         internal ApplicationDefinitionListResult()
         {
+            Value = new ChangeTrackingList<ApplicationDefinition>();
         }
 
         /// <summary> Initializes a new instance of ApplicationDefinitionListResult. </summary>

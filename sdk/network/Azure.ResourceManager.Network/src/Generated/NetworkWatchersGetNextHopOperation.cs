@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class NetworkWatchersGetNextHopOperation : Operation<NextHopResult>, IOperationSource<NextHopResult>
     {
         private readonly ArmOperationHelpers<NextHopResult> _operation;
+
+        /// <summary> Initializes a new instance of NetworkWatchersGetNextHopOperation for mocking. </summary>
+        protected NetworkWatchersGetNextHopOperation()
+        {
+        }
+
         internal NetworkWatchersGetNextHopOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<NextHopResult>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "NetworkWatchersGetNextHopOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         NextHopResult IOperationSource<NextHopResult>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return NextHopResult.DeserializeNextHopResult(document.RootElement);
-            }
+            return NextHopResult.DeserializeNextHopResult(document.RootElement);
         }
 
         async ValueTask<NextHopResult> IOperationSource<NextHopResult>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return NextHopResult.DeserializeNextHopResult(document.RootElement);
-            }
+            return NextHopResult.DeserializeNextHopResult(document.RootElement);
         }
     }
 }

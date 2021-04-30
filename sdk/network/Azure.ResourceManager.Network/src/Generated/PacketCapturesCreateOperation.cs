@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class PacketCapturesCreateOperation : Operation<PacketCaptureResult>, IOperationSource<PacketCaptureResult>
     {
         private readonly ArmOperationHelpers<PacketCaptureResult> _operation;
+
+        /// <summary> Initializes a new instance of PacketCapturesCreateOperation for mocking. </summary>
+        protected PacketCapturesCreateOperation()
+        {
+        }
+
         internal PacketCapturesCreateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<PacketCaptureResult>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "PacketCapturesCreateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         PacketCaptureResult IOperationSource<PacketCaptureResult>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return PacketCaptureResult.DeserializePacketCaptureResult(document.RootElement);
-            }
+            return PacketCaptureResult.DeserializePacketCaptureResult(document.RootElement);
         }
 
         async ValueTask<PacketCaptureResult> IOperationSource<PacketCaptureResult>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return PacketCaptureResult.DeserializePacketCaptureResult(document.RootElement);
-            }
+            return PacketCaptureResult.DeserializePacketCaptureResult(document.RootElement);
         }
     }
 }

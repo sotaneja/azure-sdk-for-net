@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Compute
     public partial class VirtualMachinesCaptureOperation : Operation<VirtualMachineCaptureResult>, IOperationSource<VirtualMachineCaptureResult>
     {
         private readonly ArmOperationHelpers<VirtualMachineCaptureResult> _operation;
+
+        /// <summary> Initializes a new instance of VirtualMachinesCaptureOperation for mocking. </summary>
+        protected VirtualMachinesCaptureOperation()
+        {
+        }
+
         internal VirtualMachinesCaptureOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VirtualMachineCaptureResult>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "VirtualMachinesCaptureOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Compute
         VirtualMachineCaptureResult IOperationSource<VirtualMachineCaptureResult>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualMachineCaptureResult.DeserializeVirtualMachineCaptureResult(document.RootElement);
-            }
+            return VirtualMachineCaptureResult.DeserializeVirtualMachineCaptureResult(document.RootElement);
         }
 
         async ValueTask<VirtualMachineCaptureResult> IOperationSource<VirtualMachineCaptureResult>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualMachineCaptureResult.DeserializeVirtualMachineCaptureResult(document.RootElement);
-            }
+            return VirtualMachineCaptureResult.DeserializeVirtualMachineCaptureResult(document.RootElement);
         }
     }
 }

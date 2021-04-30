@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             await CleanupResourceGroupsAsync();
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountCreateTest()
         {
             string rgname = await CreateResourceGroupAsync();
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             VerifyAccountProperties(account, false);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountCreateWithEncryptionTest()
         {
             //Create resource group
@@ -99,7 +99,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             }
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountCreateWithAccessTierTest()
         {
             //Create resource group
@@ -124,7 +124,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual(Kind.BlobStorage, account.Kind);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountBeginCreateTest()
         {
             //Create resource group
@@ -135,7 +135,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             await _CreateStorageAccountAsync(rgname, accountName);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountDeleteTest()
         {
             //Create resource group
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             await DeleteStorageAccountAsync(rgname, accountName);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountGetStandardTest()
         {
             //Create resource group
@@ -189,7 +189,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             VerifyAccountProperties(account, false);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountGetBlobTest()
         {
             //Create resource group
@@ -220,7 +220,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             VerifyAccountProperties(account, false);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountGetPremiumTest()
         {
             //Create resource group
@@ -235,7 +235,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             VerifyAccountProperties(account, false);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountListByResourceGroupTest()
         {
             //Create resource group
@@ -259,7 +259,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             }
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountListWithEncryptionTest()
         {
             //Create resource group
@@ -307,7 +307,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             }
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountListBySubscriptionTest()
         {
             // Create resource group and storage account
@@ -330,7 +330,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             VerifyAccountProperties(account2, true);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountListKeysTest()
         {
             //Create resource group
@@ -358,7 +358,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.NotNull(key2.Value);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountRegenerateKeyTest()
         {
             //Create resource group
@@ -385,7 +385,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreNotEqual(key2.Value, key2Regen.Value);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountRevokeUserDelegationKeysTest()
         {
             //Create resource group
@@ -398,7 +398,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             await AccountsClient.RevokeUserDelegationKeysAsync(rgname, accountName);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountCheckNameTest()
         {
             //Create resource group
@@ -429,7 +429,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual("The storage account named " + accountName1 + " is already taken.", checkNameRequest.Value.Message);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountUpdateWithCreateTest()
         {
             //Create resource group
@@ -448,7 +448,12 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual(SkuName.StandardLRS, accountProerties.Value.Sku.Name);
 
             // Update storage tags
-            parameters.Tags = new Dictionary<string, string> { { "key3", "value3" }, { "key4", "value4" }, { "key5", "value6" } };
+            // Update storage tags
+            parameters.Tags.Clear();
+            parameters.Tags.Add("key3", "value3");
+            parameters.Tags.Add("key4", "value4");
+            parameters.Tags.Add("key5", "value6");
+
             account = await _CreateStorageAccountAsync(rgname, accountName, parameters);
             Assert.AreEqual(account.Tags.Count, parameters.Tags.Count);
 
@@ -506,7 +511,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             }
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountUpdateTest()
         {
             //Create resource group
@@ -528,7 +533,11 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual(SkuName.StandardLRS, accountProerties.Value.Sku.Name);
 
             // Update storage tags
-            parameters.Tags = new Dictionary<string, string> { { "key3", "value3" }, { "key4", "value4" }, { "key5", "value6" } };
+            parameters.Tags.Clear();
+            parameters.Tags.Add("key3", "value3");
+            parameters.Tags.Add("key4", "value4");
+            parameters.Tags.Add("key5", "value6");
+
             account = await UpdateStorageAccountAsync(rgname, accountName, parameters);
             Assert.AreEqual(account.Tags.Count, parameters.Tags.Count);
 
@@ -592,7 +601,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             }
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountUpdateMultipleTest()
         {
             //Create resource group
@@ -605,7 +614,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             StorageAccountUpdateParameters parameters = new StorageAccountUpdateParameters()
             {
                 Sku = new Sku(SkuName.StandardLRS),
-                Tags = new Dictionary<string, string> { { "key3", "value3" }, { "key4", "value4" }, { "key5", "value6" } }
+                Tags = { { "key3", "value3" }, { "key4", "value4" }, { "key5", "value6" } }
             };
             StorageAccount account = await UpdateStorageAccountAsync(rgname, accountName, parameters);
             Assert.AreEqual(SkuName.StandardLRS, account.Sku.Name);
@@ -617,7 +626,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual(accountProerties.Value.Tags.Count, parameters.Tags.Count);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountLocationUsageTest()
         {
             // Query usage
@@ -633,7 +642,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual("Storage Accounts", usagelist.First().Name.LocalizedValue);
         }
 
-        [Test]
+        [RecordedTest]
         [Ignore("Track2: The function of 'ResourceProviderOperationDetails' is not found in trach2 Management.Resource")]
         public void StorageAccountGetOperationsTest()
         {
@@ -648,7 +657,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             //}
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountListAccountSASTest()
         {
             //Create resource group
@@ -677,7 +686,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.NotNull(accountSasParameters.SharedAccessExpiryTime);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountListAccountSASWithDefaultProperties()
         {
             //Create resource group
@@ -700,7 +709,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.NotNull(accountSasParameters.SharedAccessExpiryTime);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountListAccountSASWithMissingProperties()
         {
             //Create resource group
@@ -726,7 +735,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             throw new Exception("AccountSasToken shouldn't be returned without SharedAccessExpiryTime");
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountListServiceSASTest()
         {
             //Create resource group
@@ -758,7 +767,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.NotNull(serviceSasParameters.SharedAccessExpiryTime);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountListServiceSASWithDefaultProperties()
         {
             //Create resource group
@@ -786,7 +795,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.NotNull(serviceSasParameters.SharedAccessExpiryTime);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountListServiceSASWithMissingProperties()
         {
             //Create resource group
@@ -816,7 +825,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             throw new Exception("AccountSasToken shouldn't be returned without SharedAccessExpiryTime");
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountUpdateEncryptionTest()
         {
             //Create resource group
@@ -840,7 +849,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             // Update storage tags
             parameters = new StorageAccountUpdateParameters
             {
-                Tags = new Dictionary<string, string>
+                Tags =
                     {
                         {"key3","value3"},
                         {"key4","value4"},
@@ -924,7 +933,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.NotNull(account.Encryption.Services.File.LastEnabledTime);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountUpdateWithHttpsOnlyTest()
         {
             //Create resource group
@@ -957,7 +966,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.False(account.EnableHttpsTrafficOnly);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountCreateWithHttpsOnlyTest()
         {
             //Create resource group
@@ -979,7 +988,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.False(account.EnableHttpsTrafficOnly);
         }
 
-        [Test]
+        [RecordedTest]
         [Ignore("Track2: Need KeyVaultManagementClient")]
         public void StorageAccountCMKTest()
         {
@@ -1092,7 +1101,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             //}
         }
 
-        [Test]
+        [RecordedTest]
         [Ignore("Track2: The constructor of OperationDisplay is internal")]
         public void StorageAccountOperationsTest()
         {
@@ -1151,7 +1160,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             //}
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountVnetACLTest()
         {
             //Create resource group
@@ -1163,7 +1172,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             parameters.NetworkRuleSet = new NetworkRuleSet(defaultAction: DefaultAction.Deny)
             {
                 Bypass = @"Logging,AzureServices",
-                IpRules = new List<IPRule> { new IPRule(iPAddressOrRange: "23.45.67.90") }
+                IpRules = { new IPRule(iPAddressOrRange: "23.45.67.90") }
             };
             await _CreateStorageAccountAsync(rgname, accountName, parameters);
 
@@ -1185,7 +1194,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
                 NetworkRuleSet = new NetworkRuleSet(defaultAction: DefaultAction.Deny)
                 {
                     Bypass = @"Logging, Metrics",
-                    IpRules = new List<IPRule> {
+                    IpRules ={
                             new IPRule(iPAddressOrRange:"23.45.67.91") { Action = DefaultAction.Allow.ToString() },
                             new IPRule(iPAddressOrRange:"23.45.67.92")
                         },
@@ -1218,7 +1227,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual(DefaultAction.Allow, account.NetworkRuleSet.DefaultAction);
         }
 
-        [Test]
+        [RecordedTest]
         public void StorageSKUListTest()
         {
             AsyncPageable<SkuInformation> skulist = SkusClient.ListAsync();
@@ -1236,7 +1245,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.True(skuListTask.Result.ElementAt(0).Kind.Equals(Kind.BlobStorage) || skuListTask.Result.ElementAt(0).Kind.Equals(Kind.Storage) || skuListTask.Result.ElementAt(0).Kind.Equals(Kind.StorageV2));
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountCreateWithStorageV2()
         {
             //Create resource group
@@ -1252,7 +1261,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual(Kind.StorageV2, account.Kind);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountUpdateKindStorageV2()
         {
             //Create resource group
@@ -1279,7 +1288,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.NotNull(account.PrimaryEndpoints.Web);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountSetGetDeleteManagementPolicy()
         {
             //Create resource group
@@ -1309,15 +1318,14 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             {
                 Filters = new ManagementPolicyFilter(new List<string>() { "blockBlob" })
                 {
-                    PrefixMatch = new List<string>() { "olcmtestcontainer", "testblob" }
+                    PrefixMatch = { "olcmtestcontainer", "testblob" }
                 }
             };
-            ManagementPolicyRule rule1 = new ManagementPolicyRule("olcmtest", Definition)
+            ManagementPolicyRule rule1 = new ManagementPolicyRule("olcmtest", RuleType.Lifecycle, Definition)
             {
                 Enabled = true
             };
             rules.Add(rule1);
-
 
             ManagementPolicyAction Actions2 = new ManagementPolicyAction()
             {
@@ -1330,7 +1338,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             {
                 Filters = new ManagementPolicyFilter(new List<string>() { "blockBlob" })
             };
-            ManagementPolicyRule rule2 = new ManagementPolicyRule("olcmtest2", Definition2)
+            ManagementPolicyRule rule2 = new ManagementPolicyRule("olcmtest2", RuleType.Lifecycle, Definition2)
             {
                 Enabled = false
             };
@@ -1347,7 +1355,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             {
                 Filters = new ManagementPolicyFilter(new List<string>() { "blockBlob" })
             };
-            ManagementPolicyRule rule3 = new ManagementPolicyRule("olcmtest3", Definition3);
+            ManagementPolicyRule rule3 = new ManagementPolicyRule("olcmtest3", RuleType.Lifecycle, Definition3);
             rules.Add(rule3);
 
             //Set Management Policies
@@ -1356,19 +1364,19 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             {
                 Policy = policyToSet
             };
-            Response<ManagementPolicy> policy = await ManagementPoliciesClient.CreateOrUpdateAsync(rgname, accountName, managementPolicy);
+            Response<ManagementPolicy> policy = await ManagementPoliciesClient.CreateOrUpdateAsync(rgname, accountName, ManagementPolicyName.Default, managementPolicy);
             CompareStorageAccountManagementPolicyProperty(policyToSet, policy.Value.Policy);
 
             //Get Management Policies
-            policy = await ManagementPoliciesClient.GetAsync(rgname, accountName);
+            policy = await ManagementPoliciesClient.GetAsync(rgname, accountName, ManagementPolicyName.Default);
             CompareStorageAccountManagementPolicyProperty(policyToSet, policy.Value.Policy);
 
             //Delete Management Policies, and check policy not exist
-            await ManagementPoliciesClient.DeleteAsync(rgname, accountName);
+            await ManagementPoliciesClient.DeleteAsync(rgname, accountName, ManagementPolicyName.Default);
             bool dataPolicyExist = true;
             try
             {
-                policy = await ManagementPoliciesClient.GetAsync(rgname, accountName);
+                policy = await ManagementPoliciesClient.GetAsync(rgname, accountName, ManagementPolicyName.Default);
             }
             catch (RequestFailedException cloudException)
             {
@@ -1378,7 +1386,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.False(dataPolicyExist);
 
             //Delete not exist Management Policies will not fail
-            await ManagementPoliciesClient.DeleteAsync(rgname, accountName);
+            await ManagementPoliciesClient.DeleteAsync(rgname, accountName, ManagementPolicyName.Default);
         }
 
         private static void CompareStorageAccountManagementPolicyProperty(ManagementPolicySchema policy1, ManagementPolicySchema policy2)
@@ -1434,7 +1442,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual(date1.DaysAfterCreationGreaterThan, date2.DaysAfterCreationGreaterThan);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountCreateGetdfs()
         {
             //Create resource group
@@ -1455,7 +1463,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.NotNull(account.PrimaryEndpoints.Dfs);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountCreateWithFileStorage()
         {
             //Create resource group
@@ -1471,7 +1479,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual(SkuName.PremiumLRS, account.Sku.Name);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountCreateWithBlockBlobStorage()
         {
             //Create resource group
@@ -1487,7 +1495,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual(SkuName.PremiumLRS, account.Sku.Name);
         }
 
-        [Test]
+        [RecordedTest]
         [Ignore("Track2: Unable to locate active AAD DS for AAD tenant Id *************** associated with the storage account.")]
         public async Task StorageAccountCreateSetGetFileAadIntegration()
         {
@@ -1522,7 +1530,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual(DirectoryServiceOptions.None, account.AzureFilesIdentityBasedAuthentication.DirectoryServiceOptions);
         }
 
-        [Test]
+        [RecordedTest]
         [Ignore("Track2: Last sync time is unavailable for account sto218")]
         public async Task StorageAccountFailOver()
         {
@@ -1562,7 +1570,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual(location, account.PrimaryLocation);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountGetLastSyncTime()
         {
             //Create resource group
@@ -1571,7 +1579,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
 
             // Create storage account
             Sku sku = new Sku(SkuName.StandardRagrs);
-            StorageAccountCreateParameters parameters = new StorageAccountCreateParameters(sku: sku, kind: Kind.StorageV2, location: "eastus2(stage)");
+            StorageAccountCreateParameters parameters = new StorageAccountCreateParameters(sku: sku, kind: Kind.StorageV2, location: "eastus2");
             StorageAccount account = await _CreateStorageAccountAsync(rgname, accountName, parameters);
             Assert.AreEqual(SkuName.StandardRagrs, account.Sku.Name);
             Assert.Null(account.GeoReplicationStats);
@@ -1584,7 +1592,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.NotNull(account.GeoReplicationStats.CanFailover);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountLargeFileSharesStateTest()
         {
             //Create resource group
@@ -1607,7 +1615,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual(LargeFileSharesState.Enabled, account.LargeFileSharesState);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountPrivateEndpointTest()
         {
             //Create resource group
@@ -1624,7 +1632,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.AreEqual(SkuName.StandardLRS, account.Sku.Name);
 
             account = await WaitToGetAccountSuccessfullyAsync(rgname, accountName);
-            IList<PrivateEndpointConnection> pes = account.PrivateEndpointConnections;
+            IReadOnlyList<PrivateEndpointConnection> pes = account.PrivateEndpointConnections;
             foreach (PrivateEndpointConnection pe in pes)
             {
                 //Get from account
@@ -1669,7 +1677,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             }
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountPrivateLinkTest()
         {
             //Create resource group
@@ -1691,7 +1699,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.True(result.Value.Value.Count > 0);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task StorageAccountCreateWithTableQueueEcryptionKeyTypeTest()
         {
             //Create resource group
@@ -1702,7 +1710,6 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Sku sku = new Sku(SkuName.StandardLRS);
             StorageAccountCreateParameters parameters = new StorageAccountCreateParameters(sku: sku, kind: Kind.StorageV2, location: "East US 2 EUAP")
             {
-                LargeFileSharesState = LargeFileSharesState.Enabled,
                 Encryption = new Encryption(keySource: KeySource.MicrosoftStorage)
                 {
                     Services = new EncryptionServices
@@ -1737,7 +1744,7 @@ namespace Azure.ResourceManager.Storage.Tests.Tests
             Assert.NotNull(account.Encryption.Services.Table.LastEnabledTime);
         }
 
-        [Test]
+        [RecordedTest]
         public async Task EcryptionScopeTest()
         {
             //Create resource group

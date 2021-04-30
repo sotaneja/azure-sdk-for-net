@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Compute
     public partial class DiskEncryptionSetsUpdateOperation : Operation<DiskEncryptionSet>, IOperationSource<DiskEncryptionSet>
     {
         private readonly ArmOperationHelpers<DiskEncryptionSet> _operation;
+
+        /// <summary> Initializes a new instance of DiskEncryptionSetsUpdateOperation for mocking. </summary>
+        protected DiskEncryptionSetsUpdateOperation()
+        {
+        }
+
         internal DiskEncryptionSetsUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<DiskEncryptionSet>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "DiskEncryptionSetsUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Compute
         DiskEncryptionSet IOperationSource<DiskEncryptionSet>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return DiskEncryptionSet.DeserializeDiskEncryptionSet(document.RootElement);
-            }
+            return DiskEncryptionSet.DeserializeDiskEncryptionSet(document.RootElement);
         }
 
         async ValueTask<DiskEncryptionSet> IOperationSource<DiskEncryptionSet>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return DiskEncryptionSet.DeserializeDiskEncryptionSet(document.RootElement);
-            }
+            return DiskEncryptionSet.DeserializeDiskEncryptionSet(document.RootElement);
         }
     }
 }

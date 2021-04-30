@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal AvailablePrivateEndpointTypesRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of AvailablePrivateEndpointTypesOperations for mocking. </summary>
         protected AvailablePrivateEndpointTypesOperations()
         {
         }
+
         /// <summary> Initializes a new instance of AvailablePrivateEndpointTypesOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -40,6 +42,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Returns all of the resource types that can be linked to a Private Endpoint in this subscription in this region. </summary>
         /// <param name="location"> The location of the domain name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public virtual AsyncPageable<AvailablePrivateEndpointType> ListAsync(string location, CancellationToken cancellationToken = default)
         {
             if (location == null)
@@ -83,6 +86,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Returns all of the resource types that can be linked to a Private Endpoint in this subscription in this region. </summary>
         /// <param name="location"> The location of the domain name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public virtual Pageable<AvailablePrivateEndpointType> List(string location, CancellationToken cancellationToken = default)
         {
             if (location == null)
@@ -127,6 +131,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="location"> The location of the domain name. </param>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> or <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<AvailablePrivateEndpointType> ListByResourceGroupAsync(string location, string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (location == null)
@@ -175,6 +180,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="location"> The location of the domain name. </param>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> or <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<AvailablePrivateEndpointType> ListByResourceGroup(string location, string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (location == null)

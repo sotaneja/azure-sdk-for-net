@@ -19,8 +19,8 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
 {
     public class ChangeFeedTests : ChangeFeedTestBase
     {
-        public ChangeFeedTests(bool async)
-            : base(async, null /* RecordedTestMode.Record /* to re-record */)
+        public ChangeFeedTests(bool async, BlobClientOptions.ServiceVersion serviceVersion)
+            : base(async, serviceVersion, null /* RecordedTestMode.Record /* to re-record */)
         {
         }
 
@@ -28,7 +28,7 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
         /// Tests building a ChangeFeed with a ChangeFeedCursor, and then calling ChangeFeed.GetCursor()
         /// and making sure the cursors match.
         /// </summary>
-        [Test]
+        [RecordedTest]
         public async Task GetCursor()
         {
             // Arrange
@@ -56,16 +56,16 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
 
             using FileStream stream = File.OpenRead(
                 $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}{Path.DirectorySeparatorChar}Resources{Path.DirectorySeparatorChar}{"ChangeFeedManifest.json"}");
-            BlobDownloadInfo blobDownloadInfo = BlobsModelFactory.BlobDownloadInfo(content: stream);
-            Response<BlobDownloadInfo> downloadResponse = Response.FromValue(blobDownloadInfo, new MockResponse(200));
+            BlobDownloadStreamingResult blobDownloadInfo = BlobsModelFactory.BlobDownloadStreamingResult(content: stream);
+            Response<BlobDownloadStreamingResult> downloadResponse = Response.FromValue(blobDownloadInfo, new MockResponse(200));
 
             if (IsAsync)
             {
-                blobClient.Setup(r => r.DownloadAsync(default)).ReturnsAsync(downloadResponse);
+                blobClient.Setup(r => r.DownloadStreamingAsync(default, default, default, default)).ReturnsAsync(downloadResponse);
             }
             else
             {
-                blobClient.Setup(r => r.Download(default)).Returns(downloadResponse);
+                blobClient.Setup(r => r.DownloadStreaming(default, default, default, default)).Returns(downloadResponse);
             }
 
             if (IsAsync)
@@ -122,29 +122,30 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
                 It.IsAny<SegmentCursor>()))
                 .ReturnsAsync(segment.Object);
 
-            long chunkIndex = 1;
+            string currentChunkPath = "chunk1";
             long blockOffset = 2;
             long eventIndex = 3;
             ShardCursor shardCursor = new ShardCursor(
-                chunkIndex,
+                currentChunkPath,
                 blockOffset,
                 eventIndex);
 
             DateTimeOffset segmentTime = new DateTimeOffset(2020, 1, 4, 17, 0, 0, TimeSpan.Zero);
-            int shardIndex = 0;
+            string segmentPath = "idx/segments/2020/01/04/1700/meta.json";
+            string currentShardPath = "log/00/2020/01/04/1700/";
             SegmentCursor segmentCursor = new SegmentCursor(
-                segmentTime,
+                segmentPath,
                 new List<ShardCursor>
                 {
                     shardCursor
                 },
-                shardIndex);
+                currentShardPath);
 
             segment.Setup(r => r.GetCursor()).Returns(segmentCursor);
 
             DateTimeOffset endDateTime = new DateTimeOffset(2020, 5, 6, 18, 0, 0, TimeSpan.Zero);
             ChangeFeedCursor expectedCursor = new ChangeFeedCursor(
-                urlHash: containerUri.ToString().GetHashCode(),
+                urlHost: containerUri.Host,
                 endDateTime: endDateTime,
                 currentSegmentCursor: segmentCursor);
 
@@ -165,14 +166,14 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
             // Assert
             Assert.AreEqual(expectedCursor.CursorVersion, actualCursor.CursorVersion);
             Assert.AreEqual(expectedCursor.EndTime, actualCursor.EndTime);
-            Assert.AreEqual(expectedCursor.UrlHash, actualCursor.UrlHash);
+            Assert.AreEqual(expectedCursor.UrlHost, actualCursor.UrlHost);
 
-            Assert.AreEqual(expectedCursor.CurrentSegmentCursor.SegmentTime, actualCursor.CurrentSegmentCursor.SegmentTime);
-            Assert.AreEqual(expectedCursor.CurrentSegmentCursor.ShardIndex, actualCursor.CurrentSegmentCursor.ShardIndex);
+            Assert.AreEqual(expectedCursor.CurrentSegmentCursor.SegmentPath, actualCursor.CurrentSegmentCursor.SegmentPath);
+            Assert.AreEqual(expectedCursor.CurrentSegmentCursor.CurrentShardPath, actualCursor.CurrentSegmentCursor.CurrentShardPath);
             Assert.AreEqual(expectedCursor.CurrentSegmentCursor.ShardCursors.Count, actualCursor.CurrentSegmentCursor.ShardCursors.Count);
 
             Assert.AreEqual(expectedCursor.CurrentSegmentCursor.ShardCursors[0].BlockOffset, actualCursor.CurrentSegmentCursor.ShardCursors[0].BlockOffset);
-            Assert.AreEqual(expectedCursor.CurrentSegmentCursor.ShardCursors[0].ChunkIndex, actualCursor.CurrentSegmentCursor.ShardCursors[0].ChunkIndex);
+            Assert.AreEqual(expectedCursor.CurrentSegmentCursor.ShardCursors[0].CurrentChunkPath, actualCursor.CurrentSegmentCursor.ShardCursors[0].CurrentChunkPath);
             Assert.AreEqual(expectedCursor.CurrentSegmentCursor.ShardCursors[0].EventIndex, actualCursor.CurrentSegmentCursor.ShardCursors[0].EventIndex);
 
             containerClient.Verify(r => r.Uri);
@@ -190,11 +191,11 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
 
             if (IsAsync)
             {
-                blobClient.Verify(r => r.DownloadAsync(default));
+                blobClient.Verify(r => r.DownloadStreamingAsync(default, default, default, default));
             }
             else
             {
-                blobClient.Verify(r => r.Download(default));
+                blobClient.Verify(r => r.DownloadStreaming(default, default, default, default));
             }
 
             if (IsAsync)
@@ -239,11 +240,11 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
                 IsAsync,
                 "idx/segments/2020/01/16/2300/meta.json",
                 It.Is<SegmentCursor>(
-                    r => r.SegmentTime == segmentTime
-                    && r.ShardIndex == shardIndex
+                    r => r.SegmentPath == segmentPath
+                    && r.CurrentShardPath == currentShardPath
                     && r.ShardCursors.Count == 1
                     && r.ShardCursors[0].BlockOffset == blockOffset
-                    && r.ShardCursors[0].ChunkIndex == chunkIndex
+                    && r.ShardCursors[0].CurrentChunkPath == currentChunkPath
                     && r.ShardCursors[0].EventIndex == eventIndex
                 )));
 
@@ -255,7 +256,7 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
         /// We call ChangeFeed.GetPage() with a page size of 3, and then again with no page size,
         /// resulting in two pages with 3 and 5 Events.
         /// </summary>
-        [Test]
+        [RecordedTest]
         public async Task GetPage()
         {
             // Arrange
@@ -292,16 +293,16 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
 
             using FileStream stream = File.OpenRead(
                 $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}{Path.DirectorySeparatorChar}Resources{Path.DirectorySeparatorChar}{"ChangeFeedManifest.json"}");
-            BlobDownloadInfo blobDownloadInfo = BlobsModelFactory.BlobDownloadInfo(content: stream);
-            Response<BlobDownloadInfo> downloadResponse = Response.FromValue(blobDownloadInfo, new MockResponse(200));
+            BlobDownloadStreamingResult blobDownloadInfo = BlobsModelFactory.BlobDownloadStreamingResult(content: stream);
+            Response<BlobDownloadStreamingResult> downloadResponse = Response.FromValue(blobDownloadInfo, new MockResponse(200));
 
             if (IsAsync)
             {
-                blobClient.Setup(r => r.DownloadAsync(default)).ReturnsAsync(downloadResponse);
+                blobClient.Setup(r => r.DownloadStreamingAsync(default, default, default, default)).ReturnsAsync(downloadResponse);
             }
             else
             {
-                blobClient.Setup(r => r.Download(default)).Returns(downloadResponse);
+                blobClient.Setup(r => r.DownloadStreaming(default, default, default, default)).Returns(downloadResponse);
             }
 
             if (IsAsync)
@@ -432,31 +433,26 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
                     events[7]
                 }));
 
-            for (int i = 0; i < segments.Count; i++)
-            {
-                segments[i].Setup(r => r.Finalized)
-                    .Returns(true);
-            }
-
-            long chunkIndex = 1;
+            string currentChunkPath = "chunk1";
             long blockOffset = 2;
             long eventIndex = 3;
             ShardCursor shardCursor = new ShardCursor(
-                chunkIndex,
+                currentChunkPath,
                 blockOffset,
                 eventIndex);
 
             DateTimeOffset segmentTime = new DateTimeOffset(2020, 1, 4, 17, 0, 0, TimeSpan.Zero);
-            int shardIndex = 0;
+            string segmentPath = "idx/segments/2020/01/04/1700/meta.json";
+            string currentShardPath = "log/00/2020/01/04/1700/";
             SegmentCursor segmentCursor = new SegmentCursor(
-                segmentTime,
+                segmentPath,
                 new List<ShardCursor>
                 {
                     shardCursor
                 },
-                shardIndex);
+                currentShardPath);
             ChangeFeedCursor changeFeedCursor = new ChangeFeedCursor(
-                containerUri.ToString().GetHashCode(),
+                containerUri.Host,
                 null,
                 segmentCursor);
 
@@ -512,11 +508,11 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
 
             if (IsAsync)
             {
-                blobClient.Verify(r => r.DownloadAsync(default));
+                blobClient.Verify(r => r.DownloadStreamingAsync(default, default, default, default));
             }
             else
             {
-                blobClient.Verify(r => r.Download(default));
+                blobClient.Verify(r => r.DownloadStreaming(default, default, default, default));
             }
 
             if (IsAsync)
@@ -605,15 +601,10 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
             segments[1].Verify(r => r.GetCursor());
             segments[3].Verify(r => r.GetCursor());
 
-            segments[0].Verify(r => r.Finalized, Times.Exactly(3));
-            segments[1].Verify(r => r.Finalized, Times.Exactly(4));
-            segments[2].Verify(r => r.Finalized, Times.Exactly(1));
-            segments[3].Verify(r => r.Finalized, Times.Exactly(2));
-
             containerClient.Verify(r => r.Uri, Times.Exactly(2));
         }
 
-        [Test]
+        [RecordedTest]
         public async Task NoYearsAfterStartTime()
         {
             // Arrange
@@ -640,16 +631,16 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
 
             using FileStream stream = File.OpenRead(
                 $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}{Path.DirectorySeparatorChar}Resources{Path.DirectorySeparatorChar}{"ChangeFeedManifest.json"}");
-            BlobDownloadInfo blobDownloadInfo = BlobsModelFactory.BlobDownloadInfo(content: stream);
-            Response<BlobDownloadInfo> downloadResponse = Response.FromValue(blobDownloadInfo, new MockResponse(200));
+            BlobDownloadStreamingResult blobDownloadInfo = BlobsModelFactory.BlobDownloadStreamingResult(content: stream);
+            Response<BlobDownloadStreamingResult> downloadResponse = Response.FromValue(blobDownloadInfo, new MockResponse(200));
 
             if (IsAsync)
             {
-                blobClient.Setup(r => r.DownloadAsync(default)).ReturnsAsync(downloadResponse);
+                blobClient.Setup(r => r.DownloadStreamingAsync(default, default, default, default)).ReturnsAsync(downloadResponse);
             }
             else
             {
-                blobClient.Setup(r => r.Download(default)).Returns(downloadResponse);
+                blobClient.Setup(r => r.DownloadStreaming(default, default, default, default)).Returns(downloadResponse);
             }
 
             if (IsAsync)
@@ -705,11 +696,11 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
 
             if (IsAsync)
             {
-                blobClient.Verify(r => r.DownloadAsync(default));
+                blobClient.Verify(r => r.DownloadStreamingAsync(default, default, default, default));
             }
             else
             {
-                blobClient.Verify(r => r.Download(default));
+                blobClient.Verify(r => r.DownloadStreaming(default, default, default, default));
             }
 
             if (IsAsync)
@@ -732,7 +723,7 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
             }
         }
 
-        [Test]
+        [RecordedTest]
         public async Task NoSegmentsRemainingInStartYear()
         {
             // Arrange
@@ -769,16 +760,16 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
 
             using FileStream stream = File.OpenRead(
                 $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}{Path.DirectorySeparatorChar}Resources{Path.DirectorySeparatorChar}{"ChangeFeedManifest.json"}");
-            BlobDownloadInfo blobDownloadInfo = BlobsModelFactory.BlobDownloadInfo(content: stream);
-            Response<BlobDownloadInfo> downloadResponse = Response.FromValue(blobDownloadInfo, new MockResponse(200));
+            BlobDownloadStreamingResult blobDownloadInfo = BlobsModelFactory.BlobDownloadStreamingResult(content: stream);
+            Response<BlobDownloadStreamingResult> downloadResponse = Response.FromValue(blobDownloadInfo, new MockResponse(200));
 
             if (IsAsync)
             {
-                blobClient.Setup(r => r.DownloadAsync(default)).ReturnsAsync(downloadResponse);
+                blobClient.Setup(r => r.DownloadStreamingAsync(default, default, default, default)).ReturnsAsync(downloadResponse);
             }
             else
             {
-                blobClient.Setup(r => r.Download(default)).Returns(downloadResponse);
+                blobClient.Setup(r => r.DownloadStreaming(default, default, default, default)).Returns(downloadResponse);
             }
 
             if (IsAsync)
@@ -880,12 +871,6 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
             segments[1].Setup(r => r.GetCursor())
                 .Returns(new SegmentCursor());
 
-            for (int i = 0; i < segments.Count; i++)
-            {
-                segments[i].Setup(r => r.Finalized)
-                    .Returns(true);
-            }
-
             ChangeFeedFactory changeFeedFactory = new ChangeFeedFactory(
                 containerClient.Object,
                 segmentFactory.Object);
@@ -919,11 +904,11 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
 
             if (IsAsync)
             {
-                blobClient.Verify(r => r.DownloadAsync(default));
+                blobClient.Verify(r => r.DownloadStreamingAsync(default, default, default, default));
             }
             else
             {
-                blobClient.Verify(r => r.Download(default));
+                blobClient.Verify(r => r.DownloadStreaming(default, default, default, default));
             }
 
             if (IsAsync)
@@ -994,7 +979,6 @@ namespace Azure.Storage.Blobs.ChangeFeed.Tests
                 default));
 
             containerClient.Verify(r => r.Uri, Times.Exactly(1));
-
         }
 
         public static Task<Page<BlobHierarchyItem>> GetYearsPathShortFuncAsync(string continuation, int? pageSizeHint)

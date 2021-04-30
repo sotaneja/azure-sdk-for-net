@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Resources
     public partial class ApplicationsCreateOrUpdateOperation : Operation<Application>, IOperationSource<Application>
     {
         private readonly ArmOperationHelpers<Application> _operation;
+
+        /// <summary> Initializes a new instance of ApplicationsCreateOrUpdateOperation for mocking. </summary>
+        protected ApplicationsCreateOrUpdateOperation()
+        {
+        }
+
         internal ApplicationsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<Application>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "ApplicationsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Resources
         Application IOperationSource<Application>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return Application.DeserializeApplication(document.RootElement);
-            }
+            return Application.DeserializeApplication(document.RootElement);
         }
 
         async ValueTask<Application> IOperationSource<Application>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return Application.DeserializeApplication(document.RootElement);
-            }
+            return Application.DeserializeApplication(document.RootElement);
         }
     }
 }

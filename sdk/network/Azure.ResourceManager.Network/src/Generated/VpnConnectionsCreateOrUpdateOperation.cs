@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VpnConnectionsCreateOrUpdateOperation : Operation<VpnConnection>, IOperationSource<VpnConnection>
     {
         private readonly ArmOperationHelpers<VpnConnection> _operation;
+
+        /// <summary> Initializes a new instance of VpnConnectionsCreateOrUpdateOperation for mocking. </summary>
+        protected VpnConnectionsCreateOrUpdateOperation()
+        {
+        }
+
         internal VpnConnectionsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VpnConnection>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "VpnConnectionsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         VpnConnection IOperationSource<VpnConnection>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnConnection.DeserializeVpnConnection(document.RootElement);
-            }
+            return VpnConnection.DeserializeVpnConnection(document.RootElement);
         }
 
         async ValueTask<VpnConnection> IOperationSource<VpnConnection>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnConnection.DeserializeVpnConnection(document.RootElement);
-            }
+            return VpnConnection.DeserializeVpnConnection(document.RootElement);
         }
     }
 }

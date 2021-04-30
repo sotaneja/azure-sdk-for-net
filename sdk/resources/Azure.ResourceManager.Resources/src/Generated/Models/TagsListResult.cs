@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Resources.Models
 {
     /// <summary> List of subscription tags. </summary>
-    public partial class TagsListResult
+    internal partial class TagsListResult
     {
         /// <summary> Initializes a new instance of TagsListResult. </summary>
         internal TagsListResult()
         {
+            Value = new ChangeTrackingList<TagDetails>();
         }
 
         /// <summary> Initializes a new instance of TagsListResult. </summary>

@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for ListVirtualRouters API service call. </summary>
-    public partial class VirtualRouterListResult
+    internal partial class VirtualRouterListResult
     {
         /// <summary> Initializes a new instance of VirtualRouterListResult. </summary>
         internal VirtualRouterListResult()
         {
+            Value = new ChangeTrackingList<VirtualRouter>();
         }
 
         /// <summary> Initializes a new instance of VirtualRouterListResult. </summary>

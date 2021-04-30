@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Compute
     public partial class GalleryImageVersionsCreateOrUpdateOperation : Operation<GalleryImageVersion>, IOperationSource<GalleryImageVersion>
     {
         private readonly ArmOperationHelpers<GalleryImageVersion> _operation;
+
+        /// <summary> Initializes a new instance of GalleryImageVersionsCreateOrUpdateOperation for mocking. </summary>
+        protected GalleryImageVersionsCreateOrUpdateOperation()
+        {
+        }
+
         internal GalleryImageVersionsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<GalleryImageVersion>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "GalleryImageVersionsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Compute
         GalleryImageVersion IOperationSource<GalleryImageVersion>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return GalleryImageVersion.DeserializeGalleryImageVersion(document.RootElement);
-            }
+            return GalleryImageVersion.DeserializeGalleryImageVersion(document.RootElement);
         }
 
         async ValueTask<GalleryImageVersion> IOperationSource<GalleryImageVersion>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return GalleryImageVersion.DeserializeGalleryImageVersion(document.RootElement);
-            }
+            return GalleryImageVersion.DeserializeGalleryImageVersion(document.RootElement);
         }
     }
 }

@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VirtualNetworkGatewaysGetBgpPeerStatusOperation : Operation<BgpPeerStatusListResult>, IOperationSource<BgpPeerStatusListResult>
     {
         private readonly ArmOperationHelpers<BgpPeerStatusListResult> _operation;
+
+        /// <summary> Initializes a new instance of VirtualNetworkGatewaysGetBgpPeerStatusOperation for mocking. </summary>
+        protected VirtualNetworkGatewaysGetBgpPeerStatusOperation()
+        {
+        }
+
         internal VirtualNetworkGatewaysGetBgpPeerStatusOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<BgpPeerStatusListResult>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "VirtualNetworkGatewaysGetBgpPeerStatusOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         BgpPeerStatusListResult IOperationSource<BgpPeerStatusListResult>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return BgpPeerStatusListResult.DeserializeBgpPeerStatusListResult(document.RootElement);
-            }
+            return BgpPeerStatusListResult.DeserializeBgpPeerStatusListResult(document.RootElement);
         }
 
         async ValueTask<BgpPeerStatusListResult> IOperationSource<BgpPeerStatusListResult>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return BgpPeerStatusListResult.DeserializeBgpPeerStatusListResult(document.RootElement);
-            }
+            return BgpPeerStatusListResult.DeserializeBgpPeerStatusListResult(document.RootElement);
         }
     }
 }

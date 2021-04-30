@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class NetworkSecurityGroupsCreateOrUpdateOperation : Operation<NetworkSecurityGroup>, IOperationSource<NetworkSecurityGroup>
     {
         private readonly ArmOperationHelpers<NetworkSecurityGroup> _operation;
+
+        /// <summary> Initializes a new instance of NetworkSecurityGroupsCreateOrUpdateOperation for mocking. </summary>
+        protected NetworkSecurityGroupsCreateOrUpdateOperation()
+        {
+        }
+
         internal NetworkSecurityGroupsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<NetworkSecurityGroup>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "NetworkSecurityGroupsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         NetworkSecurityGroup IOperationSource<NetworkSecurityGroup>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return NetworkSecurityGroup.DeserializeNetworkSecurityGroup(document.RootElement);
-            }
+            return NetworkSecurityGroup.DeserializeNetworkSecurityGroup(document.RootElement);
         }
 
         async ValueTask<NetworkSecurityGroup> IOperationSource<NetworkSecurityGroup>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return NetworkSecurityGroup.DeserializeNetworkSecurityGroup(document.RootElement);
-            }
+            return NetworkSecurityGroup.DeserializeNetworkSecurityGroup(document.RootElement);
         }
     }
 }

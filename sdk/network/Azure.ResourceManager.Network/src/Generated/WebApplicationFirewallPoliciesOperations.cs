@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal WebApplicationFirewallPoliciesRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of WebApplicationFirewallPoliciesOperations for mocking. </summary>
         protected WebApplicationFirewallPoliciesOperations()
         {
         }
+
         /// <summary> Initializes a new instance of WebApplicationFirewallPoliciesOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -118,6 +120,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Lists all of the protection policies within a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<WebApplicationFirewallPolicy> ListAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -161,6 +164,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Lists all of the protection policies within a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<WebApplicationFirewallPolicy> List(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -279,6 +283,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="policyName"> The name of the policy. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="policyName"/> is null. </exception>
         public virtual async Task<WebApplicationFirewallPoliciesDeleteOperation> StartDeleteAsync(string resourceGroupName, string policyName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -308,6 +313,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="policyName"> The name of the policy. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="policyName"/> is null. </exception>
         public virtual WebApplicationFirewallPoliciesDeleteOperation StartDelete(string resourceGroupName, string policyName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

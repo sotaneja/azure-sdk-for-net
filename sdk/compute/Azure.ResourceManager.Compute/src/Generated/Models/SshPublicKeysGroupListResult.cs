@@ -12,10 +12,11 @@ using System.Linq;
 namespace Azure.ResourceManager.Compute.Models
 {
     /// <summary> The list SSH public keys operation response. </summary>
-    public partial class SshPublicKeysGroupListResult
+    internal partial class SshPublicKeysGroupListResult
     {
         /// <summary> Initializes a new instance of SshPublicKeysGroupListResult. </summary>
         /// <param name="value"> The list of SSH public keys. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         internal SshPublicKeysGroupListResult(IEnumerable<SshPublicKeyResource> value)
         {
             if (value == null)
@@ -23,7 +24,7 @@ namespace Azure.ResourceManager.Compute.Models
                 throw new ArgumentNullException(nameof(value));
             }
 
-            Value = value.ToArray();
+            Value = value.ToList();
         }
 
         /// <summary> Initializes a new instance of SshPublicKeysGroupListResult. </summary>
@@ -31,7 +32,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="nextLink"> The URI to fetch the next page of SSH public keys. Call ListNext() with this URI to fetch the next page of SSH public keys. </param>
         internal SshPublicKeysGroupListResult(IReadOnlyList<SshPublicKeyResource> value, string nextLink)
         {
-            Value = value ?? new List<SshPublicKeyResource>();
+            Value = value;
             NextLink = nextLink;
         }
 

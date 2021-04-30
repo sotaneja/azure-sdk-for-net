@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Compute
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal DedicatedHostsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of DedicatedHostsOperations for mocking. </summary>
         protected DedicatedHostsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of DedicatedHostsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -81,6 +83,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="hostGroupName"> The name of the dedicated host group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="hostGroupName"/> is null. </exception>
         public virtual AsyncPageable<DedicatedHost> ListByHostGroupAsync(string resourceGroupName, string hostGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -129,6 +132,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="hostGroupName"> The name of the dedicated host group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="hostGroupName"/> is null. </exception>
         public virtual Pageable<DedicatedHost> ListByHostGroup(string resourceGroupName, string hostGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -179,6 +183,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="hostName"> The name of the dedicated host . </param>
         /// <param name="parameters"> Parameters supplied to the Create Dedicated Host. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="hostGroupName"/>, <paramref name="hostName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<DedicatedHostsCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string hostGroupName, string hostName, DedicatedHost parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -218,6 +223,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="hostName"> The name of the dedicated host . </param>
         /// <param name="parameters"> Parameters supplied to the Create Dedicated Host. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="hostGroupName"/>, <paramref name="hostName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual DedicatedHostsCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string hostGroupName, string hostName, DedicatedHost parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -257,6 +263,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="hostName"> The name of the dedicated host . </param>
         /// <param name="parameters"> Parameters supplied to the Update Dedicated Host operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="hostGroupName"/>, <paramref name="hostName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<DedicatedHostsUpdateOperation> StartUpdateAsync(string resourceGroupName, string hostGroupName, string hostName, DedicatedHostUpdate parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -296,6 +303,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="hostName"> The name of the dedicated host . </param>
         /// <param name="parameters"> Parameters supplied to the Update Dedicated Host operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="hostGroupName"/>, <paramref name="hostName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual DedicatedHostsUpdateOperation StartUpdate(string resourceGroupName, string hostGroupName, string hostName, DedicatedHostUpdate parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -334,6 +342,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="hostGroupName"> The name of the dedicated host group. </param>
         /// <param name="hostName"> The name of the dedicated host. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="hostGroupName"/>, or <paramref name="hostName"/> is null. </exception>
         public virtual async Task<DedicatedHostsDeleteOperation> StartDeleteAsync(string resourceGroupName, string hostGroupName, string hostName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -368,6 +377,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="hostGroupName"> The name of the dedicated host group. </param>
         /// <param name="hostName"> The name of the dedicated host. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="hostGroupName"/>, or <paramref name="hostName"/> is null. </exception>
         public virtual DedicatedHostsDeleteOperation StartDelete(string resourceGroupName, string hostGroupName, string hostName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal ConnectionMonitorsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of ConnectionMonitorsOperations for mocking. </summary>
         protected ConnectionMonitorsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of ConnectionMonitorsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -123,6 +125,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group containing Network Watcher. </param>
         /// <param name="networkWatcherName"> The name of the Network Watcher resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="networkWatcherName"/> is null. </exception>
         public virtual AsyncPageable<ConnectionMonitorResult> ListAsync(string resourceGroupName, string networkWatcherName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -156,6 +159,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group containing Network Watcher. </param>
         /// <param name="networkWatcherName"> The name of the Network Watcher resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="networkWatcherName"/> is null. </exception>
         public virtual Pageable<ConnectionMonitorResult> List(string resourceGroupName, string networkWatcherName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -191,6 +195,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="connectionMonitorName"> The name of the connection monitor. </param>
         /// <param name="parameters"> Parameters that define the operation to create a connection monitor. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, <paramref name="connectionMonitorName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<ConnectionMonitorsCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string networkWatcherName, string connectionMonitorName, ConnectionMonitor parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -230,6 +235,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="connectionMonitorName"> The name of the connection monitor. </param>
         /// <param name="parameters"> Parameters that define the operation to create a connection monitor. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, <paramref name="connectionMonitorName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual ConnectionMonitorsCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string networkWatcherName, string connectionMonitorName, ConnectionMonitor parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -268,6 +274,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the Network Watcher resource. </param>
         /// <param name="connectionMonitorName"> The name of the connection monitor. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="connectionMonitorName"/> is null. </exception>
         public virtual async Task<ConnectionMonitorsDeleteOperation> StartDeleteAsync(string resourceGroupName, string networkWatcherName, string connectionMonitorName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -302,6 +309,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the Network Watcher resource. </param>
         /// <param name="connectionMonitorName"> The name of the connection monitor. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="connectionMonitorName"/> is null. </exception>
         public virtual ConnectionMonitorsDeleteOperation StartDelete(string resourceGroupName, string networkWatcherName, string connectionMonitorName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -336,6 +344,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the Network Watcher resource. </param>
         /// <param name="connectionMonitorName"> The name of the connection monitor. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="connectionMonitorName"/> is null. </exception>
         public virtual async Task<ConnectionMonitorsStopOperation> StartStopAsync(string resourceGroupName, string networkWatcherName, string connectionMonitorName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -370,6 +379,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the Network Watcher resource. </param>
         /// <param name="connectionMonitorName"> The name of the connection monitor. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="connectionMonitorName"/> is null. </exception>
         public virtual ConnectionMonitorsStopOperation StartStop(string resourceGroupName, string networkWatcherName, string connectionMonitorName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -404,6 +414,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the Network Watcher resource. </param>
         /// <param name="connectionMonitorName"> The name of the connection monitor. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="connectionMonitorName"/> is null. </exception>
         public virtual async Task<ConnectionMonitorsStartOperation> StartStartAsync(string resourceGroupName, string networkWatcherName, string connectionMonitorName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -438,6 +449,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the Network Watcher resource. </param>
         /// <param name="connectionMonitorName"> The name of the connection monitor. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="connectionMonitorName"/> is null. </exception>
         public virtual ConnectionMonitorsStartOperation StartStart(string resourceGroupName, string networkWatcherName, string connectionMonitorName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -472,6 +484,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the Network Watcher resource. </param>
         /// <param name="connectionMonitorName"> The name given to the connection monitor. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="connectionMonitorName"/> is null. </exception>
         public virtual async Task<ConnectionMonitorsQueryOperation> StartQueryAsync(string resourceGroupName, string networkWatcherName, string connectionMonitorName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -506,6 +519,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the Network Watcher resource. </param>
         /// <param name="connectionMonitorName"> The name given to the connection monitor. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="connectionMonitorName"/> is null. </exception>
         public virtual ConnectionMonitorsQueryOperation StartQuery(string resourceGroupName, string networkWatcherName, string connectionMonitorName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

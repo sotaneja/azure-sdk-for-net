@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VirtualNetworkGatewaysGetVpnclientConnectionHealthOperation : Operation<VpnClientConnectionHealthDetailListResult>, IOperationSource<VpnClientConnectionHealthDetailListResult>
     {
         private readonly ArmOperationHelpers<VpnClientConnectionHealthDetailListResult> _operation;
+
+        /// <summary> Initializes a new instance of VirtualNetworkGatewaysGetVpnclientConnectionHealthOperation for mocking. </summary>
+        protected VirtualNetworkGatewaysGetVpnclientConnectionHealthOperation()
+        {
+        }
+
         internal VirtualNetworkGatewaysGetVpnclientConnectionHealthOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VpnClientConnectionHealthDetailListResult>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "VirtualNetworkGatewaysGetVpnclientConnectionHealthOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         VpnClientConnectionHealthDetailListResult IOperationSource<VpnClientConnectionHealthDetailListResult>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnClientConnectionHealthDetailListResult.DeserializeVpnClientConnectionHealthDetailListResult(document.RootElement);
-            }
+            return VpnClientConnectionHealthDetailListResult.DeserializeVpnClientConnectionHealthDetailListResult(document.RootElement);
         }
 
         async ValueTask<VpnClientConnectionHealthDetailListResult> IOperationSource<VpnClientConnectionHealthDetailListResult>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VpnClientConnectionHealthDetailListResult.DeserializeVpnClientConnectionHealthDetailListResult(document.RootElement);
-            }
+            return VpnClientConnectionHealthDetailListResult.DeserializeVpnClientConnectionHealthDetailListResult(document.RootElement);
         }
     }
 }

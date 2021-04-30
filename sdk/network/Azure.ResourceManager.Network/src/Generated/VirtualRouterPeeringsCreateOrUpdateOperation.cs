@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VirtualRouterPeeringsCreateOrUpdateOperation : Operation<VirtualRouterPeering>, IOperationSource<VirtualRouterPeering>
     {
         private readonly ArmOperationHelpers<VirtualRouterPeering> _operation;
+
+        /// <summary> Initializes a new instance of VirtualRouterPeeringsCreateOrUpdateOperation for mocking. </summary>
+        protected VirtualRouterPeeringsCreateOrUpdateOperation()
+        {
+        }
+
         internal VirtualRouterPeeringsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VirtualRouterPeering>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "VirtualRouterPeeringsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         VirtualRouterPeering IOperationSource<VirtualRouterPeering>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualRouterPeering.DeserializeVirtualRouterPeering(document.RootElement);
-            }
+            return VirtualRouterPeering.DeserializeVirtualRouterPeering(document.RootElement);
         }
 
         async ValueTask<VirtualRouterPeering> IOperationSource<VirtualRouterPeering>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualRouterPeering.DeserializeVirtualRouterPeering(document.RootElement);
-            }
+            return VirtualRouterPeering.DeserializeVirtualRouterPeering(document.RootElement);
         }
     }
 }

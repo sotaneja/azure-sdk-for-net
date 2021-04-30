@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class FirewallPoliciesCreateOrUpdateOperation : Operation<FirewallPolicy>, IOperationSource<FirewallPolicy>
     {
         private readonly ArmOperationHelpers<FirewallPolicy> _operation;
+
+        /// <summary> Initializes a new instance of FirewallPoliciesCreateOrUpdateOperation for mocking. </summary>
+        protected FirewallPoliciesCreateOrUpdateOperation()
+        {
+        }
+
         internal FirewallPoliciesCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<FirewallPolicy>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "FirewallPoliciesCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         FirewallPolicy IOperationSource<FirewallPolicy>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return FirewallPolicy.DeserializeFirewallPolicy(document.RootElement);
-            }
+            return FirewallPolicy.DeserializeFirewallPolicy(document.RootElement);
         }
 
         async ValueTask<FirewallPolicy> IOperationSource<FirewallPolicy>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return FirewallPolicy.DeserializeFirewallPolicy(document.RootElement);
-            }
+            return FirewallPolicy.DeserializeFirewallPolicy(document.RootElement);
         }
     }
 }

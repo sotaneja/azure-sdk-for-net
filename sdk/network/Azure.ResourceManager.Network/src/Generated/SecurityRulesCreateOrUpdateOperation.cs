@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class SecurityRulesCreateOrUpdateOperation : Operation<SecurityRule>, IOperationSource<SecurityRule>
     {
         private readonly ArmOperationHelpers<SecurityRule> _operation;
+
+        /// <summary> Initializes a new instance of SecurityRulesCreateOrUpdateOperation for mocking. </summary>
+        protected SecurityRulesCreateOrUpdateOperation()
+        {
+        }
+
         internal SecurityRulesCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<SecurityRule>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "SecurityRulesCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         SecurityRule IOperationSource<SecurityRule>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return SecurityRule.DeserializeSecurityRule(document.RootElement);
-            }
+            return SecurityRule.DeserializeSecurityRule(document.RootElement);
         }
 
         async ValueTask<SecurityRule> IOperationSource<SecurityRule>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return SecurityRule.DeserializeSecurityRule(document.RootElement);
-            }
+            return SecurityRule.DeserializeSecurityRule(document.RootElement);
         }
     }
 }

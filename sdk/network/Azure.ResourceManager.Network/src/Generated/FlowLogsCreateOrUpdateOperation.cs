@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class FlowLogsCreateOrUpdateOperation : Operation<FlowLog>, IOperationSource<FlowLog>
     {
         private readonly ArmOperationHelpers<FlowLog> _operation;
+
+        /// <summary> Initializes a new instance of FlowLogsCreateOrUpdateOperation for mocking. </summary>
+        protected FlowLogsCreateOrUpdateOperation()
+        {
+        }
+
         internal FlowLogsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<FlowLog>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "FlowLogsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         FlowLog IOperationSource<FlowLog>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return FlowLog.DeserializeFlowLog(document.RootElement);
-            }
+            return FlowLog.DeserializeFlowLog(document.RootElement);
         }
 
         async ValueTask<FlowLog> IOperationSource<FlowLog>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return FlowLog.DeserializeFlowLog(document.RootElement);
-            }
+            return FlowLog.DeserializeFlowLog(document.RootElement);
         }
     }
 }

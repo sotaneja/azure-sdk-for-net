@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Compute
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal AvailabilitySetsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of AvailabilitySetsOperations for mocking. </summary>
         protected AvailabilitySetsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of AvailabilitySetsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -272,6 +274,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Lists all availability sets in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<AvailabilitySet> ListAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -315,6 +318,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Lists all availability sets in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<AvailabilitySet> List(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -359,6 +363,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="availabilitySetName"> The name of the availability set. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="availabilitySetName"/> is null. </exception>
         public virtual AsyncPageable<VirtualMachineSize> ListAvailableSizesAsync(string resourceGroupName, string availabilitySetName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -392,6 +397,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="availabilitySetName"> The name of the availability set. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="availabilitySetName"/> is null. </exception>
         public virtual Pageable<VirtualMachineSize> ListAvailableSizes(string resourceGroupName, string availabilitySetName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

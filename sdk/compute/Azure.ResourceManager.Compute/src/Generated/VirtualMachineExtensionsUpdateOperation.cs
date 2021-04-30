@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Compute
     public partial class VirtualMachineExtensionsUpdateOperation : Operation<VirtualMachineExtension>, IOperationSource<VirtualMachineExtension>
     {
         private readonly ArmOperationHelpers<VirtualMachineExtension> _operation;
+
+        /// <summary> Initializes a new instance of VirtualMachineExtensionsUpdateOperation for mocking. </summary>
+        protected VirtualMachineExtensionsUpdateOperation()
+        {
+        }
+
         internal VirtualMachineExtensionsUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VirtualMachineExtension>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "VirtualMachineExtensionsUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Compute
         VirtualMachineExtension IOperationSource<VirtualMachineExtension>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualMachineExtension.DeserializeVirtualMachineExtension(document.RootElement);
-            }
+            return VirtualMachineExtension.DeserializeVirtualMachineExtension(document.RootElement);
         }
 
         async ValueTask<VirtualMachineExtension> IOperationSource<VirtualMachineExtension>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualMachineExtension.DeserializeVirtualMachineExtension(document.RootElement);
-            }
+            return VirtualMachineExtension.DeserializeVirtualMachineExtension(document.RootElement);
         }
     }
 }

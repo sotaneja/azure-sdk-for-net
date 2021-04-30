@@ -11,46 +11,36 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
-    public partial class PublicIPAddressListResult
+    internal partial class PublicIPAddressListResult
     {
         internal static PublicIPAddressListResult DeserializePublicIPAddressListResult(JsonElement element)
         {
-            IReadOnlyList<PublicIPAddress> value = default;
-            string nextLink = default;
+            Optional<IReadOnlyList<PublicIPAddress>> value = default;
+            Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
+                        property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
                     List<PublicIPAddress> array = new List<PublicIPAddress>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(PublicIPAddress.DeserializePublicIPAddress(item));
-                        }
+                        array.Add(PublicIPAddress.DeserializePublicIPAddress(item));
                     }
                     value = array;
                     continue;
                 }
                 if (property.NameEquals("nextLink"))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     nextLink = property.Value.GetString();
                     continue;
                 }
             }
-            return new PublicIPAddressListResult(value, nextLink);
+            return new PublicIPAddressListResult(Optional.ToList(value), nextLink.Value);
         }
     }
 }

@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class P2SVpnGatewaysGetP2SVpnConnectionHealthOperation : Operation<P2SVpnGateway>, IOperationSource<P2SVpnGateway>
     {
         private readonly ArmOperationHelpers<P2SVpnGateway> _operation;
+
+        /// <summary> Initializes a new instance of P2SVpnGatewaysGetP2SVpnConnectionHealthOperation for mocking. </summary>
+        protected P2SVpnGatewaysGetP2SVpnConnectionHealthOperation()
+        {
+        }
+
         internal P2SVpnGatewaysGetP2SVpnConnectionHealthOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<P2SVpnGateway>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "P2SVpnGatewaysGetP2SVpnConnectionHealthOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         P2SVpnGateway IOperationSource<P2SVpnGateway>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return P2SVpnGateway.DeserializeP2SVpnGateway(document.RootElement);
-            }
+            return P2SVpnGateway.DeserializeP2SVpnGateway(document.RootElement);
         }
 
         async ValueTask<P2SVpnGateway> IOperationSource<P2SVpnGateway>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return P2SVpnGateway.DeserializeP2SVpnGateway(document.RootElement);
-            }
+            return P2SVpnGateway.DeserializeP2SVpnGateway(document.RootElement);
         }
     }
 }

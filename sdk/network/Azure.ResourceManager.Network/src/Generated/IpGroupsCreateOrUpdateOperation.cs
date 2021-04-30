@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class IpGroupsCreateOrUpdateOperation : Operation<IpGroup>, IOperationSource<IpGroup>
     {
         private readonly ArmOperationHelpers<IpGroup> _operation;
+
+        /// <summary> Initializes a new instance of IpGroupsCreateOrUpdateOperation for mocking. </summary>
+        protected IpGroupsCreateOrUpdateOperation()
+        {
+        }
+
         internal IpGroupsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<IpGroup>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "IpGroupsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         IpGroup IOperationSource<IpGroup>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return IpGroup.DeserializeIpGroup(document.RootElement);
-            }
+            return IpGroup.DeserializeIpGroup(document.RootElement);
         }
 
         async ValueTask<IpGroup> IOperationSource<IpGroup>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return IpGroup.DeserializeIpGroup(document.RootElement);
-            }
+            return IpGroup.DeserializeIpGroup(document.RootElement);
         }
     }
 }

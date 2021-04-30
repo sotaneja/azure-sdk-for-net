@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Resources
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal FeaturesRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of FeaturesOperations for mocking. </summary>
         protected FeaturesOperations()
         {
         }
+
         /// <summary> Initializes a new instance of FeaturesOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -228,6 +230,7 @@ namespace Azure.ResourceManager.Resources
         /// <summary> Gets all the preview features in a provider namespace that are available through AFEC for the subscription. </summary>
         /// <param name="resourceProviderNamespace"> The namespace of the resource provider for getting features. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderNamespace"/> is null. </exception>
         public virtual AsyncPageable<FeatureResult> ListAsync(string resourceProviderNamespace, CancellationToken cancellationToken = default)
         {
             if (resourceProviderNamespace == null)
@@ -271,6 +274,7 @@ namespace Azure.ResourceManager.Resources
         /// <summary> Gets all the preview features in a provider namespace that are available through AFEC for the subscription. </summary>
         /// <param name="resourceProviderNamespace"> The namespace of the resource provider for getting features. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderNamespace"/> is null. </exception>
         public virtual Pageable<FeatureResult> List(string resourceProviderNamespace, CancellationToken cancellationToken = default)
         {
             if (resourceProviderNamespace == null)

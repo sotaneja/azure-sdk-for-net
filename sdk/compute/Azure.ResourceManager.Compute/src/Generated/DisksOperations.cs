@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Compute
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal DisksRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of DisksOperations for mocking. </summary>
         protected DisksOperations()
         {
         }
+
         /// <summary> Initializes a new instance of DisksOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -78,6 +80,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Lists all the disks under a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<Disk> ListByResourceGroupAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -121,6 +124,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Lists all the disks under a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<Disk> ListByResourceGroup(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -240,6 +244,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="diskName"> The name of the managed disk that is being created. The name can&apos;t be changed after the disk is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The maximum name length is 80 characters. </param>
         /// <param name="disk"> Disk object supplied in the body of the Put disk operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="diskName"/>, or <paramref name="disk"/> is null. </exception>
         public virtual async Task<DisksCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string diskName, Disk disk, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -274,6 +279,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="diskName"> The name of the managed disk that is being created. The name can&apos;t be changed after the disk is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The maximum name length is 80 characters. </param>
         /// <param name="disk"> Disk object supplied in the body of the Put disk operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="diskName"/>, or <paramref name="disk"/> is null. </exception>
         public virtual DisksCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string diskName, Disk disk, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -308,6 +314,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="diskName"> The name of the managed disk that is being created. The name can&apos;t be changed after the disk is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The maximum name length is 80 characters. </param>
         /// <param name="disk"> Disk object supplied in the body of the Patch disk operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="diskName"/>, or <paramref name="disk"/> is null. </exception>
         public virtual async Task<DisksUpdateOperation> StartUpdateAsync(string resourceGroupName, string diskName, DiskUpdate disk, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -342,6 +349,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="diskName"> The name of the managed disk that is being created. The name can&apos;t be changed after the disk is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The maximum name length is 80 characters. </param>
         /// <param name="disk"> Disk object supplied in the body of the Patch disk operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="diskName"/>, or <paramref name="disk"/> is null. </exception>
         public virtual DisksUpdateOperation StartUpdate(string resourceGroupName, string diskName, DiskUpdate disk, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -375,6 +383,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="diskName"> The name of the managed disk that is being created. The name can&apos;t be changed after the disk is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The maximum name length is 80 characters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="diskName"/> is null. </exception>
         public virtual async Task<DisksDeleteOperation> StartDeleteAsync(string resourceGroupName, string diskName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -404,6 +413,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="diskName"> The name of the managed disk that is being created. The name can&apos;t be changed after the disk is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The maximum name length is 80 characters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="diskName"/> is null. </exception>
         public virtual DisksDeleteOperation StartDelete(string resourceGroupName, string diskName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -434,6 +444,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="diskName"> The name of the managed disk that is being created. The name can&apos;t be changed after the disk is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The maximum name length is 80 characters. </param>
         /// <param name="grantAccessData"> Access data object supplied in the body of the get disk access operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="diskName"/>, or <paramref name="grantAccessData"/> is null. </exception>
         public virtual async Task<DisksGrantAccessOperation> StartGrantAccessAsync(string resourceGroupName, string diskName, GrantAccessData grantAccessData, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -468,6 +479,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="diskName"> The name of the managed disk that is being created. The name can&apos;t be changed after the disk is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The maximum name length is 80 characters. </param>
         /// <param name="grantAccessData"> Access data object supplied in the body of the get disk access operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="diskName"/>, or <paramref name="grantAccessData"/> is null. </exception>
         public virtual DisksGrantAccessOperation StartGrantAccess(string resourceGroupName, string diskName, GrantAccessData grantAccessData, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -501,6 +513,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="diskName"> The name of the managed disk that is being created. The name can&apos;t be changed after the disk is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The maximum name length is 80 characters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="diskName"/> is null. </exception>
         public virtual async Task<DisksRevokeAccessOperation> StartRevokeAccessAsync(string resourceGroupName, string diskName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -530,6 +543,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="diskName"> The name of the managed disk that is being created. The name can&apos;t be changed after the disk is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The maximum name length is 80 characters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="diskName"/> is null. </exception>
         public virtual DisksRevokeAccessOperation StartRevokeAccess(string resourceGroupName, string diskName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

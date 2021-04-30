@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.Compute.Tests
                  "VMAccessAgent", "2.0", true, "{}", "{}", null, null
                 );
             //{
-            //    Tags = new Dictionary<string, string>() { { "extensionTag1", "1" }, { "extensionTag2", "2" } },
+            //    Tags ={ { "extensionTag1", "1" }, { "extensionTag2", "2" } },
             //    Publisher = "Microsoft.Compute",
             //    //VirtualMachineExtensionType = "VMAccessAgent",
             //    TypeHandlerVersion = "2.0",
@@ -62,7 +62,6 @@ namespace Azure.ResourceManager.Compute.Tests
             var vmExtensionUpdate = new VirtualMachineExtensionUpdate
             {
                 Tags =
-                    new Dictionary<string, string>
                     {
                         {"extensionTag1", "1"},
                         {"extensionTag2", "2"},
@@ -89,8 +88,8 @@ namespace Azure.ResourceManager.Compute.Tests
             var storageAccountOutput = await CreateStorageAccount(rgName, storageAccountName);
 
             var returnTwovm = await CreateVM(rgName, asName, storageAccountOutput, imageRef);
-            var vm = returnTwovm.Item1;
-            inputVM = returnTwovm.Item2;
+            var vm = returnTwovm.Response;
+            inputVM = returnTwovm.Input;
             // Delete an extension that does not exist in the VM. A http status code of NoContent should be returned which translates to operation success.
             var xx = await WaitForCompletionAsync(await VirtualMachineExtensionsOperations.StartDeleteAsync(rgName, vm.Name, "VMExtensionDoesNotExist"));
             // Add an extension to the VM

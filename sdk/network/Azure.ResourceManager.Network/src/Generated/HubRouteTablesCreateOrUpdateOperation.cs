@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class HubRouteTablesCreateOrUpdateOperation : Operation<HubRouteTable>, IOperationSource<HubRouteTable>
     {
         private readonly ArmOperationHelpers<HubRouteTable> _operation;
+
+        /// <summary> Initializes a new instance of HubRouteTablesCreateOrUpdateOperation for mocking. </summary>
+        protected HubRouteTablesCreateOrUpdateOperation()
+        {
+        }
+
         internal HubRouteTablesCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<HubRouteTable>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "HubRouteTablesCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         HubRouteTable IOperationSource<HubRouteTable>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return HubRouteTable.DeserializeHubRouteTable(document.RootElement);
-            }
+            return HubRouteTable.DeserializeHubRouteTable(document.RootElement);
         }
 
         async ValueTask<HubRouteTable> IOperationSource<HubRouteTable>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return HubRouteTable.DeserializeHubRouteTable(document.RootElement);
-            }
+            return HubRouteTable.DeserializeHubRouteTable(document.RootElement);
         }
     }
 }

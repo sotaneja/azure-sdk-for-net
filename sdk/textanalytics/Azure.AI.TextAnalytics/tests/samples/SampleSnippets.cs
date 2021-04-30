@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using System;
+using Azure.AI.TextAnalytics.Tests;
 using Azure.Core.TestFramework;
 using Azure.Identity;
 using NUnit.Framework;
@@ -16,24 +17,27 @@ namespace Azure.AI.TextAnalytics.Samples
         [Test]
         public void CreateTextAnalyticsClient()
         {
+            #region Snippet:CreateTextAnalyticsClient
+#if SNIPPET
+            string endpoint = "<endpoint>";
+            string apiKey = "<apiKey>";
+#else
             string endpoint = TestEnvironment.Endpoint;
             string apiKey = TestEnvironment.ApiKey;
-
-            #region Snippet:CreateTextAnalyticsClient
-            //@@ string endpoint = "<endpoint>";
-            //@@ string apiKey = "<apiKey>";
-            var credential = new AzureKeyCredential(apiKey);
-            var client = new TextAnalyticsClient(new Uri(endpoint), credential);
+#endif
+            var client = new TextAnalyticsClient(new Uri(endpoint), new AzureKeyCredential(apiKey));
             #endregion
         }
 
         [Test]
         public void CreateTextAnalyticsClientTokenCredential()
         {
-            string endpoint = TestEnvironment.Endpoint;
-
             #region Snippet:CreateTextAnalyticsClientTokenCredential
-            //@@ string endpoint = "<endpoint>";
+#if SNIPPET
+            string endpoint = "<endpoint>";
+#else
+            string endpoint = TestEnvironment.Endpoint;
+#endif
             var client = new TextAnalyticsClient(new Uri(endpoint), new DefaultAzureCredential());
             #endregion
         }

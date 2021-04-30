@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class ApplicationSecurityGroupsCreateOrUpdateOperation : Operation<ApplicationSecurityGroup>, IOperationSource<ApplicationSecurityGroup>
     {
         private readonly ArmOperationHelpers<ApplicationSecurityGroup> _operation;
+
+        /// <summary> Initializes a new instance of ApplicationSecurityGroupsCreateOrUpdateOperation for mocking. </summary>
+        protected ApplicationSecurityGroupsCreateOrUpdateOperation()
+        {
+        }
+
         internal ApplicationSecurityGroupsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ApplicationSecurityGroup>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "ApplicationSecurityGroupsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         ApplicationSecurityGroup IOperationSource<ApplicationSecurityGroup>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ApplicationSecurityGroup.DeserializeApplicationSecurityGroup(document.RootElement);
-            }
+            return ApplicationSecurityGroup.DeserializeApplicationSecurityGroup(document.RootElement);
         }
 
         async ValueTask<ApplicationSecurityGroup> IOperationSource<ApplicationSecurityGroup>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ApplicationSecurityGroup.DeserializeApplicationSecurityGroup(document.RootElement);
-            }
+            return ApplicationSecurityGroup.DeserializeApplicationSecurityGroup(document.RootElement);
         }
     }
 }

@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class ApplicationGatewaysBackendHealthOperation : Operation<ApplicationGatewayBackendHealth>, IOperationSource<ApplicationGatewayBackendHealth>
     {
         private readonly ArmOperationHelpers<ApplicationGatewayBackendHealth> _operation;
+
+        /// <summary> Initializes a new instance of ApplicationGatewaysBackendHealthOperation for mocking. </summary>
+        protected ApplicationGatewaysBackendHealthOperation()
+        {
+        }
+
         internal ApplicationGatewaysBackendHealthOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ApplicationGatewayBackendHealth>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "ApplicationGatewaysBackendHealthOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         ApplicationGatewayBackendHealth IOperationSource<ApplicationGatewayBackendHealth>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ApplicationGatewayBackendHealth.DeserializeApplicationGatewayBackendHealth(document.RootElement);
-            }
+            return ApplicationGatewayBackendHealth.DeserializeApplicationGatewayBackendHealth(document.RootElement);
         }
 
         async ValueTask<ApplicationGatewayBackendHealth> IOperationSource<ApplicationGatewayBackendHealth>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ApplicationGatewayBackendHealth.DeserializeApplicationGatewayBackendHealth(document.RootElement);
-            }
+            return ApplicationGatewayBackendHealth.DeserializeApplicationGatewayBackendHealth(document.RootElement);
         }
     }
 }

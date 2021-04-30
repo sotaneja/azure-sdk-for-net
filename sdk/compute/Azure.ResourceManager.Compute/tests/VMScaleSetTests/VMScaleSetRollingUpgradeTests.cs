@@ -7,9 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Azure.Core.TestFramework;
 using Azure.ResourceManager.Compute.Models;
-using Azure.Management.Resources;
+using Azure.ResourceManager.Resources;
 using NUnit.Framework;
-
 
 namespace Azure.ResourceManager.Compute.Tests
 {
@@ -47,8 +46,7 @@ namespace Azure.ResourceManager.Compute.Tests
 
             VirtualMachineScaleSetExtensionProfile extensionProfile = new VirtualMachineScaleSetExtensionProfile()
             {
-                Extensions = new List<VirtualMachineScaleSetExtension>()
-                        {
+                Extensions = {
                             GetTestVMSSVMExtension(),
                         }
             };
@@ -71,8 +69,8 @@ namespace Azure.ResourceManager.Compute.Tests
                 createWithManagedDisks: true,
                 createWithPublicIpAddress: false,
                 createWithHealthProbe: true);
-            VirtualMachineScaleSet getResponse = getTwoVirtualMachineScaleSet.Item1;
-            inputVMScaleSet = getTwoVirtualMachineScaleSet.Item2;
+            VirtualMachineScaleSet getResponse = getTwoVirtualMachineScaleSet.Response;
+            inputVMScaleSet = getTwoVirtualMachineScaleSet.Input;
             ValidateVMScaleSet(inputVMScaleSet, getResponse, hasManagedDisks: true);
 
             var getInstanceViewResponse = await VirtualMachineScaleSetsOperations.GetInstanceViewAsync(rgName, vmssName);
@@ -150,8 +148,8 @@ namespace Azure.ResourceManager.Compute.Tests
                 createWithManagedDisks: true,
                 createWithPublicIpAddress: false,
                 createWithHealthProbe: true);
-            VirtualMachineScaleSet getResponse = getTwoVirtualMachineScaleSet.Item1;
-            inputVMScaleSet = getTwoVirtualMachineScaleSet.Item2;
+            VirtualMachineScaleSet getResponse = getTwoVirtualMachineScaleSet.Response;
+            inputVMScaleSet = getTwoVirtualMachineScaleSet.Input;
             ValidateVMScaleSet(inputVMScaleSet, getResponse, hasManagedDisks: true);
             WaitSeconds(600);
             var vmssStatus = await VirtualMachineScaleSetsOperations.GetInstanceViewAsync(rgName, vmssName);
@@ -214,8 +212,8 @@ namespace Azure.ResourceManager.Compute.Tests
                 createWithManagedDisks: true,
                 createWithPublicIpAddress: false,
                 createWithHealthProbe: true);
-            VirtualMachineScaleSet getResponse = getTwoVirtualMachineScaleSet.Item1;
-            inputVMScaleSet = getTwoVirtualMachineScaleSet.Item2;
+            VirtualMachineScaleSet getResponse = getTwoVirtualMachineScaleSet.Response;
+            inputVMScaleSet = getTwoVirtualMachineScaleSet.Input;
             ValidateVMScaleSet(inputVMScaleSet, getResponse, hasManagedDisks: true);
             WaitSeconds(600);
             var vmssStatus = await VirtualMachineScaleSetsOperations.GetInstanceViewAsync(rgName, vmssName);
@@ -267,8 +265,8 @@ namespace Azure.ResourceManager.Compute.Tests
                 createWithManagedDisks: true,
                 createWithPublicIpAddress: false,
                 createWithHealthProbe: true);
-            VirtualMachineScaleSet getResponse = getTwoVirtualMachineScaleSet.Item1;
-            inputVMScaleSet = getTwoVirtualMachineScaleSet.Item2;
+            VirtualMachineScaleSet getResponse = getTwoVirtualMachineScaleSet.Response;
+            inputVMScaleSet = getTwoVirtualMachineScaleSet.Input;
             ValidateVMScaleSet(inputVMScaleSet, getResponse, hasManagedDisks: true);
 
             // Set Automatic OS Upgrade
@@ -324,8 +322,7 @@ namespace Azure.ResourceManager.Compute.Tests
             var extension = GetTestVMSSVMExtension();
             VirtualMachineScaleSetExtensionProfile extensionProfile = new VirtualMachineScaleSetExtensionProfile()
             {
-                Extensions = new List<VirtualMachineScaleSetExtension>()
-                {
+                Extensions = {
                     extension,
                 }
             };
@@ -347,8 +344,8 @@ namespace Azure.ResourceManager.Compute.Tests
                 createWithManagedDisks: true,
                 createWithPublicIpAddress: false,
                 createWithHealthProbe: true);
-            VirtualMachineScaleSet getResponse = getTwoVirtualMachineScaleSet.Item1;
-            inputVMScaleSet = getTwoVirtualMachineScaleSet.Item2;
+            VirtualMachineScaleSet getResponse = getTwoVirtualMachineScaleSet.Response;
+            inputVMScaleSet = getTwoVirtualMachineScaleSet.Input;
             ValidateVMScaleSet(inputVMScaleSet, getResponse, hasManagedDisks: true);
 
             await WaitForCompletionAsync(await VirtualMachineScaleSetRollingUpgradesOperations.StartStartExtensionUpgradeAsync(rgName, vmssName));

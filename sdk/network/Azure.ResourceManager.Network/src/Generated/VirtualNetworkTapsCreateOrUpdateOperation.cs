@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VirtualNetworkTapsCreateOrUpdateOperation : Operation<VirtualNetworkTap>, IOperationSource<VirtualNetworkTap>
     {
         private readonly ArmOperationHelpers<VirtualNetworkTap> _operation;
+
+        /// <summary> Initializes a new instance of VirtualNetworkTapsCreateOrUpdateOperation for mocking. </summary>
+        protected VirtualNetworkTapsCreateOrUpdateOperation()
+        {
+        }
+
         internal VirtualNetworkTapsCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VirtualNetworkTap>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "VirtualNetworkTapsCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         VirtualNetworkTap IOperationSource<VirtualNetworkTap>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualNetworkTap.DeserializeVirtualNetworkTap(document.RootElement);
-            }
+            return VirtualNetworkTap.DeserializeVirtualNetworkTap(document.RootElement);
         }
 
         async ValueTask<VirtualNetworkTap> IOperationSource<VirtualNetworkTap>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualNetworkTap.DeserializeVirtualNetworkTap(document.RootElement);
-            }
+            return VirtualNetworkTap.DeserializeVirtualNetworkTap(document.RootElement);
         }
     }
 }

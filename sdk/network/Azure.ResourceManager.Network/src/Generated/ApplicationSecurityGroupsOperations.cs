@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal ApplicationSecurityGroupsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of ApplicationSecurityGroupsOperations for mocking. </summary>
         protected ApplicationSecurityGroupsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of ApplicationSecurityGroupsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -192,6 +194,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all the application security groups in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<ApplicationSecurityGroup> ListAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -235,6 +238,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all the application security groups in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<ApplicationSecurityGroup> List(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -279,6 +283,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="applicationSecurityGroupName"> The name of the application security group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="applicationSecurityGroupName"/> is null. </exception>
         public virtual async Task<ApplicationSecurityGroupsDeleteOperation> StartDeleteAsync(string resourceGroupName, string applicationSecurityGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -308,6 +313,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="applicationSecurityGroupName"> The name of the application security group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="applicationSecurityGroupName"/> is null. </exception>
         public virtual ApplicationSecurityGroupsDeleteOperation StartDelete(string resourceGroupName, string applicationSecurityGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -338,6 +344,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="applicationSecurityGroupName"> The name of the application security group. </param>
         /// <param name="parameters"> Parameters supplied to the create or update ApplicationSecurityGroup operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="applicationSecurityGroupName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<ApplicationSecurityGroupsCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string applicationSecurityGroupName, ApplicationSecurityGroup parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -372,6 +379,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="applicationSecurityGroupName"> The name of the application security group. </param>
         /// <param name="parameters"> Parameters supplied to the create or update ApplicationSecurityGroup operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="applicationSecurityGroupName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual ApplicationSecurityGroupsCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string applicationSecurityGroupName, ApplicationSecurityGroup parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

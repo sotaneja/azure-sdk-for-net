@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Response for the ListPrivateDnsZoneGroups API service call. </summary>
-    public partial class PrivateDnsZoneGroupListResult
+    internal partial class PrivateDnsZoneGroupListResult
     {
         /// <summary> Initializes a new instance of PrivateDnsZoneGroupListResult. </summary>
         internal PrivateDnsZoneGroupListResult()
         {
+            Value = new ChangeTrackingList<PrivateDnsZoneGroup>();
         }
 
         /// <summary> Initializes a new instance of PrivateDnsZoneGroupListResult. </summary>

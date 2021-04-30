@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal VirtualNetworkPeeringsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of VirtualNetworkPeeringsOperations for mocking. </summary>
         protected VirtualNetworkPeeringsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of VirtualNetworkPeeringsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -81,6 +83,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="virtualNetworkName"> The name of the virtual network. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="virtualNetworkName"/> is null. </exception>
         public virtual AsyncPageable<VirtualNetworkPeering> ListAsync(string resourceGroupName, string virtualNetworkName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -129,6 +132,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="virtualNetworkName"> The name of the virtual network. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="virtualNetworkName"/> is null. </exception>
         public virtual Pageable<VirtualNetworkPeering> List(string resourceGroupName, string virtualNetworkName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -178,6 +182,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="virtualNetworkName"> The name of the virtual network. </param>
         /// <param name="virtualNetworkPeeringName"> The name of the virtual network peering. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="virtualNetworkName"/>, or <paramref name="virtualNetworkPeeringName"/> is null. </exception>
         public virtual async Task<VirtualNetworkPeeringsDeleteOperation> StartDeleteAsync(string resourceGroupName, string virtualNetworkName, string virtualNetworkPeeringName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -212,6 +217,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="virtualNetworkName"> The name of the virtual network. </param>
         /// <param name="virtualNetworkPeeringName"> The name of the virtual network peering. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="virtualNetworkName"/>, or <paramref name="virtualNetworkPeeringName"/> is null. </exception>
         public virtual VirtualNetworkPeeringsDeleteOperation StartDelete(string resourceGroupName, string virtualNetworkName, string virtualNetworkPeeringName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -247,6 +253,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="virtualNetworkPeeringName"> The name of the peering. </param>
         /// <param name="virtualNetworkPeeringParameters"> Parameters supplied to the create or update virtual network peering operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="virtualNetworkName"/>, <paramref name="virtualNetworkPeeringName"/>, or <paramref name="virtualNetworkPeeringParameters"/> is null. </exception>
         public virtual async Task<VirtualNetworkPeeringsCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string virtualNetworkName, string virtualNetworkPeeringName, VirtualNetworkPeering virtualNetworkPeeringParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -286,6 +293,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="virtualNetworkPeeringName"> The name of the peering. </param>
         /// <param name="virtualNetworkPeeringParameters"> Parameters supplied to the create or update virtual network peering operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="virtualNetworkName"/>, <paramref name="virtualNetworkPeeringName"/>, or <paramref name="virtualNetworkPeeringParameters"/> is null. </exception>
         public virtual VirtualNetworkPeeringsCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string virtualNetworkName, string virtualNetworkPeeringName, VirtualNetworkPeering virtualNetworkPeeringParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class PrivateLinkServicesCheckPrivateLinkServiceVisibilityOperation : Operation<PrivateLinkServiceVisibility>, IOperationSource<PrivateLinkServiceVisibility>
     {
         private readonly ArmOperationHelpers<PrivateLinkServiceVisibility> _operation;
+
+        /// <summary> Initializes a new instance of PrivateLinkServicesCheckPrivateLinkServiceVisibilityOperation for mocking. </summary>
+        protected PrivateLinkServicesCheckPrivateLinkServiceVisibilityOperation()
+        {
+        }
+
         internal PrivateLinkServicesCheckPrivateLinkServiceVisibilityOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<PrivateLinkServiceVisibility>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "PrivateLinkServicesCheckPrivateLinkServiceVisibilityOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         PrivateLinkServiceVisibility IOperationSource<PrivateLinkServiceVisibility>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return PrivateLinkServiceVisibility.DeserializePrivateLinkServiceVisibility(document.RootElement);
-            }
+            return PrivateLinkServiceVisibility.DeserializePrivateLinkServiceVisibility(document.RootElement);
         }
 
         async ValueTask<PrivateLinkServiceVisibility> IOperationSource<PrivateLinkServiceVisibility>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return PrivateLinkServiceVisibility.DeserializePrivateLinkServiceVisibility(document.RootElement);
-            }
+            return PrivateLinkServiceVisibility.DeserializePrivateLinkServiceVisibility(document.RootElement);
         }
     }
 }

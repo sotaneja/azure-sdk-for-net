@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> List of RouteTables and a URL nextLink to get the next set of results. </summary>
-    public partial class ListHubRouteTablesResult
+    internal partial class ListHubRouteTablesResult
     {
         /// <summary> Initializes a new instance of ListHubRouteTablesResult. </summary>
         internal ListHubRouteTablesResult()
         {
+            Value = new ChangeTrackingList<HubRouteTable>();
         }
 
         /// <summary> Initializes a new instance of ListHubRouteTablesResult. </summary>

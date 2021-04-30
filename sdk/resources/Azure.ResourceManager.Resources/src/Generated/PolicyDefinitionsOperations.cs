@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Resources
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal PolicyDefinitionsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of PolicyDefinitionsOperations for mocking. </summary>
         protected PolicyDefinitionsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of PolicyDefinitionsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -450,6 +452,7 @@ namespace Azure.ResourceManager.Resources
         /// <summary> This operation retrieves a list of all the policy definitions in a given management group. </summary>
         /// <param name="managementGroupId"> The ID of the management group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="managementGroupId"/> is null. </exception>
         public virtual AsyncPageable<PolicyDefinition> ListByManagementGroupAsync(string managementGroupId, CancellationToken cancellationToken = default)
         {
             if (managementGroupId == null)
@@ -493,6 +496,7 @@ namespace Azure.ResourceManager.Resources
         /// <summary> This operation retrieves a list of all the policy definitions in a given management group. </summary>
         /// <param name="managementGroupId"> The ID of the management group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="managementGroupId"/> is null. </exception>
         public virtual Pageable<PolicyDefinition> ListByManagementGroup(string managementGroupId, CancellationToken cancellationToken = default)
         {
             if (managementGroupId == null)

@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal VpnLinkConnectionsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of VpnLinkConnectionsOperations for mocking. </summary>
         protected VpnLinkConnectionsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of VpnLinkConnectionsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -42,6 +44,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="gatewayName"> The name of the gateway. </param>
         /// <param name="connectionName"> The name of the vpn connection. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="gatewayName"/>, or <paramref name="connectionName"/> is null. </exception>
         public virtual AsyncPageable<VpnSiteLinkConnection> ListByVpnConnectionAsync(string resourceGroupName, string gatewayName, string connectionName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -95,6 +98,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="gatewayName"> The name of the gateway. </param>
         /// <param name="connectionName"> The name of the vpn connection. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="gatewayName"/>, or <paramref name="connectionName"/> is null. </exception>
         public virtual Pageable<VpnSiteLinkConnection> ListByVpnConnection(string resourceGroupName, string gatewayName, string connectionName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Storage.Models
 {
     /// <summary> Response schema. Contains list of shares returned, and if paging is requested or required, a URL to next page of shares. </summary>
-    public partial class FileShareItems
+    internal partial class FileShareItems
     {
         /// <summary> Initializes a new instance of FileShareItems. </summary>
         internal FileShareItems()
         {
+            Value = new ChangeTrackingList<FileShareItem>();
         }
 
         /// <summary> Initializes a new instance of FileShareItems. </summary>

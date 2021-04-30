@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Azure.Core.TestFramework;
 using Azure.ResourceManager.Compute.Models;
-using Azure.Management.Resources;
+using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.Compute.Tests
@@ -53,14 +53,15 @@ namespace Azure.ResourceManager.Compute.Tests
                 var storageAccountOutput = await CreateStorageAccount(rgName, storageAccountName);
 
                 var returnTwoVM = await CreateVM(rgName, asName, storageAccountOutput, imageRef);
-                var vm1 = returnTwoVM.Item1;
-                inputVM = returnTwoVM.Item2;
+                var vm1 = returnTwoVM.Response;
+                inputVM = returnTwoVM.Input;
+                string inputVMName = returnTwoVM.Name;
                 // List Usages, and do weak validation to assure that some usages were returned.
                 var luResponse = await (UsageClient.ListAsync(vm1.Location)).ToEnumerableAsync();
 
                 ValidateListUsageResponse(luResponse);
 
-                await WaitForCompletionAsync(await VirtualMachinesOperations.StartDeleteAsync(rgName, inputVM.Name));
+                await WaitForCompletionAsync(await VirtualMachinesOperations.StartDeleteAsync(rgName, inputVMName));
             }
             catch (Exception e)
             {

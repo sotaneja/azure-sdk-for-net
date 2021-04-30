@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Storage
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal UsagesRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of UsagesOperations for mocking. </summary>
         protected UsagesOperations()
         {
         }
+
         /// <summary> Initializes a new instance of UsagesOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -41,6 +43,7 @@ namespace Azure.ResourceManager.Storage
         /// <summary> Gets the current usage count and the limit for the resources of the location under the subscription. </summary>
         /// <param name="location"> The location of the Azure Storage resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public virtual AsyncPageable<Usage> ListByLocationAsync(string location, CancellationToken cancellationToken = default)
         {
             if (location == null)
@@ -69,6 +72,7 @@ namespace Azure.ResourceManager.Storage
         /// <summary> Gets the current usage count and the limit for the resources of the location under the subscription. </summary>
         /// <param name="location"> The location of the Azure Storage resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         public virtual Pageable<Usage> ListByLocation(string location, CancellationToken cancellationToken = default)
         {
             if (location == null)

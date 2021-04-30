@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal RouteFilterRulesRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of RouteFilterRulesOperations for mocking. </summary>
         protected RouteFilterRulesOperations()
         {
         }
+
         /// <summary> Initializes a new instance of RouteFilterRulesOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -81,6 +83,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="routeFilterName"> The name of the route filter. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="routeFilterName"/> is null. </exception>
         public virtual AsyncPageable<RouteFilterRule> ListByRouteFilterAsync(string resourceGroupName, string routeFilterName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -129,6 +132,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="routeFilterName"> The name of the route filter. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="routeFilterName"/> is null. </exception>
         public virtual Pageable<RouteFilterRule> ListByRouteFilter(string resourceGroupName, string routeFilterName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -178,6 +182,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="routeFilterName"> The name of the route filter. </param>
         /// <param name="ruleName"> The name of the rule. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="routeFilterName"/>, or <paramref name="ruleName"/> is null. </exception>
         public virtual async Task<RouteFilterRulesDeleteOperation> StartDeleteAsync(string resourceGroupName, string routeFilterName, string ruleName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -212,6 +217,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="routeFilterName"> The name of the route filter. </param>
         /// <param name="ruleName"> The name of the rule. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="routeFilterName"/>, or <paramref name="ruleName"/> is null. </exception>
         public virtual RouteFilterRulesDeleteOperation StartDelete(string resourceGroupName, string routeFilterName, string ruleName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -247,6 +253,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="ruleName"> The name of the route filter rule. </param>
         /// <param name="routeFilterRuleParameters"> Parameters supplied to the create or update route filter rule operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="routeFilterName"/>, <paramref name="ruleName"/>, or <paramref name="routeFilterRuleParameters"/> is null. </exception>
         public virtual async Task<RouteFilterRulesCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string routeFilterName, string ruleName, RouteFilterRule routeFilterRuleParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -286,6 +293,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="ruleName"> The name of the route filter rule. </param>
         /// <param name="routeFilterRuleParameters"> Parameters supplied to the create or update route filter rule operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="routeFilterName"/>, <paramref name="ruleName"/>, or <paramref name="routeFilterRuleParameters"/> is null. </exception>
         public virtual RouteFilterRulesCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string routeFilterName, string ruleName, RouteFilterRule routeFilterRuleParameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class VirtualWansCreateOrUpdateOperation : Operation<VirtualWAN>, IOperationSource<VirtualWAN>
     {
         private readonly ArmOperationHelpers<VirtualWAN> _operation;
+
+        /// <summary> Initializes a new instance of VirtualWansCreateOrUpdateOperation for mocking. </summary>
+        protected VirtualWansCreateOrUpdateOperation()
+        {
+        }
+
         internal VirtualWansCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<VirtualWAN>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "VirtualWansCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         VirtualWAN IOperationSource<VirtualWAN>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualWAN.DeserializeVirtualWAN(document.RootElement);
-            }
+            return VirtualWAN.DeserializeVirtualWAN(document.RootElement);
         }
 
         async ValueTask<VirtualWAN> IOperationSource<VirtualWAN>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return VirtualWAN.DeserializeVirtualWAN(document.RootElement);
-            }
+            return VirtualWAN.DeserializeVirtualWAN(document.RootElement);
         }
     }
 }

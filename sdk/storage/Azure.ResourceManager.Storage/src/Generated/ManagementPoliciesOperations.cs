@@ -20,10 +20,12 @@ namespace Azure.ResourceManager.Storage
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal ManagementPoliciesRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of ManagementPoliciesOperations for mocking. </summary>
         protected ManagementPoliciesOperations()
         {
         }
+
         /// <summary> Initializes a new instance of ManagementPoliciesOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -40,14 +42,15 @@ namespace Azure.ResourceManager.Storage
         /// <summary> Gets the managementpolicy associated with the specified storage account. </summary>
         /// <param name="resourceGroupName"> The name of the resource group within the user&apos;s subscription. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the storage account within the specified resource group. Storage account names must be between 3 and 24 characters in length and use numbers and lower-case letters only. </param>
+        /// <param name="managementPolicyName"> The name of the Storage Account Management Policy. It should always be &apos;default&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<ManagementPolicy>> GetAsync(string resourceGroupName, string accountName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ManagementPolicy>> GetAsync(string resourceGroupName, string accountName, ManagementPolicyName managementPolicyName, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("ManagementPoliciesOperations.Get");
             scope.Start();
             try
             {
-                return await RestClient.GetAsync(resourceGroupName, accountName, cancellationToken).ConfigureAwait(false);
+                return await RestClient.GetAsync(resourceGroupName, accountName, managementPolicyName, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -59,14 +62,15 @@ namespace Azure.ResourceManager.Storage
         /// <summary> Gets the managementpolicy associated with the specified storage account. </summary>
         /// <param name="resourceGroupName"> The name of the resource group within the user&apos;s subscription. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the storage account within the specified resource group. Storage account names must be between 3 and 24 characters in length and use numbers and lower-case letters only. </param>
+        /// <param name="managementPolicyName"> The name of the Storage Account Management Policy. It should always be &apos;default&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<ManagementPolicy> Get(string resourceGroupName, string accountName, CancellationToken cancellationToken = default)
+        public virtual Response<ManagementPolicy> Get(string resourceGroupName, string accountName, ManagementPolicyName managementPolicyName, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("ManagementPoliciesOperations.Get");
             scope.Start();
             try
             {
-                return RestClient.Get(resourceGroupName, accountName, cancellationToken);
+                return RestClient.Get(resourceGroupName, accountName, managementPolicyName, cancellationToken);
             }
             catch (Exception e)
             {
@@ -78,15 +82,16 @@ namespace Azure.ResourceManager.Storage
         /// <summary> Sets the managementpolicy to the specified storage account. </summary>
         /// <param name="resourceGroupName"> The name of the resource group within the user&apos;s subscription. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the storage account within the specified resource group. Storage account names must be between 3 and 24 characters in length and use numbers and lower-case letters only. </param>
+        /// <param name="managementPolicyName"> The name of the Storage Account Management Policy. It should always be &apos;default&apos;. </param>
         /// <param name="properties"> The ManagementPolicy set to a storage account. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<ManagementPolicy>> CreateOrUpdateAsync(string resourceGroupName, string accountName, ManagementPolicy properties, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ManagementPolicy>> CreateOrUpdateAsync(string resourceGroupName, string accountName, ManagementPolicyName managementPolicyName, ManagementPolicy properties, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("ManagementPoliciesOperations.CreateOrUpdate");
             scope.Start();
             try
             {
-                return await RestClient.CreateOrUpdateAsync(resourceGroupName, accountName, properties, cancellationToken).ConfigureAwait(false);
+                return await RestClient.CreateOrUpdateAsync(resourceGroupName, accountName, managementPolicyName, properties, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -98,15 +103,16 @@ namespace Azure.ResourceManager.Storage
         /// <summary> Sets the managementpolicy to the specified storage account. </summary>
         /// <param name="resourceGroupName"> The name of the resource group within the user&apos;s subscription. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the storage account within the specified resource group. Storage account names must be between 3 and 24 characters in length and use numbers and lower-case letters only. </param>
+        /// <param name="managementPolicyName"> The name of the Storage Account Management Policy. It should always be &apos;default&apos;. </param>
         /// <param name="properties"> The ManagementPolicy set to a storage account. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<ManagementPolicy> CreateOrUpdate(string resourceGroupName, string accountName, ManagementPolicy properties, CancellationToken cancellationToken = default)
+        public virtual Response<ManagementPolicy> CreateOrUpdate(string resourceGroupName, string accountName, ManagementPolicyName managementPolicyName, ManagementPolicy properties, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("ManagementPoliciesOperations.CreateOrUpdate");
             scope.Start();
             try
             {
-                return RestClient.CreateOrUpdate(resourceGroupName, accountName, properties, cancellationToken);
+                return RestClient.CreateOrUpdate(resourceGroupName, accountName, managementPolicyName, properties, cancellationToken);
             }
             catch (Exception e)
             {
@@ -118,14 +124,15 @@ namespace Azure.ResourceManager.Storage
         /// <summary> Deletes the managementpolicy associated with the specified storage account. </summary>
         /// <param name="resourceGroupName"> The name of the resource group within the user&apos;s subscription. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the storage account within the specified resource group. Storage account names must be between 3 and 24 characters in length and use numbers and lower-case letters only. </param>
+        /// <param name="managementPolicyName"> The name of the Storage Account Management Policy. It should always be &apos;default&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response> DeleteAsync(string resourceGroupName, string accountName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response> DeleteAsync(string resourceGroupName, string accountName, ManagementPolicyName managementPolicyName, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("ManagementPoliciesOperations.Delete");
             scope.Start();
             try
             {
-                return await RestClient.DeleteAsync(resourceGroupName, accountName, cancellationToken).ConfigureAwait(false);
+                return await RestClient.DeleteAsync(resourceGroupName, accountName, managementPolicyName, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -137,14 +144,15 @@ namespace Azure.ResourceManager.Storage
         /// <summary> Deletes the managementpolicy associated with the specified storage account. </summary>
         /// <param name="resourceGroupName"> The name of the resource group within the user&apos;s subscription. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the storage account within the specified resource group. Storage account names must be between 3 and 24 characters in length and use numbers and lower-case letters only. </param>
+        /// <param name="managementPolicyName"> The name of the Storage Account Management Policy. It should always be &apos;default&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response Delete(string resourceGroupName, string accountName, CancellationToken cancellationToken = default)
+        public virtual Response Delete(string resourceGroupName, string accountName, ManagementPolicyName managementPolicyName, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("ManagementPoliciesOperations.Delete");
             scope.Start();
             try
             {
-                return RestClient.Delete(resourceGroupName, accountName, cancellationToken);
+                return RestClient.Delete(resourceGroupName, accountName, managementPolicyName, cancellationToken);
             }
             catch (Exception e)
             {

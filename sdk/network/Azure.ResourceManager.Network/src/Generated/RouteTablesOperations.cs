@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal RouteTablesRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of RouteTablesOperations for mocking. </summary>
         protected RouteTablesOperations()
         {
         }
+
         /// <summary> Initializes a new instance of RouteTablesOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -120,6 +122,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all route tables in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<RouteTable> ListAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -163,6 +166,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Gets all route tables in a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<RouteTable> List(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -281,6 +285,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="routeTableName"> The name of the route table. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="routeTableName"/> is null. </exception>
         public virtual async Task<RouteTablesDeleteOperation> StartDeleteAsync(string resourceGroupName, string routeTableName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -310,6 +315,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="routeTableName"> The name of the route table. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="routeTableName"/> is null. </exception>
         public virtual RouteTablesDeleteOperation StartDelete(string resourceGroupName, string routeTableName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -340,6 +346,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="routeTableName"> The name of the route table. </param>
         /// <param name="parameters"> Parameters supplied to the create or update route table operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="routeTableName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<RouteTablesCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string routeTableName, RouteTable parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -374,6 +381,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="routeTableName"> The name of the route table. </param>
         /// <param name="parameters"> Parameters supplied to the create or update route table operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="routeTableName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual RouteTablesCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string routeTableName, RouteTable parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

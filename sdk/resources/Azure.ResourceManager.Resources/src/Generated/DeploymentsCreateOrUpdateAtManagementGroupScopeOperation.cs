@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Resources
     public partial class DeploymentsCreateOrUpdateAtManagementGroupScopeOperation : Operation<DeploymentExtended>, IOperationSource<DeploymentExtended>
     {
         private readonly ArmOperationHelpers<DeploymentExtended> _operation;
+
+        /// <summary> Initializes a new instance of DeploymentsCreateOrUpdateAtManagementGroupScopeOperation for mocking. </summary>
+        protected DeploymentsCreateOrUpdateAtManagementGroupScopeOperation()
+        {
+        }
+
         internal DeploymentsCreateOrUpdateAtManagementGroupScopeOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<DeploymentExtended>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "DeploymentsCreateOrUpdateAtManagementGroupScopeOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Resources
         DeploymentExtended IOperationSource<DeploymentExtended>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return DeploymentExtended.DeserializeDeploymentExtended(document.RootElement);
-            }
+            return DeploymentExtended.DeserializeDeploymentExtended(document.RootElement);
         }
 
         async ValueTask<DeploymentExtended> IOperationSource<DeploymentExtended>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return DeploymentExtended.DeserializeDeploymentExtended(document.RootElement);
-            }
+            return DeploymentExtended.DeserializeDeploymentExtended(document.RootElement);
         }
     }
 }

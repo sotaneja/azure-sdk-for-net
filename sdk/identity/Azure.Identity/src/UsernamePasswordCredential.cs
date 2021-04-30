@@ -27,13 +27,11 @@ namespace Azure.Identity
         private readonly SecureString _password;
         private AuthenticationRecord _record;
 
-
         /// <summary>
         /// Protected constructor for mocking
         /// </summary>
         protected UsernamePasswordCredential()
         {
-
         }
 
         /// <summary>
@@ -47,7 +45,6 @@ namespace Azure.Identity
         public UsernamePasswordCredential(string username, string password, string tenantId, string clientId)
             : this(username, password, tenantId, clientId, (TokenCredentialOptions)null)
         {
-
         }
 
         /// <summary>
@@ -73,7 +70,7 @@ namespace Azure.Identity
         /// <param name="tenantId">The Azure Active Directory tenant (directory) ID or name.</param>
         /// <param name="clientId">The client (application) ID of an App Registration in the tenant.</param>
         /// <param name="options">The client options for the newly created UsernamePasswordCredential</param>
-        internal UsernamePasswordCredential(string username, string password, string tenantId, string clientId, UsernamePasswordCredentialOptions options)
+        public UsernamePasswordCredential(string username, string password, string tenantId, string clientId, UsernamePasswordCredentialOptions options)
             : this(username, password, tenantId, clientId, options, null, null)
         {
         }
@@ -86,7 +83,7 @@ namespace Azure.Identity
 
             _clientId = clientId ?? throw new ArgumentNullException(nameof(clientId));
 
-            if (tenantId == null) throw new ArgumentNullException(nameof(tenantId));
+            Validations.ValidateTenantId(tenantId, nameof(tenantId));
 
             _pipeline = pipeline ?? CredentialPipeline.GetInstance(options);
 
@@ -98,7 +95,7 @@ namespace Azure.Identity
         /// </summary>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> controlling the request lifetime.</param>
         /// <returns>The <see cref="AuthenticationRecord"/> of the authenticated account.</returns>
-        internal virtual AuthenticationRecord Authenticate(CancellationToken cancellationToken = default)
+        public virtual AuthenticationRecord Authenticate(CancellationToken cancellationToken = default)
         {
             // get the default scope for the authority, throw if no default scope exists
             string defaultScope = AzureAuthorityHosts.GetDefaultScope(_pipeline.AuthorityHost) ?? throw new CredentialUnavailableException(NoDefaultScopeMessage);
@@ -111,7 +108,7 @@ namespace Azure.Identity
         /// </summary>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> controlling the request lifetime.</param>
         /// <returns>The <see cref="AuthenticationRecord"/> of the authenticated account.</returns>
-        internal virtual async Task<AuthenticationRecord> AuthenticateAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<AuthenticationRecord> AuthenticateAsync(CancellationToken cancellationToken = default)
         {
             // get the default scope for the authority, throw if no default scope exists
             string defaultScope = AzureAuthorityHosts.GetDefaultScope(_pipeline.AuthorityHost) ?? throw new CredentialUnavailableException(NoDefaultScopeMessage);
@@ -125,7 +122,7 @@ namespace Azure.Identity
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> controlling the request lifetime.</param>
         /// <param name="requestContext">The details of the authentication request.</param>
         /// <returns>The <see cref="AuthenticationRecord"/> of the authenticated account.</returns>
-        internal virtual AuthenticationRecord Authenticate(TokenRequestContext requestContext, CancellationToken cancellationToken = default)
+        public virtual AuthenticationRecord Authenticate(TokenRequestContext requestContext, CancellationToken cancellationToken = default)
         {
             return AuthenticateImplAsync(false, requestContext, cancellationToken).EnsureCompleted();
         }
@@ -136,14 +133,14 @@ namespace Azure.Identity
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> controlling the request lifetime.</param>
         /// <param name="requestContext">The details of the authentication request.</param>
         /// <returns>The <see cref="AuthenticationRecord"/> of the authenticated account.</returns>
-        internal virtual async Task<AuthenticationRecord> AuthenticateAsync(TokenRequestContext requestContext, CancellationToken cancellationToken = default)
+        public virtual async Task<AuthenticationRecord> AuthenticateAsync(TokenRequestContext requestContext, CancellationToken cancellationToken = default)
         {
             return await AuthenticateImplAsync(true, requestContext, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Obtains a token for a user account, authenticating them using the given username and password.  Note: This will fail with
-        /// an <see cref="AuthenticationFailedException"/> if the specified user account has MFA enabled. This method is called by Azure SDK clients. It isn't intended for use in application code.
+        /// an <see cref="AuthenticationFailedException"/> if the specified user account has MFA enabled. This method is called automatically by Azure SDK client libraries. You may call this method directly, but you must also handle token caching and token refreshing.
         /// </summary>
         /// <param name="requestContext">The details of the authentication request.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> controlling the request lifetime.</param>
@@ -155,7 +152,7 @@ namespace Azure.Identity
 
         /// <summary>
         /// Obtains a token for a user account, authenticating them using the given username and password.  Note: This will fail with
-        /// an <see cref="AuthenticationFailedException"/> if the specified user account has MFA enabled. This method is called by Azure SDK clients. It isn't intended for use in application code.
+        /// an <see cref="AuthenticationFailedException"/> if the specified user account has MFA enabled. This method is called automatically by Azure SDK client libraries. You may call this method directly, but you must also handle token caching and token refreshing.
         /// </summary>
         /// <param name="requestContext">The details of the authentication request.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> controlling the request lifetime.</param>
@@ -188,7 +185,7 @@ namespace Azure.Identity
             try
             {
                 AuthenticationResult result = await _client
-                    .AcquireTokenByUsernamePasswordAsync(requestContext.Scopes, _username, _password, async, cancellationToken)
+                    .AcquireTokenByUsernamePasswordAsync(requestContext.Scopes, requestContext.Claims, _username, _password, async, cancellationToken)
                     .ConfigureAwait(false);
 
                 _record = new AuthenticationRecord(result, _clientId);

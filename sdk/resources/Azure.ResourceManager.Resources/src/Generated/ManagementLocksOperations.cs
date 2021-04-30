@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Resources
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal ManagementLocksRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of ManagementLocksOperations for mocking. </summary>
         protected ManagementLocksOperations()
         {
         }
+
         /// <summary> Initializes a new instance of ManagementLocksOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -523,6 +525,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="resourceGroupName"> The name of the resource group containing the locks to get. </param>
         /// <param name="filter"> The filter to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<ManagementLockObject> ListAtResourceGroupLevelAsync(string resourceGroupName, string filter = null, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -567,6 +570,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="resourceGroupName"> The name of the resource group containing the locks to get. </param>
         /// <param name="filter"> The filter to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<ManagementLockObject> ListAtResourceGroupLevel(string resourceGroupName, string filter = null, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -615,6 +619,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="resourceName"> The name of the locked resource. </param>
         /// <param name="filter"> The filter to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceProviderNamespace"/>, <paramref name="parentResourcePath"/>, <paramref name="resourceType"/>, or <paramref name="resourceName"/> is null. </exception>
         public virtual AsyncPageable<ManagementLockObject> ListAtResourceLevelAsync(string resourceGroupName, string resourceProviderNamespace, string parentResourcePath, string resourceType, string resourceName, string filter = null, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -679,6 +684,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="resourceName"> The name of the locked resource. </param>
         /// <param name="filter"> The filter to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceProviderNamespace"/>, <paramref name="parentResourcePath"/>, <paramref name="resourceType"/>, or <paramref name="resourceName"/> is null. </exception>
         public virtual Pageable<ManagementLockObject> ListAtResourceLevel(string resourceGroupName, string resourceProviderNamespace, string parentResourcePath, string resourceType, string resourceName, string filter = null, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -815,6 +821,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="scope"> The scope for the lock. When providing a scope for the assignment, use &apos;/subscriptions/{subscriptionId}&apos; for subscriptions, &apos;/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}&apos; for resource groups, and &apos;/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{parentResourcePathIfPresent}/{resourceType}/{resourceName}&apos; for resources. </param>
         /// <param name="filter"> The filter to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> is null. </exception>
         public virtual AsyncPageable<ManagementLockObject> ListByScopeAsync(string scope, string filter = null, CancellationToken cancellationToken = default)
         {
             if (scope == null)
@@ -859,6 +866,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="scope"> The scope for the lock. When providing a scope for the assignment, use &apos;/subscriptions/{subscriptionId}&apos; for subscriptions, &apos;/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}&apos; for resource groups, and &apos;/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{parentResourcePathIfPresent}/{resourceType}/{resourceName}&apos; for resources. </param>
         /// <param name="filter"> The filter to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> is null. </exception>
         public virtual Pageable<ManagementLockObject> ListByScope(string scope, string filter = null, CancellationToken cancellationToken = default)
         {
             if (scope == null)

@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Compute
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal SnapshotsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of SnapshotsOperations for mocking. </summary>
         protected SnapshotsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of SnapshotsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -78,6 +80,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Lists snapshots under a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual AsyncPageable<Snapshot> ListByResourceGroupAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -121,6 +124,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Lists snapshots under a resource group. </summary>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         public virtual Pageable<Snapshot> ListByResourceGroup(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -240,6 +244,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="snapshotName"> The name of the snapshot that is being created. The name can&apos;t be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters. </param>
         /// <param name="snapshot"> Snapshot object supplied in the body of the Put disk operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="snapshotName"/>, or <paramref name="snapshot"/> is null. </exception>
         public virtual async Task<SnapshotsCreateOrUpdateOperation> StartCreateOrUpdateAsync(string resourceGroupName, string snapshotName, Snapshot snapshot, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -274,6 +279,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="snapshotName"> The name of the snapshot that is being created. The name can&apos;t be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters. </param>
         /// <param name="snapshot"> Snapshot object supplied in the body of the Put disk operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="snapshotName"/>, or <paramref name="snapshot"/> is null. </exception>
         public virtual SnapshotsCreateOrUpdateOperation StartCreateOrUpdate(string resourceGroupName, string snapshotName, Snapshot snapshot, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -308,6 +314,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="snapshotName"> The name of the snapshot that is being created. The name can&apos;t be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters. </param>
         /// <param name="snapshot"> Snapshot object supplied in the body of the Patch snapshot operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="snapshotName"/>, or <paramref name="snapshot"/> is null. </exception>
         public virtual async Task<SnapshotsUpdateOperation> StartUpdateAsync(string resourceGroupName, string snapshotName, SnapshotUpdate snapshot, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -342,6 +349,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="snapshotName"> The name of the snapshot that is being created. The name can&apos;t be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters. </param>
         /// <param name="snapshot"> Snapshot object supplied in the body of the Patch snapshot operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="snapshotName"/>, or <paramref name="snapshot"/> is null. </exception>
         public virtual SnapshotsUpdateOperation StartUpdate(string resourceGroupName, string snapshotName, SnapshotUpdate snapshot, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -375,6 +383,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="snapshotName"> The name of the snapshot that is being created. The name can&apos;t be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="snapshotName"/> is null. </exception>
         public virtual async Task<SnapshotsDeleteOperation> StartDeleteAsync(string resourceGroupName, string snapshotName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -404,6 +413,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="snapshotName"> The name of the snapshot that is being created. The name can&apos;t be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="snapshotName"/> is null. </exception>
         public virtual SnapshotsDeleteOperation StartDelete(string resourceGroupName, string snapshotName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -434,6 +444,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="snapshotName"> The name of the snapshot that is being created. The name can&apos;t be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters. </param>
         /// <param name="grantAccessData"> Access data object supplied in the body of the get snapshot access operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="snapshotName"/>, or <paramref name="grantAccessData"/> is null. </exception>
         public virtual async Task<SnapshotsGrantAccessOperation> StartGrantAccessAsync(string resourceGroupName, string snapshotName, GrantAccessData grantAccessData, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -468,6 +479,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="snapshotName"> The name of the snapshot that is being created. The name can&apos;t be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters. </param>
         /// <param name="grantAccessData"> Access data object supplied in the body of the get snapshot access operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="snapshotName"/>, or <paramref name="grantAccessData"/> is null. </exception>
         public virtual SnapshotsGrantAccessOperation StartGrantAccess(string resourceGroupName, string snapshotName, GrantAccessData grantAccessData, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -501,6 +513,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="snapshotName"> The name of the snapshot that is being created. The name can&apos;t be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="snapshotName"/> is null. </exception>
         public virtual async Task<SnapshotsRevokeAccessOperation> StartRevokeAccessAsync(string resourceGroupName, string snapshotName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -530,6 +543,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="snapshotName"> The name of the snapshot that is being created. The name can&apos;t be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="snapshotName"/> is null. </exception>
         public virtual SnapshotsRevokeAccessOperation StartRevokeAccess(string resourceGroupName, string snapshotName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

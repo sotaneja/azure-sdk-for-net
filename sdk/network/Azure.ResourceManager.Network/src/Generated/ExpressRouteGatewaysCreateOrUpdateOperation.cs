@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class ExpressRouteGatewaysCreateOrUpdateOperation : Operation<ExpressRouteGateway>, IOperationSource<ExpressRouteGateway>
     {
         private readonly ArmOperationHelpers<ExpressRouteGateway> _operation;
+
+        /// <summary> Initializes a new instance of ExpressRouteGatewaysCreateOrUpdateOperation for mocking. </summary>
+        protected ExpressRouteGatewaysCreateOrUpdateOperation()
+        {
+        }
+
         internal ExpressRouteGatewaysCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ExpressRouteGateway>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "ExpressRouteGatewaysCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         ExpressRouteGateway IOperationSource<ExpressRouteGateway>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ExpressRouteGateway.DeserializeExpressRouteGateway(document.RootElement);
-            }
+            return ExpressRouteGateway.DeserializeExpressRouteGateway(document.RootElement);
         }
 
         async ValueTask<ExpressRouteGateway> IOperationSource<ExpressRouteGateway>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ExpressRouteGateway.DeserializeExpressRouteGateway(document.RootElement);
-            }
+            return ExpressRouteGateway.DeserializeExpressRouteGateway(document.RootElement);
         }
     }
 }

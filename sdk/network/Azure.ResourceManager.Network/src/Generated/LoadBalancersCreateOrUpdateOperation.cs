@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Network
     public partial class LoadBalancersCreateOrUpdateOperation : Operation<LoadBalancer>, IOperationSource<LoadBalancer>
     {
         private readonly ArmOperationHelpers<LoadBalancer> _operation;
+
+        /// <summary> Initializes a new instance of LoadBalancersCreateOrUpdateOperation for mocking. </summary>
+        protected LoadBalancersCreateOrUpdateOperation()
+        {
+        }
+
         internal LoadBalancersCreateOrUpdateOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<LoadBalancer>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.AzureAsyncOperation, "LoadBalancersCreateOrUpdateOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Network
         LoadBalancer IOperationSource<LoadBalancer>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return LoadBalancer.DeserializeLoadBalancer(document.RootElement);
-            }
+            return LoadBalancer.DeserializeLoadBalancer(document.RootElement);
         }
 
         async ValueTask<LoadBalancer> IOperationSource<LoadBalancer>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return LoadBalancer.DeserializeLoadBalancer(document.RootElement);
-            }
+            return LoadBalancer.DeserializeLoadBalancer(document.RootElement);
         }
     }
 }

@@ -11,46 +11,36 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Storage.Models
 {
-    public partial class StorageAccountListResult
+    internal partial class StorageAccountListResult
     {
         internal static StorageAccountListResult DeserializeStorageAccountListResult(JsonElement element)
         {
-            IReadOnlyList<StorageAccount> value = default;
-            string nextLink = default;
+            Optional<IReadOnlyList<StorageAccount>> value = default;
+            Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
+                        property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
                     List<StorageAccount> array = new List<StorageAccount>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(StorageAccount.DeserializeStorageAccount(item));
-                        }
+                        array.Add(StorageAccount.DeserializeStorageAccount(item));
                     }
                     value = array;
                     continue;
                 }
                 if (property.NameEquals("nextLink"))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     nextLink = property.Value.GetString();
                     continue;
                 }
             }
-            return new StorageAccountListResult(value, nextLink);
+            return new StorageAccountListResult(Optional.ToList(value), nextLink.Value);
         }
     }
 }

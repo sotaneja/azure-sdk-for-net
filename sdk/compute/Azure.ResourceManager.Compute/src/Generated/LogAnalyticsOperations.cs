@@ -19,10 +19,12 @@ namespace Azure.ResourceManager.Compute
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal LogAnalyticsRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of LogAnalyticsOperations for mocking. </summary>
         protected LogAnalyticsOperations()
         {
         }
+
         /// <summary> Initializes a new instance of LogAnalyticsOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -39,6 +41,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="location"> The location upon which virtual-machine-sizes is queried. </param>
         /// <param name="parameters"> Parameters supplied to the LogAnalytics getRequestRateByInterval Api. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<LogAnalyticsExportRequestRateByIntervalOperation> StartExportRequestRateByIntervalAsync(string location, RequestRateByIntervalInput parameters, CancellationToken cancellationToken = default)
         {
             if (location == null)
@@ -68,6 +71,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="location"> The location upon which virtual-machine-sizes is queried. </param>
         /// <param name="parameters"> Parameters supplied to the LogAnalytics getRequestRateByInterval Api. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> or <paramref name="parameters"/> is null. </exception>
         public virtual LogAnalyticsExportRequestRateByIntervalOperation StartExportRequestRateByInterval(string location, RequestRateByIntervalInput parameters, CancellationToken cancellationToken = default)
         {
             if (location == null)
@@ -97,7 +101,8 @@ namespace Azure.ResourceManager.Compute
         /// <param name="location"> The location upon which virtual-machine-sizes is queried. </param>
         /// <param name="parameters"> Parameters supplied to the LogAnalytics getThrottledRequests Api. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<LogAnalyticsExportThrottledRequestsOperation> StartExportThrottledRequestsAsync(string location, LogAnalyticsInputBase parameters, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> or <paramref name="parameters"/> is null. </exception>
+        public virtual async Task<LogAnalyticsExportThrottledRequestsOperation> StartExportThrottledRequestsAsync(string location, ThrottledRequestsInput parameters, CancellationToken cancellationToken = default)
         {
             if (location == null)
             {
@@ -126,7 +131,8 @@ namespace Azure.ResourceManager.Compute
         /// <param name="location"> The location upon which virtual-machine-sizes is queried. </param>
         /// <param name="parameters"> Parameters supplied to the LogAnalytics getThrottledRequests Api. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual LogAnalyticsExportThrottledRequestsOperation StartExportThrottledRequests(string location, LogAnalyticsInputBase parameters, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> or <paramref name="parameters"/> is null. </exception>
+        public virtual LogAnalyticsExportThrottledRequestsOperation StartExportThrottledRequests(string location, ThrottledRequestsInput parameters, CancellationToken cancellationToken = default)
         {
             if (location == null)
             {

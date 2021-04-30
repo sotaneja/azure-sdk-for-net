@@ -21,10 +21,12 @@ namespace Azure.ResourceManager.Network
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly HttpPipeline _pipeline;
         internal PacketCapturesRestOperations RestClient { get; }
+
         /// <summary> Initializes a new instance of PacketCapturesOperations for mocking. </summary>
         protected PacketCapturesOperations()
         {
         }
+
         /// <summary> Initializes a new instance of PacketCapturesOperations. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
@@ -81,6 +83,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="networkWatcherName"> The name of the Network Watcher resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="networkWatcherName"/> is null. </exception>
         public virtual AsyncPageable<PacketCaptureResult> ListAsync(string resourceGroupName, string networkWatcherName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -114,6 +117,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="networkWatcherName"> The name of the Network Watcher resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="networkWatcherName"/> is null. </exception>
         public virtual Pageable<PacketCaptureResult> List(string resourceGroupName, string networkWatcherName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -149,6 +153,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="packetCaptureName"> The name of the packet capture session. </param>
         /// <param name="parameters"> Parameters that define the create packet capture operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, <paramref name="packetCaptureName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual async Task<PacketCapturesCreateOperation> StartCreateAsync(string resourceGroupName, string networkWatcherName, string packetCaptureName, PacketCapture parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -188,6 +193,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="packetCaptureName"> The name of the packet capture session. </param>
         /// <param name="parameters"> Parameters that define the create packet capture operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, <paramref name="packetCaptureName"/>, or <paramref name="parameters"/> is null. </exception>
         public virtual PacketCapturesCreateOperation StartCreate(string resourceGroupName, string networkWatcherName, string packetCaptureName, PacketCapture parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -226,6 +232,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher. </param>
         /// <param name="packetCaptureName"> The name of the packet capture session. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="packetCaptureName"/> is null. </exception>
         public virtual async Task<PacketCapturesDeleteOperation> StartDeleteAsync(string resourceGroupName, string networkWatcherName, string packetCaptureName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -260,6 +267,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher. </param>
         /// <param name="packetCaptureName"> The name of the packet capture session. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="packetCaptureName"/> is null. </exception>
         public virtual PacketCapturesDeleteOperation StartDelete(string resourceGroupName, string networkWatcherName, string packetCaptureName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -294,6 +302,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher. </param>
         /// <param name="packetCaptureName"> The name of the packet capture session. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="packetCaptureName"/> is null. </exception>
         public virtual async Task<PacketCapturesStopOperation> StartStopAsync(string resourceGroupName, string networkWatcherName, string packetCaptureName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -328,6 +337,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the network watcher. </param>
         /// <param name="packetCaptureName"> The name of the packet capture session. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="packetCaptureName"/> is null. </exception>
         public virtual PacketCapturesStopOperation StartStop(string resourceGroupName, string networkWatcherName, string packetCaptureName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -362,6 +372,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the Network Watcher resource. </param>
         /// <param name="packetCaptureName"> The name given to the packet capture session. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="packetCaptureName"/> is null. </exception>
         public virtual async Task<PacketCapturesGetStatusOperation> StartGetStatusAsync(string resourceGroupName, string networkWatcherName, string packetCaptureName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
@@ -396,6 +407,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="networkWatcherName"> The name of the Network Watcher resource. </param>
         /// <param name="packetCaptureName"> The name given to the packet capture session. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="networkWatcherName"/>, or <paramref name="packetCaptureName"/> is null. </exception>
         public virtual PacketCapturesGetStatusOperation StartGetStatus(string resourceGroupName, string networkWatcherName, string packetCaptureName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)

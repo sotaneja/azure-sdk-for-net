@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Storage
     public partial class StorageAccountsRestoreBlobRangesOperation : Operation<BlobRestoreStatus>, IOperationSource<BlobRestoreStatus>
     {
         private readonly ArmOperationHelpers<BlobRestoreStatus> _operation;
+
+        /// <summary> Initializes a new instance of StorageAccountsRestoreBlobRangesOperation for mocking. </summary>
+        protected StorageAccountsRestoreBlobRangesOperation()
+        {
+        }
+
         internal StorageAccountsRestoreBlobRangesOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<BlobRestoreStatus>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "StorageAccountsRestoreBlobRangesOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Storage
         BlobRestoreStatus IOperationSource<BlobRestoreStatus>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return BlobRestoreStatus.DeserializeBlobRestoreStatus(document.RootElement);
-            }
+            return BlobRestoreStatus.DeserializeBlobRestoreStatus(document.RootElement);
         }
 
         async ValueTask<BlobRestoreStatus> IOperationSource<BlobRestoreStatus>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return BlobRestoreStatus.DeserializeBlobRestoreStatus(document.RootElement);
-            }
+            return BlobRestoreStatus.DeserializeBlobRestoreStatus(document.RootElement);
         }
     }
 }

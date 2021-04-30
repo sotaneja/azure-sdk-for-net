@@ -6,15 +6,17 @@
 #nullable disable
 
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Storage.Models
 {
     /// <summary> List storage account object replication policies. </summary>
-    public partial class ObjectReplicationPolicies
+    internal partial class ObjectReplicationPolicies
     {
         /// <summary> Initializes a new instance of ObjectReplicationPolicies. </summary>
         internal ObjectReplicationPolicies()
         {
+            Value = new ChangeTrackingList<ObjectReplicationPolicy>();
         }
 
         /// <summary> Initializes a new instance of ObjectReplicationPolicies. </summary>

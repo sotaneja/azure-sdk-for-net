@@ -20,6 +20,12 @@ namespace Azure.ResourceManager.Resources
     public partial class ApplicationDefinitionsCreateOrUpdateByIdOperation : Operation<ApplicationDefinition>, IOperationSource<ApplicationDefinition>
     {
         private readonly ArmOperationHelpers<ApplicationDefinition> _operation;
+
+        /// <summary> Initializes a new instance of ApplicationDefinitionsCreateOrUpdateByIdOperation for mocking. </summary>
+        protected ApplicationDefinitionsCreateOrUpdateByIdOperation()
+        {
+        }
+
         internal ApplicationDefinitionsCreateOrUpdateByIdOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
             _operation = new ArmOperationHelpers<ApplicationDefinition>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "ApplicationDefinitionsCreateOrUpdateByIdOperation");
@@ -54,27 +60,13 @@ namespace Azure.ResourceManager.Resources
         ApplicationDefinition IOperationSource<ApplicationDefinition>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ApplicationDefinition.DeserializeApplicationDefinition(document.RootElement);
-            }
+            return ApplicationDefinition.DeserializeApplicationDefinition(document.RootElement);
         }
 
         async ValueTask<ApplicationDefinition> IOperationSource<ApplicationDefinition>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            if (document.RootElement.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            else
-            {
-                return ApplicationDefinition.DeserializeApplicationDefinition(document.RootElement);
-            }
+            return ApplicationDefinition.DeserializeApplicationDefinition(document.RootElement);
         }
     }
 }
